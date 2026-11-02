@@ -48,6 +48,21 @@ s32 func_L24_00358D10(u8 *arg0) {
 }
 /* localdecomp:end func_L24_00358D10 */
 
-INCLUDE_ASM("asm/levels", func_L24_00358D20);
+/* localdecomp:start func_L24_00358D20 */
+typedef struct {
+    u8 pad[0x68];
+    u8 *data;
+} S_L24_00358D20;
+extern s32 func_L24_00358D10(u8 *);
+extern s32 func_L24_00358860(S_L24_00358D20 *, u8 *, s32);
+s32 func_L24_00358D20(S_L24_00358D20 *arg0) {
+    if (func_L24_00358D10((u8 *)arg0)) {
+        func_L24_00358860(arg0, arg0->data + 0x160, 1);
+    } else {
+        func_L24_00358860(arg0, arg0->data + 0x160, 0);
+    }
+    return 0;
+}
+/* localdecomp:end func_L24_00358D20 */
 
 INCLUDE_ASM("asm/levels", func_L24_00358D78);

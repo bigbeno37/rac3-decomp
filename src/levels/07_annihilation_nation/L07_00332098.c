@@ -109,7 +109,17 @@ INCLUDE_ASM("asm/levels", func_L07_00333BF8);
 
 INCLUDE_ASM("asm/levels", func_L07_00333C70);
 
-INCLUDE_ASM("asm/levels", func_L07_00333CE0);
+/* localdecomp:start func_L07_00333CE0 */
+typedef struct {
+    u8 pad[0x1C];
+    s32 values[1];
+} Data_333CE0;
+
+s32 func_L07_00333CE0(void *arg0, s32 arg1) {
+    Data_333CE0 *data = *(Data_333CE0 **)((u8 *)arg0 + 0x68);
+    return data->values[arg1];
+}
+/* localdecomp:end func_L07_00333CE0 */
 
 INCLUDE_ASM("asm/levels", func_L07_00333CF8);
 

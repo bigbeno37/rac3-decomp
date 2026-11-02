@@ -42,7 +42,17 @@ s32 func_L01_0051B0D8(u8 *p, f32 a, f32 b) {
 }
 /* localdecomp:end func_L01_0051B0D8 */
 
-INCLUDE_ASM("asm/levels", func_L01_0051B148);
+/* localdecomp:start func_L01_0051B148 */
+extern s32 D_L01_001DC210;
+extern void func_003F0980(void *, s32);
+s32 func_L01_0051B148(u8 *p, s32 value) {
+    if ((*(VT_E **)(p + 8))->isA(p, D_L01_001DC210)) {
+        func_003F0980(p, value);
+        return 1;
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_0051B148 */
 
 INCLUDE_ASM("asm/levels", func_L01_0051B1A0);
 
@@ -176,7 +186,17 @@ s32 func_L01_0051B760(u8 *p, f32 a, f32 b) {
 }
 /* localdecomp:end func_L01_0051B760 */
 
-INCLUDE_ASM("asm/levels", func_L01_0051B7D0);
+/* localdecomp:start func_L01_0051B7D0 */
+extern s32 D_L01_001DC210_0051B7D0;
+extern s32 func_003F0A88(void *, f32 *);
+s32 func_L01_0051B7D0(u8 *p, f32 *out) {
+    if ((*(VT_E **)(p + 8))->isA(p, D_L01_001DC210_0051B7D0)) {
+        func_003F0A88(p, out);
+        return 1;
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_0051B7D0 */
 
 /* localdecomp:start func_L01_0051B828 */
 
@@ -201,7 +221,17 @@ s32 func_L01_0051B828(HT_8 *t, u32 key, void *val) {
 
 INCLUDE_ASM("asm/levels", func_L01_0051B8F8);
 
-INCLUDE_ASM("asm/levels", func_L01_0051B960);
+/* localdecomp:start func_L01_0051B960 */
+extern s32 D_L01_001DC210;
+extern void func_003F0CD8(void *, s32);
+s32 func_L01_0051B960(u8 *p, s32 value) {
+    if ((*(VT_E **)(p + 8))->isA(p, D_L01_001DC210)) {
+        func_003F0CD8(p, value);
+        return 1;
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_0051B960 */
 
 /* localdecomp:start func_L01_0051B9B8 */
 extern s32 func_L01_0051B9B8(u8 *p, f32 a, f32 b);
