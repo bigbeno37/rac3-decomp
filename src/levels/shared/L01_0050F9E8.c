@@ -170,7 +170,15 @@ void func_L01_0050FED0(void) {
 }
 /* localdecomp:end func_L01_0050FED0 */
 
-INCLUDE_ASM("asm/levels", func_L01_0050FEE8);
+/* localdecomp:start func_L01_0050FEE8 */
+extern D_001A4BE0_t D_001A4BE0;
+void func_L01_0050FEE8(s32 value) {
+    if (value == -1) {
+        value = 4;
+    }
+    D_001A4BE0.xC28 = value;
+}
+/* localdecomp:end func_L01_0050FEE8 */
 
 INCLUDE_ASM("asm/levels", func_L01_0050FF00);
 

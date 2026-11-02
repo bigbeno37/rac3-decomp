@@ -131,7 +131,19 @@ INCLUDE_ASM("asm/levels", func_L39_004E2F70);
 
 INCLUDE_ASM("asm/levels", func_L39_004E2FC0);
 
-INCLUDE_ASM("asm/levels", func_L39_004E3000);
+/* localdecomp:start func_L39_004E3000 */
+typedef struct VTable_4E3000 {
+    unsigned char pad[0x18];
+    void (*dispatch)(void *, int, int, int);
+} VTable_4E3000;
+typedef struct Object_4E3000 {
+    VTable_4E3000 *vtable;
+} Object_4E3000;
+
+void func_L39_004E3000(Object_4E3000 *self, int value, int arg2) {
+    self->vtable->dispatch(self, 0x101, arg2, value);
+}
+/* localdecomp:end func_L39_004E3000 */
 
 INCLUDE_ASM("asm/levels", func_L39_004E3028);
 

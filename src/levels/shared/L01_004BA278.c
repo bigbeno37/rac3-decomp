@@ -579,6 +579,18 @@ INCLUDE_ASM("asm/levels", func_L01_004C1CE0);
 
 INCLUDE_ASM("asm/levels", func_L01_004C1D38);
 
-INCLUDE_ASM("asm/levels", func_L01_004C1E78);
+/* localdecomp:start func_L01_004C1E78 */
+extern struct U_004C1E78 D_L01_001E0F60 __attribute__((section(".sdata")));
+s32 func_L01_004C1E78(void) {
+    s32 state = *(s32 *)&D_L01_001E0F60;
+    s32 result = 1;
+    if (state != result) {
+        state = 4;
+        result = 0;
+        *(s32 *)&D_L01_001E0F60 = state;
+    }
+    return result;
+}
+/* localdecomp:end func_L01_004C1E78 */
 
 INCLUDE_ASM("asm/levels", func_L01_004C1EA0);

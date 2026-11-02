@@ -525,4 +525,9 @@ void func_L01_004A3AD0(Table_4A0270 *table) {
 }
 /* localdecomp:end func_L01_004A3AD0 */
 
-INCLUDE_ASM("asm/levels", func_L01_004A3B88);
+/* localdecomp:start func_L01_004A3B88 */
+extern Table_4A0270 D_L01_00237860;
+void func_L01_004A3B88(void) {
+    func_L01_004A3AD0(&D_L01_00237860);
+}
+/* localdecomp:end func_L01_004A3B88 */

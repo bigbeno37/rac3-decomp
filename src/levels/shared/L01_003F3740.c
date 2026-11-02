@@ -1,6 +1,16 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/levels", func_L01_003F3740);
+/* localdecomp:start func_L01_003F3740 */
+typedef struct { u8 pad[0x124]; u8 *object; u8 tail[0x338]; } Entry_3F3740;
+extern Entry_3F3740 D_L01_001E2A40[];
+void func_L01_003F3740(s32 index) {
+    u8 *entry = (u8 *)(index * 0x460 + (s32)D_L01_001E2A40);
+    u8 *object = *(u8 **)(entry + 0x124);
+    if (object != 0) {
+        *(s32 *)(object + 0x98) = 0;
+    }
+}
+/* localdecomp:end func_L01_003F3740 */
 
 INCLUDE_ASM("asm/levels", func_L01_003F3768);
 

@@ -16,7 +16,16 @@ INCLUDE_ASM("asm/levels", func_L39_006CD488);
 
 INCLUDE_ASM("asm/levels", func_L39_006CD540);
 
-INCLUDE_ASM("asm/levels", func_L39_006CD568);
+/* localdecomp:start func_L39_006CD568 */
+void func_L39_006CD568(void *arg0) {
+    *(s32 *)((u8 *)arg0 + 4) = -1;
+    *(u8 *)((u8 *)arg0 + 8) = 0;
+    *(s32 *)((u8 *)arg0 + 0xC) = -1;
+    *(s32 *)((u8 *)arg0 + 0x10) = -1;
+    *(u8 *)((u8 *)arg0 + 0x14) = 0;
+    *(u8 *)((u8 *)arg0 + 0x1C) = 0;
+}
+/* localdecomp:end func_L39_006CD568 */
 
 INCLUDE_ASM("asm/levels", func_L39_006CD588);
 
@@ -128,7 +137,16 @@ INCLUDE_ASM("asm/levels", func_L39_006D0398);
 
 INCLUDE_ASM("asm/levels", func_L39_006D03B8);
 
-INCLUDE_ASM("asm/levels", func_L39_006D0550);
+/* localdecomp:start func_L39_006D0550 */
+extern s32 D_L39_0024D760[];
+void func_L39_006D0550(void *arg0) {
+    s32 temp = D_L39_0024D760[0];
+    s32 state = *(s32 *)(temp + 0x38);
+    *(u8 *)(state + 0xBC) = 0;
+    temp = *(s32 *)((u8 *)arg0 + 0x18);
+    *(s32 *)(state + 0xC0) = temp;
+}
+/* localdecomp:end func_L39_006D0550 */
 
 INCLUDE_ASM("asm/levels", func_L39_006D05A0);
 

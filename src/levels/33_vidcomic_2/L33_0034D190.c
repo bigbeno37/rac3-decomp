@@ -43,4 +43,26 @@ void func_L33_0034F910(void *arg0) {
 
 INCLUDE_ASM("asm/levels", func_L33_0034F998);
 
-INCLUDE_ASM("asm/levels", func_L33_0034F9D8);
+/* localdecomp:start func_L33_0034F9D8 */
+typedef struct {
+    u8 pad[0x2C];
+    f32 x, y;
+    s32 a, b, c;
+    f32 d, e, f;
+} State_34F9D8;
+typedef struct {
+    u8 pad[0x68];
+    State_34F9D8 *state;
+} Object_34F9D8;
+void func_L33_0034F9D8(Object_34F9D8 *self, f32 x, f32 y, s32 b, s32 a, s32 c, f32 d, f32 e, f32 f) {
+    State_34F9D8 *state = self->state;
+    state->x = x;
+    state->y = y;
+    state->a = a;
+    state->b = b;
+    state->c = c;
+    state->d = d;
+    state->e = e;
+    state->f = f;
+}
+/* localdecomp:end func_L33_0034F9D8 */

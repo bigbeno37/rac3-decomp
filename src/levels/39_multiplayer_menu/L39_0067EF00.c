@@ -30,7 +30,15 @@ void func_L39_0067F020(S_L39_0067F020 *self, f32 x, f32 y) {
 }
 /* localdecomp:end func_L39_0067F020 */
 
-INCLUDE_ASM("asm/levels", func_L39_0067F030);
+/* localdecomp:start func_L39_0067F030 */
+extern s32 D_001DBC4C;
+extern void func_003E82F8(s32 a);
+
+void func_L39_0067F030(s32 a) {
+    D_001DBC4C = a;
+    func_003E82F8(a);
+}
+/* localdecomp:end func_L39_0067F030 */
 
 /* localdecomp:start func_L39_0067F050 */
 extern s32 D_001DBC50;

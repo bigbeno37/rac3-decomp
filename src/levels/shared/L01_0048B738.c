@@ -45,7 +45,20 @@ INCLUDE_ASM("asm/levels", func_L01_0048BA38);
 
 INCLUDE_ASM("asm/levels", func_L01_0048BD78);
 
-INCLUDE_ASM("asm/levels", func_L01_0048BF00);
+/* localdecomp:start func_L01_0048BF00 */
+extern struct U_0048BF00 D_L01_001E08A0 __attribute__((section(".sdata")));
+extern struct U_0048BF00 D_L01_001E08A4 __attribute__((section(".sdata")));
+extern struct U_0048BF00 D_L01_001E08A8 __attribute__((section(".sdata")));
+extern struct U_0048BF00 D_L01_001E08AC __attribute__((section(".sdata")));
+extern s32 D_L01_001D8A60;
+void func_L01_0048BF00(void) {
+    *(s32 *)&D_L01_001E08A0 = 0;
+    *(s32 *)&D_L01_001E08A4 = 0;
+    *(s32 *)&D_L01_001E08A8 = 0;
+    *(s32 *)&D_L01_001E08AC = 0;
+    D_L01_001D8A60 = 0;
+}
+/* localdecomp:end func_L01_0048BF00 */
 
 /* localdecomp:start func_L01_0048BF28 */
 extern s32 D_L01_001D8A10;

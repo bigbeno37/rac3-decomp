@@ -36,7 +36,22 @@ INCLUDE_ASM("asm/levels", func_L39_00504528);
 
 INCLUDE_ASM("asm/levels", func_L39_00504588);
 
-INCLUDE_ASM("asm/levels", func_L39_005045A8);
+/* localdecomp:start func_L39_005045A8 */
+typedef struct {
+    s32 field_0;
+    s32 field_4;
+    u8 pad_8[0x50];
+    s32 field_58;
+    s32 field_5C;
+} ResetState_005045A8;
+
+void func_L39_005045A8(ResetState_005045A8 *state) {
+    state->field_4 = 30;
+    state->field_0 = 0;
+    state->field_58 = 0;
+    state->field_5C = 0;
+}
+/* localdecomp:end func_L39_005045A8 */
 
 INCLUDE_ASM("asm/levels", func_L39_005045C0);
 

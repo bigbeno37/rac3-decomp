@@ -512,7 +512,15 @@ float func_L01_004C93D8(void) {
 
 INCLUDE_ASM("asm/levels", func_L01_004C93E0);
 
-INCLUDE_ASM("asm/levels", func_L01_004C94B0);
+/* localdecomp:start func_L01_004C94B0 */
+/* Some levels use a different float from the neighboring getter. */
+extern float D_L01_001E1140_004C94B0;
+extern s32 D_L01_001E1144;
+void func_L01_004C94B0(void) {
+    D_L01_001E1140_004C94B0 = 0.0f;
+    D_L01_001E1144 = 0;
+}
+/* localdecomp:end func_L01_004C94B0 */
 
 INCLUDE_ASM("asm/levels", func_L01_004C94C0);
 
