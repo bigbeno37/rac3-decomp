@@ -118,7 +118,27 @@ INCLUDE_ASM("asm/levels", func_L39_004E2440);
 
 INCLUDE_ASM("asm/levels", func_L39_004E2450);
 
-INCLUDE_ASM("asm/levels", func_L39_004E2D20);
+/* localdecomp:start func_L39_004E2D20 */
+typedef struct Object_4E2D20 {
+    void *dispatch;
+    void *field4;
+    void *field8;
+    s32 flags;
+} Object_4E2D20;
+extern void *func_L39_004BEED8(s32 size);
+extern u8 D_L39_0046D2B0[];
+Object_4E2D20 *func_L39_004E2D20(void) {
+    Object_4E2D20 *self = func_L39_004BEED8(0x10);
+    if (self != 0) {
+        self->dispatch = D_L39_0046D2B0;
+        self->field4 = 0;
+        self->field8 = 0;
+        self->flags = 1;
+        return self;
+    }
+    return 0;
+}
+/* localdecomp:end func_L39_004E2D20 */
 
 INCLUDE_ASM("asm/levels", func_L39_004E2D68);
 

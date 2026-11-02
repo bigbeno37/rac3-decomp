@@ -16,4 +16,15 @@ INCLUDE_ASM("asm/levels", func_L20_003F0088);
 
 INCLUDE_ASM("asm/levels", func_L20_003F0418);
 
-INCLUDE_ASM("asm/levels", func_L20_003F0960);
+/* localdecomp:start func_L20_003F0960 */
+extern s32 func_0038CAD0(void *);
+extern void func_003C2880(s32 p);
+void func_L20_003F0960(u8 *self) {
+    u8 *timer = *(u8 **)(self + 0x68);
+    if (func_0038CAD0(timer)) {
+        func_003C2880((s32)self);
+    } else {
+        self[0x23] = timer[0];
+    }
+}
+/* localdecomp:end func_L20_003F0960 */

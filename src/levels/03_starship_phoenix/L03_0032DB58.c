@@ -9,10 +9,10 @@ s32 func_L03_0032DBC0(void) {
 /* localdecomp:end func_L03_0032DBC0 */
 
 /* localdecomp:start func_L03_0032DBD0 */
-void *func_L03_0032F6A8();
+extern void *func_L03_0032F6A8(void *);
 
 s32 func_L03_0032DBD0(s32 arg0, s32 arg1) {
-    return (((*(u8 *)((u8 *)(func_L03_0032F6A8()) + 0x1C)) ^ 3) == 0) ? arg1 : 0xA;
+    return (((*(u8 *)((u8 *)(func_L03_0032F6A8((void *)arg0)) + 0x1C)) ^ 3) == 0) ? arg1 : 0xA;
 }
 /* localdecomp:end func_L03_0032DBD0 */
 
@@ -20,7 +20,18 @@ INCLUDE_ASM("asm/levels", func_L03_0032DC08);
 
 INCLUDE_ASM("asm/levels", func_L03_0032DDC8);
 
-INCLUDE_ASM("asm/levels", func_L03_0032DF10);
+/* localdecomp:start func_L03_0032DF10 */
+extern void *func_L03_0032F6A8(void *);
+extern void func_L01_004443E8(void *, s32, s32);
+extern void func_L03_0032F6F8(void (*)(void *), void *);
+void func_L03_0032DF10(void *object) {
+    void *state = func_L03_0032F6A8(object);
+    if (state) {
+        func_L01_004443E8(object, 0, 3);
+        func_L03_0032F6F8(*(void (**)(void *))((u8 *)state + 8), object);
+    }
+}
+/* localdecomp:end func_L03_0032DF10 */
 
 INCLUDE_ASM("asm/levels", func_L03_0032DF60);
 

@@ -6,7 +6,14 @@ INCLUDE_ASM("asm/levels", func_L39_005051F0);
 
 INCLUDE_ASM("asm/levels", func_L39_00505270);
 
-INCLUDE_ASM("asm/levels", func_L39_00505360);
+/* localdecomp:start func_L39_00505360 */
+typedef struct Object_505360 Object_505360;
+typedef s32 (*Method_505360)(Object_505360 *, s32, s32, s32, s32, s32, s32, s32);
+struct Object_505360 { Method_505360 *vtable; };
+s32 func_L39_00505360(Object_505360 *self, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6) {
+    return self->vtable[3](self, 10, a1, a2, a3, a4, a5, a6);
+}
+/* localdecomp:end func_L39_00505360 */
 
 INCLUDE_ASM("asm/levels", func_L39_005053AC);
 

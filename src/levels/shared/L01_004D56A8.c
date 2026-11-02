@@ -1,9 +1,9 @@
 #include "common.h"
 
 /* localdecomp:start func_L01_004D56A8 */
-extern void func_003B2000();
-void func_L01_004D56A8(s32 arg0) {
-    func_003B2000(arg0 + 0x48);
+extern s32 func_003B2000(u8 *);
+s32 func_L01_004D56A8(s32 arg0) {
+    return func_003B2000((u8 *)(arg0 + 0x48));
 }
 /* localdecomp:end func_L01_004D56A8 */
 

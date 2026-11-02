@@ -4,7 +4,18 @@ INCLUDE_ASM("asm/levels", func_L39_0065D0A0);
 
 INCLUDE_ASM("asm/levels", func_L39_0065F1A8);
 
-INCLUDE_ASM("asm/levels", func_L39_0065F468);
+/* localdecomp:start func_L39_0065F468 */
+extern void func_0038CB78(void *, s32, s32);
+extern void *func_L39_00662510(u8 *);
+extern u8 D_L39_0047B2E0[];
+void func_L39_0065F468(u8 *p) {
+    func_0038CB78(p, 0, 0x4500);
+    func_L39_00662510(p);
+    *(void **)(p + 0x14) = D_L39_0047B2E0;
+    p[0x1A14] = 1;
+    p[0x44EF] = 5;
+}
+/* localdecomp:end func_L39_0065F468 */
 
 INCLUDE_ASM("asm/levels", func_L39_0065F4B8);
 

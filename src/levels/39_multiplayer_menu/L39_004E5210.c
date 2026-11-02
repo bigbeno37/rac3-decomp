@@ -123,7 +123,27 @@ INCLUDE_ASM("asm/levels", func_L39_004EAED8);
 
 INCLUDE_ASM("asm/levels", func_L39_004EAFA8);
 
-INCLUDE_ASM("asm/levels", func_L39_004EB0B0);
+/* localdecomp:start func_L39_004EB0B0 */
+typedef struct { s32 field0; u8 *buffer; } Buffer_4EB0B0;
+typedef struct {
+    u8 unknown[0x30];
+    s32 state;
+    u8 unknown34[8];
+    Buffer_4EB0B0 *buffer;
+    s32 remaining;
+    s32 offset;
+} State_4EB0B0;
+extern s32 func_L39_004CA180(State_4EB0B0 *, s32);
+void func_L39_004EB0B0(State_4EB0B0 *self, s32 old_state, s32 new_state) {
+    if (self->state == old_state) {
+        *self->buffer->buffer = 1;
+        self->remaining = 1;
+        self->state = new_state;
+        self->offset = 0;
+    }
+    func_L39_004CA180(self, 0x14);
+}
+/* localdecomp:end func_L39_004EB0B0 */
 
 INCLUDE_ASM("asm/levels", func_L39_004EB100);
 
