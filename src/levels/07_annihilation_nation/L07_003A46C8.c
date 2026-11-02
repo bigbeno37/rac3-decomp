@@ -56,7 +56,13 @@ INCLUDE_ASM("asm/levels", func_L07_003A6110);
 
 INCLUDE_ASM("asm/levels", func_L07_003A61E8);
 
-INCLUDE_ASM("asm/levels", func_L07_003A63D8);
+/* localdecomp:start func_L07_003A63D8 */
+void func_L07_003A63D8(void *arg0) {
+    u8 *state = *(u8 **)((u8 *)arg0 + 0x68);
+    state[0x490] = 0;
+    state[0x491] = 0;
+}
+/* localdecomp:end func_L07_003A63D8 */
 
 INCLUDE_ASM("asm/levels", func_L07_003A63E8);
 

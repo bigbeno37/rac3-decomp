@@ -194,7 +194,12 @@ void func_L01_0045B908(u8 *a0, u8 *a1)
 }
 /* localdecomp:end func_L01_0045B908 */
 
-INCLUDE_ASM("asm/levels", func_L01_0045B958);
+/* localdecomp:start func_L01_0045B958 */
+S_4574A0 *func_L01_0045B958(M_4574A0 *a0) {
+    u8 *p = *(u8 **)((u8 *)a0 + 0x68);
+    return *(S_4574A0 **)(p + 0x1C);
+}
+/* localdecomp:end func_L01_0045B958 */
 
 INCLUDE_ASM("asm/levels", func_L01_0045B968);
 

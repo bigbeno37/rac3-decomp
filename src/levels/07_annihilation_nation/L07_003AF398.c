@@ -102,7 +102,11 @@ INCLUDE_ASM("asm/levels", func_L07_003B2738);
 
 INCLUDE_ASM("asm/levels", func_L07_003B2870);
 
-INCLUDE_ASM("asm/levels", func_L07_003B28B8);
+/* localdecomp:start func_L07_003B28B8 */
+s32 func_L07_003B28B8(void *arg0) {
+    return *(u8 *)((u8 *)arg0 + 0x20) < 2U;
+}
+/* localdecomp:end func_L07_003B28B8 */
 
 INCLUDE_ASM("asm/levels", func_L07_003B28C8);
 

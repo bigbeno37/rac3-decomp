@@ -4,9 +4,31 @@ INCLUDE_ASM("asm/levels", func_L39_0067EF00);
 
 INCLUDE_ASM("asm/levels", func_L39_0067EFA0);
 
-INCLUDE_ASM("asm/levels", func_L39_0067F010);
+/* localdecomp:start func_L39_0067F010 */
+typedef struct {
+    u8 pad[0x50];
+    f32 x;
+    f32 y;
+} S_L39_0067F010;
 
-INCLUDE_ASM("asm/levels", func_L39_0067F020);
+void func_L39_0067F010(S_L39_0067F010 *self, f32 x, f32 y) {
+    self->x = x;
+    self->y = y;
+}
+/* localdecomp:end func_L39_0067F010 */
+
+/* localdecomp:start func_L39_0067F020 */
+typedef struct {
+    u8 pad[0x58];
+    f32 x;
+    f32 y;
+} S_L39_0067F020;
+
+void func_L39_0067F020(S_L39_0067F020 *self, f32 x, f32 y) {
+    self->x = x;
+    self->y = y;
+}
+/* localdecomp:end func_L39_0067F020 */
 
 INCLUDE_ASM("asm/levels", func_L39_0067F030);
 

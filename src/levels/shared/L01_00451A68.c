@@ -213,7 +213,13 @@ s32 func_L01_004526A0(s32 n) {
 }
 /* localdecomp:end func_L01_004526A0 */
 
-INCLUDE_ASM("asm/levels", func_L01_004526E8);
+/* localdecomp:start func_L01_004526E8 */
+extern u8 D_001426E0[];
+
+s32 func_L01_004526E8(void) {
+    return D_001426E0[69];
+}
+/* localdecomp:end func_L01_004526E8 */
 
 /* localdecomp:start func_L01_004526F8 */
 extern s32 func_L01_00452740(void);

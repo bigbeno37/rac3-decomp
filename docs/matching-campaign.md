@@ -31,6 +31,11 @@ the explicit WIP-branch request overrides the usual master-branch instruction.
 
 ## Attempt record
 
+After each source commit, compare the committed function blocks with the latest
+`origin/master` and report the upstream commit, new matches in the batch, cumulative
+new matches, their behavior and validation. Count only full-build matches; describe
+existing coverage refreshes separately from newly decompiled functions.
+
 Pending and active task metadata and full compiler logs are local in
 `scratch/campaign/`. Completed unsuccessful two-tier attempts are recorded here
 with their stopping reason and any preserved draft path. Successful candidates
@@ -53,3 +58,37 @@ The entries below stopped after both Low and High review. Their INCLUDE_ASM mark
 | `func_L01_0030D678` | Code generation | Three Low/High forms retain the same absolute-load mismatch (five differences) under existing file flags. Draft: [C](../nonmatching/levels/func_L01_0030D678.c). |
 | `func_L01_00461C20` | Boundary / tail transfer | Indirect jump through object offset 0x3C has no ordinary return. Both tiers stopped without compiles; handwritten origin is not established. |
 | `func_L27_00410028` | Boundary | The assigned range excludes its nonzero return delay slot, catalogued as the following linker remnant. Low had one differing instruction; High confirmed the boundary issue without compiles. |
+| `func_L22_003D0038` | Boundary | The four-byte range contains a return but excludes its nonzero delay slot, assigned to the next catalogue entry. Both tiers stopped without compiles. |
+| `func_L36_00460038` | Boundary | The return executes a store catalogued separately as the following remnant. Low had two differences; High confirmed the incomplete boundary without compiles. |
+| `func_L39_00505BB8` | Nonzero padding | PAL and US body checks match, but the current zero-padding path cannot preserve level 39's trailing nonzero fill word. Ordinary C; not classified as handwritten. Draft: [C](../nonmatching/levels/func_L39_00505BB8.c). |
+| `func_L39_004EC7C8` | Boundary | The assigned range combines an eight-byte getter with an unreachable store after its return delay slot. High confirmed the retail bytes; the residual store origin is unproven. No complete C draft represents this range. |
+| `func_L39_005061C8` | Nonzero padding | PAL and US body checks match, but the current C integration path drops the trailing nonzero fill word at PAL 0x005061D4. Ordinary C; keep the assembly marker. Draft: [C](../nonmatching/levels/func_L39_005061C8.c). |
+| `func_L39_0050B050` | Nonzero padding | PAL and US body checks match, but the current C integration path drops the trailing nonzero fill word at PAL 0x0050B05C. Ordinary C; keep the assembly marker. Draft: [C](../nonmatching/levels/func_L39_0050B050.c). |
+| `func_L39_00516228` | Nonzero padding | PAL and US body checks match, but the current C integration path drops the trailing nonzero fill word at PAL 0x00516234. Ordinary C; keep the assembly marker. Draft: [C](../nonmatching/levels/func_L39_00516228.c). |
+| `func_L10_004AFFF0` | Boundary | The 16-byte catalogue extent excludes the live return delay-slot store at 0x004B0000. Retail confirms a 20-byte function. The semantic draft includes that separately catalogued delay slot and is uncompiled. Draft: [C](../nonmatching/levels/func_L10_004AFFF0.c). |
+| `func_L11_004AFFF0` | Boundary | The 16-byte catalogue extent excludes the live return delay-slot comparison at 0x004B0000, classified separately as a remnant. The complete equality-test draft needs 20 bytes; no full match. Draft: [C](../nonmatching/levels/func_L11_004AFFF0.c). |
+| `func_L39_004C35C8` | Nonzero padding | The 12 executable bytes match, but the 16-byte catalogue entry also includes a trailing nonzero fill word. High confirmed the object and retail bytes; the PAL checker still reports one difference. Draft: [C](../nonmatching/levels/func_L39_004C35C8.c). |
+| `func_L39_004C47C0` | Nonzero padding | All 12 executable bytes match in PAL and US, but both checkers report the missing trailing nonzero fill included in the 16-byte catalogue entry. Existing C padding cannot preserve it. Draft: [C](../nonmatching/levels/func_L39_004C47C0.c). |
+| `func_L39_0068B460` | Version portability | A fixed-address draft passes PAL, but US requires 0x002415C0 instead of PAL 0x00241440. Symbolic Low and High forms retain five code-generation differences. The PAL-only draft is not integrated. Draft: [C](../nonmatching/levels/func_L39_0068B460.c). |
+| `func_L39_006B6C30` | Version portability | A fixed-address draft passes PAL, but US requires 0x002415C0 instead of PAL 0x00241440. The symbolic Low form has five code-generation differences. The PAL-only draft is not integrated. Draft: [C](../nonmatching/levels/func_L39_006B6C30.c). |
+| `func_L39_006DDDE8` | Code generation | Low and High forms retain four register-allocation differences in the global load, nested pointer load and stores. Size and store order agree. Repeated equivalent code generation; ordinary C remains plausible. Draft: [C](../nonmatching/levels/func_L39_006DDDE8.c). |
+| `func_L39_0061BF50` | Code generation | Low and High forms retain two instruction-order differences: the index shift precedes address adjustment instead of following it. All other instructions agree. Stopped on repeated equivalent code generation. Draft: [C](../nonmatching/levels/func_L39_0061BF50.c). |
+| `func_L01_0041A6BC` | Alignment | The isolated PAL body matches, but whole-file eight-byte entry alignment shifts its four-mod-eight retail address and failed level preflight. All 34 places have the same restriction; no same-code US twin. Draft: [C](../nonmatching/levels/func_L01_0041A6BC.c). |
+| `func_L01_0041A6D4` | Alignment | The isolated PAL body matches, but whole-file eight-byte entry alignment conflicts with all 34 four-mod-eight retail places. The preserved integration object confirms the shift; no separate first-error diagnostic or US twin. Draft: [C](../nonmatching/levels/func_L01_0041A6D4.c). |
+
+## Validated batches
+
+Batch 02 adds 26 C functions beyond the first 12 committed matches. It covers
+float-pair setters, pointer and byte setters, field clears, getters, byte
+comparisons and an empty function retaining its retail stack frame.
+The setter at `func_L01_00480060` uses a per-caller symbol alias because level 07
+targets a different byte from the neighboring getter. Compiler flags are unchanged.
+
+Validation on the exe.dev VM: `tools/build.py --target all -j 8` printed three
+retail `MATCH` lines; `tools/build_levels.py -P 4 -j 2` printed 49 of 49 levels
+match; `JOBS=8 sh tools/carry_us.sh` printed 54 of 54 targets match. Repository
+checks passed and all 36 unit tests passed. All 26 additions are built from C in
+every applicable US program, with no previously complete US coverage lost.
+The build inputs remained unchanged throughout validation. Attempt 1 preflight
+exposed the two alignment blockers and a setter symbol conflict; those were
+removed or corrected before the successful full validation.

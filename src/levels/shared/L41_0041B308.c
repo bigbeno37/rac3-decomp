@@ -43,4 +43,13 @@ INCLUDE_ASM("asm/levels", func_L41_0041C778);
 
 LINKER_REMNANT("asm/levels", func_L41_0041CCE0);
 
-INCLUDE_ASM("asm/levels", func_L41_0041CCF8);
+/* localdecomp:start func_L41_0041CCF8 */
+typedef struct {
+    u8 pad[0x30];
+    u8 field_30;
+} S_L41_0041CCF8;
+
+void func_L41_0041CCF8(S_L41_0041CCF8 *arg0) {
+    arg0->field_30 = 0xFF;
+}
+/* localdecomp:end func_L41_0041CCF8 */

@@ -1,12 +1,32 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/levels", func_L39_00634E18);
+/* localdecomp:start func_L39_00634E18 */
+void func_L39_00634E18(u8 *a0, f32 a1, f32 a2) {
+    *(f32 *)(a0 + 0x804) = a1;
+    *(f32 *)(a0 + 0x808) = a2;
+}
+/* localdecomp:end func_L39_00634E18 */
 
-INCLUDE_ASM("asm/levels", func_L39_00634E28);
+/* localdecomp:start func_L39_00634E28 */
+void func_L39_00634E28(u8 *a0, f32 a1, f32 a2) {
+    *(f32 *)(a0 + 0x8B4) = a1;
+    *(f32 *)(a0 + 0x8B8) = a2;
+}
+/* localdecomp:end func_L39_00634E28 */
 
-INCLUDE_ASM("asm/levels", func_L39_00634E38);
+/* localdecomp:start func_L39_00634E38 */
+void func_L39_00634E38(u8 *a0, f32 a1, f32 a2) {
+    *(f32 *)(a0 + 0x964) = a1;
+    *(f32 *)(a0 + 0x968) = a2;
+}
+/* localdecomp:end func_L39_00634E38 */
 
-INCLUDE_ASM("asm/levels", func_L39_00634E48);
+/* localdecomp:start func_L39_00634E48 */
+void func_L39_00634E48(u8 *a0, f32 a1, f32 a2) {
+    *(f32 *)(a0 + 0xA14) = a1;
+    *(f32 *)(a0 + 0xA18) = a2;
+}
+/* localdecomp:end func_L39_00634E48 */
 
 INCLUDE_ASM("asm/levels", func_L39_00634E58);
 

@@ -54,7 +54,24 @@ INCLUDE_ASM("asm/levels", func_L07_00353D20);
 
 INCLUDE_ASM("asm/levels", func_L07_00353D60);
 
-INCLUDE_ASM("asm/levels", func_L07_00353D88);
+/* localdecomp:start func_L07_00353D88 */
+typedef struct {
+    u8 pad[0x468];
+    u8 field_468;
+    u8 field_469;
+} State_353D88;
+
+typedef struct {
+    u8 pad[0x68];
+    State_353D88 *state;
+} Object_353D88;
+
+void func_L07_00353D88(Object_353D88 *object) {
+    State_353D88 *state = object->state;
+    state->field_468 = 0;
+    state->field_469 = 0;
+}
+/* localdecomp:end func_L07_00353D88 */
 
 INCLUDE_ASM("asm/levels", func_L07_00353D98);
 
