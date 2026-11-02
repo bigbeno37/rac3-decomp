@@ -56,7 +56,16 @@ void func_L05_00329A78(s32 a0, Obj329158 *obj) {
 }
 /* localdecomp:end func_L05_00329A78 */
 
-INCLUDE_ASM("asm/levels", func_L05_00329AD0);
+/* localdecomp:start func_L05_00329AD0 */
+extern s32 D_L05_002D3FB0[];
+s32 func_L05_00329AD0(void) {
+    s32 result = 0;
+    if (D_L05_002D3FB0[0] == 9) {
+        if (*(s32 *)((*(u8 **)0x001D52FC) + 0x1A4) & 0x10) result = 1;
+    }
+    return result;
+}
+/* localdecomp:end func_L05_00329AD0 */
 
 INCLUDE_ASM("asm/levels", func_L05_00329B00);
 

@@ -8,7 +8,19 @@ INCLUDE_ASM("asm/levels", func_L39_004BB648);
 
 INCLUDE_ASM("asm/levels", func_L39_004BB880);
 
-INCLUDE_ASM("asm/levels", func_L39_004BB898);
+/* localdecomp:start func_L39_004BB898 */
+extern s32 D_L39_004433B8[];
+extern s32 D_L39_004433BC[];
+s32 func_L39_004BB898(s32 selector, s32 value) {
+    s32 result = 1;
+    switch (selector) {
+    case 0: D_L39_004433B8[0] = value; break;
+    case 1: D_L39_004433BC[0] = value; break;
+    default: result = 0; break;
+    }
+    return result;
+}
+/* localdecomp:end func_L39_004BB898 */
 
 INCLUDE_ASM("asm/levels", func_L39_004BB8C8);
 

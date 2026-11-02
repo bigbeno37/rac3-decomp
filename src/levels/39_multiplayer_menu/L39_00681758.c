@@ -269,7 +269,18 @@ INCLUDE_ASM("asm/levels", func_L39_00683730);
 
 INCLUDE_ASM("asm/levels", func_L39_00683760);
 
-INCLUDE_ASM("asm/levels", func_L39_006837E8);
+/* localdecomp:start func_L39_006837E8 */
+extern s32 func_L01_00516C78(s32, s32, s32);
+s32 func_L39_006837E8(void *arg0, s32 arg1, s32 arg2) {
+    s32 handle;
+    *(s32 *)((u8 *)arg0 + 0x74) = arg1;
+    handle = *(s32 *)((u8 *)arg0 + 0x64);
+    if (handle != -1) {
+        return func_L01_00516C78(handle, arg1, arg2);
+    }
+    return 0;
+}
+/* localdecomp:end func_L39_006837E8 */
 
 INCLUDE_ASM("asm/levels", func_L39_00683818);
 
@@ -494,7 +505,12 @@ s32 func_L39_00685A78(s32 arg0) {
 
 INCLUDE_ASM("asm/levels", func_L39_00685A80);
 
-INCLUDE_ASM("asm/levels", func_L39_00685AB0);
+/* localdecomp:start func_L39_00685AB0 */
+void func_L39_00685AB0(void *arg0, u8 arg1) {
+    u8 *bits = (u8 *)arg0 + 0x144;
+    bits[arg1 >> 3] &= ~(1 << (arg1 & 7));
+}
+/* localdecomp:end func_L39_00685AB0 */
 
 INCLUDE_ASM("asm/levels", func_L39_00685AE0);
 

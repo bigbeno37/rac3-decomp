@@ -91,7 +91,14 @@ INCLUDE_ASM("asm/levels", func_L39_004E1320);
 
 INCLUDE_ASM("asm/levels", func_L39_004E1478);
 
-INCLUDE_ASM("asm/levels", func_L39_004E15D8);
+/* localdecomp:start func_L39_004E15D8 */
+extern u8 D_L39_004F4540[];
+extern u8 D_L39_00477290[];
+extern s32 func_L39_004E1610(void *, void *, void *, s32, s32);
+s32 func_L39_004E15D8(void *arg0, s32 arg1, s32 arg2) {
+    return func_L39_004E1610(D_L39_004F4540, D_L39_00477290, arg0, arg1, arg2);
+}
+/* localdecomp:end func_L39_004E15D8 */
 
 INCLUDE_ASM("asm/levels", func_L39_004E1610);
 
@@ -115,7 +122,19 @@ INCLUDE_ASM("asm/levels", func_L39_004E2D20);
 
 INCLUDE_ASM("asm/levels", func_L39_004E2D68);
 
-INCLUDE_ASM("asm/levels", func_L39_004E2DD0);
+/* localdecomp:start func_L39_004E2DD0 */
+typedef struct Object_4E2DD0 Object_4E2DD0;
+typedef struct Dispatch_4E2DD0 {
+    s32 (*initialize)(Object_4E2DD0 *, void *, s32, s32);
+} Dispatch_4E2DD0;
+struct Object_4E2DD0 {
+    Dispatch_4E2DD0 *dispatch;
+};
+s32 func_L39_004E2DD0(Object_4E2DD0 *self, Dispatch_4E2DD0 *dispatch, void *arg2, s32 arg3, s32 arg4) {
+    self->dispatch = dispatch;
+    return dispatch->initialize(self, arg2, arg3, arg4);
+}
+/* localdecomp:end func_L39_004E2DD0 */
 
 INCLUDE_ASM("asm/levels", func_L39_004E2E00);
 
@@ -203,7 +222,18 @@ INCLUDE_ASM("asm/levels", func_L39_004E4FC8);
 
 INCLUDE_ASM("asm/levels", func_L39_004E5008);
 
-INCLUDE_ASM("asm/levels", func_L39_004E5058);
+/* localdecomp:start func_L39_004E5058 */
+typedef struct Object_4E5058 Object_4E5058;
+struct Object_4E5058 {
+    s32 field0;
+    s32 field4;
+    s32 (*dispatch)(Object_4E5058 *, s32, s32 *);
+};
+s32 func_L39_004E5058(Object_4E5058 *self, s32 value) {
+    if (self == 0 || self->dispatch == 0) return 0;
+    return self->dispatch(self, 0x10, &value);
+}
+/* localdecomp:end func_L39_004E5058 */
 
 INCLUDE_ASM("asm/levels", func_L39_004E5090);
 
