@@ -958,4 +958,7 @@ INCLUDE_ASM("asm/levels", func_L01_0032ADC0);
 
 LINKER_REMNANT("asm/levels", func_L01_0032ADE0);
 
-INCLUDE_ASM("asm/levels", func_L01_0032ADE8);
+/* localdecomp:start func_L01_0032ADE8 */
+void func_L01_0032ADE8(void) {
+}
+/* localdecomp:end func_L01_0032ADE8 */

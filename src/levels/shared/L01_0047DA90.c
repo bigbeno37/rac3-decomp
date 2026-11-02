@@ -8,7 +8,14 @@ void func_L01_0047DA90(void) {
 }
 /* localdecomp:end func_L01_0047DA90 */
 
-INCLUDE_ASM("asm/levels", func_L01_0047DAA0);
+/* localdecomp:start func_L01_0047DAA0 */
+/* This setter uses a distinct byte from the getter in level 07. */
+extern u8 D_L01_001D8225_0047DAA0;
+
+void func_L01_0047DAA0(void) {
+    D_L01_001D8225_0047DAA0 = 1;
+}
+/* localdecomp:end func_L01_0047DAA0 */
 
 /* localdecomp:start func_L01_0047DAB0 */
 extern u8 D_L01_001D672D[];
@@ -22,7 +29,13 @@ u8 func_L01_0047DAB0(void) {
 }
 /* localdecomp:end func_L01_0047DAB0 */
 
-INCLUDE_ASM("asm/levels", func_L01_0047DAC8);
+/* localdecomp:start func_L01_0047DAC8 */
+extern u8 D_L01_001D8225;
+
+void func_L01_0047DAC8(void) {
+    D_L01_001D8225 = 0;
+}
+/* localdecomp:end func_L01_0047DAC8 */
 
 INCLUDE_ASM("asm/levels", func_L01_0047DAD0);
 

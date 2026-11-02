@@ -2,7 +2,8 @@
 
 C that is not linked and not counted: a starting point. One file per function,
 `nonmatching/<program>/func_XXXXXXXX.c` (`<program>` is `frontbin`, `boot_elf` or `i5bootn`,
-the name is the PAL address), with a comment at its top saying where it came from and what still
+the name is the PAL address). Level drafts use `nonmatching/levels/func_LNN_XXXXXXXX.c`.
+Each file has a comment at its top saying where it came from and what still
 differs. Move it into `src/` once the full build prints `MATCH` with it in place, and delete its
 row here. `tests/check_repository.py` checks that every file has a row.
 
@@ -627,3 +628,11 @@ with names moved to PAL addresses where the address maps are sure of them
 | `func_003F1998` | frontbin | US draft of `func_003EC3D0` | flags: the US matched it with `@ps2as` (a single-function override) |
 | `func_003F1D60` | frontbin | US draft of `func_003EC798` | flags: the US matched it with `@ps2as` (a single-function override) |
 | `func_003F1F28` | frontbin | US draft of `func_003EC960` | flags: the US matched it with `@ps2as` (a single-function override) |
+| `func_L01_003BC658` | levels | Retail-derived attempt | Isolated PAL/US checks match, but the 12-byte C function occupies a 16-byte section and displaces following assembly in levels 40-53. |
+| `func_L01_0040DF30` | levels | Retail-derived attempt | Internal float-load nop matches documented handwritten math and existing ASM_FUNC analogues. Both tiers stopped without compiles. |
+| `func_L01_0040DF68` | levels | Retail-derived attempt | Internal float-load nop matches documented handwritten math, corroborated by adjacent accumulator operations. Both tiers stopped without compiles. |
+| `func_L01_0047DAD0` | levels | Retail-derived attempt | Three distinct Low/High forms emit the same three instruction differences with existing no-split-address flags: address register and store scheduling disagree. |
+| `func_L01_00494580` | levels | Retail-derived attempt | Low and High forms omit an internal nop or schedule the return differently (three differences). No evidence justifies handwritten classification. |
+| `func_L01_0045A520` | levels | Retail-derived attempt | Low and High retain an absolute load instead of the GP-relative load under existing Ps2EeAs flags (four differences). |
+| `func_L01_0030A130` | levels | Retail-derived attempt | Low and High retain an absolute load instead of the GP-relative load (five differences); moving the extern into the block did not help. |
+| `func_L01_0030D678` | levels | Retail-derived attempt | Three Low/High forms retain the same absolute-load mismatch (five differences) under existing file flags. |
