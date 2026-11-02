@@ -40,7 +40,17 @@ s32 func_L01_0051A250(HT_8 *t, u32 key, void *val) {
 }
 /* localdecomp:end func_L01_0051A250 */
 
-INCLUDE_ASM("asm/levels", func_L01_0051A320);
+/* localdecomp:start func_L01_0051A320 */
+extern s32 D_L01_001DC1E0;
+extern void func_003EDB78(void *, f32 *, f32 *);
+s32 func_L01_0051A320(u8 *p, f32 *a, f32 *b) {
+    if ((*(VT_E **)(p + 8))->isA(p, D_L01_001DC1E0)) {
+        func_003EDB78(p, a, b);
+        return 1;
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_0051A320 */
 
 /* localdecomp:start func_L01_0051A388 */
 

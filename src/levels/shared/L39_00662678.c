@@ -123,7 +123,20 @@ void func_L39_00662AA0(u8 *a0, void *a1, s32 a2) {
 
 INCLUDE_ASM("asm/levels", func_L39_00662B18);
 
-INCLUDE_ASM("asm/levels", func_L39_00662B68);
+/* localdecomp:start func_L39_00662B68 */
+typedef struct { u32 low:13; u32 duration:19; s32 start; u8 pad[0x44]; s32 end; } Timer_00662B68;
+typedef struct { u8 pad[0x128]; s32 tick; } State_00662B68;
+extern State_00662B68 D_L39_001A5CD0;
+void func_L39_00662B68(Timer_00662B68 *p, s32 delay, s32 duration) {
+    p->start = D_L39_001A5CD0.tick;
+    if (duration > 0) {
+        p->duration = D_L39_001A5CD0.tick + delay + duration - p->start;
+    } else {
+        p->duration = 0;
+    }
+    p->end = D_L39_001A5CD0.tick + delay;
+}
+/* localdecomp:end func_L39_00662B68 */
 
 /* localdecomp:start func_L39_00662BC8 */
 u32 func_L39_00662BC8(u32 *p) {

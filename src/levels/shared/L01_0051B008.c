@@ -54,7 +54,17 @@ s32 func_L01_0051B148(u8 *p, s32 value) {
 }
 /* localdecomp:end func_L01_0051B148 */
 
-INCLUDE_ASM("asm/levels", func_L01_0051B1A0);
+/* localdecomp:start func_L01_0051B1A0 */
+extern s32 D_L01_001DC210;
+extern void func_003EDAD0(void *, s32, s32);
+s32 func_L01_0051B1A0(u8 *p, s32 mask, s32 set) {
+    if ((*(VT_E **)(p + 8))->isA(p, D_L01_001DC210)) {
+        func_003EDAD0(p, mask, set != 0);
+        return 1;
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_0051B1A0 */
 
 INCLUDE_ASM("asm/levels", func_L01_0051B208);
 

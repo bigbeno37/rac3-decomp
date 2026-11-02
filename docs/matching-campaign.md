@@ -236,6 +236,23 @@ The entries below stopped after both Low and High review. Their INCLUDE_ASM mark
 | `func_L39_006CD1B8` | Code generation | The initial address-register pair differs; the other 22 words agree. The draft preserves the established unsized s32 global and literal 32-byte copy. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006CD1B8.c). |
 | `func_L39_006D6808` | Code generation | 14 register-allocation words differ in the 96-byte body. The High draft preserves the established unsized s32 global and 36-byte aggregate with four-byte alignment. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006D6808.c). |
 
+| `func_L12_003E6790` | Code generation | Three initial-load instructions differ in the 96-byte body at all four PAL placements. Every later word agrees after resolving actual relocations. Noncanonical global identities were inferred from the tested operands and still require independent corroboration. US remains unchecked. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L12_003E6790.c). |
+| `func_L39_00508620` | Code generation | Eleven scheduling instructions differ in the 100-byte body. The retained byte-array draft copies eight bytes, adjusts parity, compares and clears the buffer, and returns zero or 0x21E. Helper arguments and nonzero-size pointer returns were audited. US remains unchecked. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00508620.c). |
+| `func_L01_00305C50` | Code generation | Three stores remain reordered in the 104-byte draft across all 49 PAL placements. High recovered their order only with an extra assembler nop, producing 108 bytes. Future integration also requires a consistent structure type with the existing caller. US remains unchecked. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L01_00305C50.c). |
+| `func_L01_0051B270` | Catalogue / integration | All 49 PAL and 50 US placements agree. US level 17 calls an integer-output getter where the others call an integer-input setter. No shared declaration or address alias preserves both contracts. Notes only; retain INCLUDE_ASM. |
+| `func_L01_0051B2D8` | Catalogue / integration | All 49 PAL placements agree. US level 17 calls a nested float getter returning one instead of the mapped void integer getter. The other 50 US callees agree; GP identities are independently corroborated. Notes only; retain INCLUDE_ASM. |
+| `func_L01_0051B8F8` | Catalogue / integration | All 49 PAL placements agree. US level 17 calls a direct void float getter instead of the nested getter returning one and loads a different type-ID global than the established siblings. Notes only; retain INCLUDE_ASM. |
+| `func_L01_0051BA20` | Catalogue / integration | All 49 PAL and 50 US callees agree. US level 17 calls an integer setter instead of the mapped float-output getter; GP identities independently agree at every placement. Notes only; retain INCLUDE_ASM. |
+| `func_L01_0051C180` | Catalogue / integration | All 49 PAL and 50 US placements agree. US level 17 calls an integer setter instead of the mapped float-output getter. Three frozen scalar sibling mappings corroborate the GP global. Notes only; retain INCLUDE_ASM. |
+| `func_L01_0051C650` | Catalogue / integration | All 49 PAL and 50 US callees agree. US level 17 calls an integer setter instead of the mapped float-output getter. Three frozen scalar sibling mappings corroborate the GP global. Notes only; retain INCLUDE_ASM. |
+| `func_L39_0066D9A8` | Code generation | Seven scheduling/allocation differences remain in all 15 PAL placements. The retained draft preserves the existing Obj pointer contract and three helper arguments; the resident global was independently corroborated. US explicitly differs. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_0066D9A8.c). |
+| `func_L03_00435A08` | Code generation | The 104-byte draft has 14 raw instruction differences across all four PAL placements; its final 44 bytes agree. Local union constants eliminate literal pooling but leave register/scheduling differences. This target-specific representation preserves the intermediate stores and possible pointer aliasing. US explicitly differs. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L03_00435A08.c). |
+| `func_L02_004B8BB0` | Code generation | Twelve checker differences remain: the fixed assembler emits 80 bytes plus a literal pool instead of retail's 104-byte inline-constant body. High's union form produced identical text and relocations; retain the simpler float-literal draft. Both PAL placements were audited, with literal relocations still unresolved. US explicitly differs. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L02_004B8BB0.c). |
+| `func_L03_003D09C0` | Code generation | Seven scheduling words differ with the evidence-backed pointer-return lookup and existing effect-helper declaration. Low's isolated matches used conflicting legacy C types; they do not validate this corrected draft. Every consumed argument is explicit. US remains unchecked for this source. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L03_003D09C0.c). |
+| `func_L07_00332230` | Code generation | The best 100-byte draft has 15 positional differences because the scalar global uses GP addressing instead of retail's HI/LO load. Actual ELF places the pointer in BSS; High's rejected data-section probe was unsupported, and its traversal rewrite worsened the result. All eight calls and both arguments are preserved. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L07_00332230.c). |
+| `func_L03_00322548` | Catalogue / integration | Five initial address/index words differ. Retail storage is a scalar object-pool pointer in BSS, while the closest diagnostic form uses an unapproved array declaration. The indexed virtual target and all consumed arguments remain unresolved. Preserve notes only; retain INCLUDE_ASM. US remains unchecked. |
+| `func_L03_0032C890` | Code generation | The closest 104-byte form has five address/load-order differences but requires an unproved shift count in 0..31. Preserve the explicit count-mask form instead: 108 bytes and 21 positional differences. It reflects the hardware shift semantics without assuming that range. Both callees and actual relocations were audited; US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L03_0032C890.c). |
+
 ## Validated batches
 
 Batch 02 adds 26 C functions beyond the first 12 committed matches. It covers
@@ -435,3 +452,30 @@ All 54 non-candidate no-result diagnostics remain separately archived, while
 final linked builds and candidate C coverage passed. The same commit records
 19 completed Low/High attempts as 17 unlinked drafts and two notes-only shared
 wrapper contract blockers. They retain INCLUDE_ASM and add no match count.
+
+
+Batch 10 adds 16 plain-C level functions, bringing this campaign to 291 new PAL
+matches. They cover state and callback helpers, timers and queues, bounded string
+copies, and multiplayer object updates. Two existing C corrections explicitly
+forward four arguments through func_L39_006878A0 and reconcile the void setter
+contract of func_L39_0067F8B0. These corrections add no matching-function count.
+File-wide flags, catalogue boundaries and assembly/remnant classifications stay
+unchanged.
+
+Validation and audit each ran once at priority -5. All three PAL cores, 49 PAL
+levels, and 54 US programs printed retail MATCH. All ten preflight levels,
+repository checks and 36 unit tests passed. The 12 applicable US additions cover
+161 C placements; three additions have no US twin and one explicitly differs.
+Independent inspection verified all 175 PAL and 161 US addition placements,
+both corrections in both regions, following alignment gaps, and 200 GP bindings.
+All 5,562 baseline coverage rows and 968 known-good partially covered level
+placements were preserved. Current build-input hashes equal the frozen hash.
+
+All 54 non-candidate checker diagnostics and six exhausted checker retry chains
+remain archived separately from the successful final builds. Supplemental
+inspection mistakes, including a parser that treated a comment footer as a
+function row, were corrected only in ignored inspection scripts; their original
+errors remain preserved. No source fix or full-validation retry was needed.
+The same commit records 16 completed Low/High attempts: nine unlinked drafts and
+seven notes-only declaration, callback or version-contract issues. They retain
+INCLUDE_ASM and add no matching count.

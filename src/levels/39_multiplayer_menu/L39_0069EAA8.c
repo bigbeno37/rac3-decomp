@@ -1,6 +1,17 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/levels", func_L39_0069EAA8);
+/* localdecomp:start func_L39_0069EAA8 */
+typedef struct Child_69EAA8 Child_69EAA8;
+typedef struct { u8 pad[0x24]; void (*set)(void *, const char *); } Vtable_69EAA8;
+struct Child_69EAA8 { u8 pad[0x60]; Vtable_69EAA8 *vt; };
+typedef struct { u8 pad[0x110]; Child_69EAA8 *first; Child_69EAA8 *second; u8 gap[0x194]; u8 flag; } Self_69EAA8;
+void func_L39_0069EAA8(void *arg0, const char *first, const char *second, s32 flag) {
+    Self_69EAA8 *self = arg0;
+    self->first->vt->set(self->first, first);
+    self->second->vt->set(self->second, second);
+    self->flag = flag;
+}
+/* localdecomp:end func_L39_0069EAA8 */
 
 LINKER_REMNANT("asm/levels", func_L39_0069EB08);
 

@@ -29,4 +29,18 @@ void func_L30_00359760(Moby_00358658 *m) {
 }
 /* localdecomp:end func_L30_00359760 */
 
-INCLUDE_ASM("asm/levels", func_L30_00359808);
+/* localdecomp:start func_L30_00359808 */
+extern s32 D_00142BC4[];
+extern u8 D_L30_001E8DC0[];
+extern s32 func_00392B20(void *, s32);
+extern s32 func_00392C78(void *);
+void func_L30_00359808(u8 *m) {
+    u8 *v = *(u8 **)(m + 0x68);
+    unsigned long flags = D_00142BC4[0];
+    if (!((flags >> 5) & 1)) {
+        func_00392B20(D_L30_001E8DC0, 37);
+        func_00392C78(D_L30_001E8DC0);
+        *(s32 *)(v + 0xD4) = 1;
+    }
+}
+/* localdecomp:end func_L30_00359808 */

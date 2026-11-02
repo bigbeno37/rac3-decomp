@@ -24,7 +24,16 @@ void func_L39_006CC2A8(s32 arg0, s32 *values, s32 value)
 }
 /* localdecomp:end func_L39_006CC2A8 */
 
-INCLUDE_ASM("asm/levels", func_L39_006CC2E8);
+/* localdecomp:start func_L39_006CC2E8 */
+extern void func_L39_006CC1C0(s32 index, s32 *mask, s32 *shift);
+void func_L39_006CC2E8(s32 index, s32 *values, s32 value)
+{
+    s32 mask;
+    s32 shift;
+    func_L39_006CC1C0(index, &mask, &shift);
+    *values = (*values & ~mask) | (value << shift);
+}
+/* localdecomp:end func_L39_006CC2E8 */
 
 /* localdecomp:start func_L39_006CC340 */
 void func_L39_006CC340(s32 *values, s32 index, s32 value)

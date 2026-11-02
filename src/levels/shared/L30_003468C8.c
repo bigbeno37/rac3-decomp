@@ -39,7 +39,24 @@ INCLUDE_ASM("asm/levels", func_L30_00346FB8);
 
 INCLUDE_ASM("asm/levels", func_L30_00347060);
 
-INCLUDE_ASM("asm/levels", func_L30_003472E8);
+/* localdecomp:start func_L30_003472E8 */
+extern s32 D_L30_001DCFD4;
+extern s32 D_L30_001DCFC4;
+extern s32 D_L30_001DCFC8;
+extern s32 func_L30_0034DBA0(s32, s32);
+typedef struct { s32 timer; s32 color; } Entry_3472E8;
+void func_L30_003472E8(u8 *moby) {
+    Entry_3472E8 *p = *(Entry_3472E8 **)(moby + 0x68);
+    s32 i;
+    for (i = 15; i >= 0; i--, p++) {
+        if (func_0038CAD0(&p->timer)) {
+            p->timer = D_L30_001DCFD4;
+            p->timer--;
+            p->color = func_L30_0034DBA0(D_L30_001DCFC4, D_L30_001DCFC8);
+        }
+    }
+}
+/* localdecomp:end func_L30_003472E8 */
 
 INCLUDE_ASM("asm/levels", func_L30_00347348);
 

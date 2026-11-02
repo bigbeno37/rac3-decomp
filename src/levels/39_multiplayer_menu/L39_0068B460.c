@@ -2,7 +2,21 @@
 
 INCLUDE_ASM("asm/levels", func_L39_0068B460);
 
-INCLUDE_ASM("asm/levels", func_L39_0068B478);
+/* localdecomp:start func_L39_0068B478 */
+extern void func_L39_00595628(const u8 *, u8 *);
+void func_L39_0068B478(u8 *arg0) {
+    u8 buffer[512];
+    u8 *src = arg0;
+    u8 *dst = buffer;
+    while (*src) {
+        *dst++ = 0;
+        *dst++ = *src++;
+    }
+    dst[0] = 0;
+    dst[1] = 0;
+    func_L39_00595628(buffer, arg0);
+}
+/* localdecomp:end func_L39_0068B478 */
 
 INCLUDE_ASM("asm/levels", func_L39_0068B4D0);
 

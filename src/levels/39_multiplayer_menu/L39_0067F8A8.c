@@ -3,10 +3,10 @@
 LINKER_REMNANT("asm/levels", func_L39_0067F8A8);
 
 /* localdecomp:start func_L39_0067F8B0 */
-void func_00120D28(s32, s32, s32);
-void func_L39_0067F8B0(void *arg0, s32 arg1) {
+extern char *func_00120D28(char *, const char *, unsigned int);
+void func_L39_0067F8B0(void *arg0, const char *arg1) {
     if (arg1 != 0) {
-        func_00120D28(arg0 + 0x14, arg1, 0x33);
+        func_00120D28((char *)arg0 + 0x14, arg1, 0x33);
         *(s8 *)((u8 *)arg0 + 0x47) = 0;
     }
 }

@@ -221,7 +221,22 @@ INCLUDE_ASM("asm/levels", func_L01_0045BAC0);
 
 INCLUDE_ASM("asm/levels", func_L01_0045BB60);
 
-INCLUDE_ASM("asm/levels", func_L01_0045BD10);
+/* localdecomp:start func_L01_0045BD10 */
+extern S_4574A0 *func_L01_0045B958(M_4574A0 *);
+extern f32 func_L01_00448890(f32 *, f32 *, s32, f32, f32, f32, f32);
+s32 func_L01_0045BD10(u8 *a, f32 x) {
+    s32 result;
+    u8 *p = (u8 *)func_L01_0045B958((M_4574A0 *)a);
+    if (p != 0) {
+        func_L01_00448890((f32 *)((u8 *)a + 248), (f32 *)(p + 180), 0,
+                         x, *(f32 *)(p + 20), *(f32 *)(p + 24), *(f32 *)(p + 28));
+        result = 1;
+    } else {
+        result = 0;
+    }
+    return result;
+}
+/* localdecomp:end func_L01_0045BD10 */
 
 LINKER_REMNANT("asm/levels", func_L01_0045BD70);
 

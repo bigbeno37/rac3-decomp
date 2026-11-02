@@ -173,7 +173,21 @@ INCLUDE_ASM("asm/levels", func_L01_003B36A8);
 
 INCLUDE_ASM("asm/levels", func_L01_003B3C48);
 
-INCLUDE_ASM("asm/levels", func_L01_003B41E0);
+/* localdecomp:start func_L01_003B41E0 */
+extern u8 *D_L01_001E001C_003B3430[];
+extern void func_L01_003B31B8(void *, u8 *);
+extern void func_L01_003B3098(u8 *);
+extern void func_L01_003B54C0(Moby_003B3CC0 *, s32);
+void func_L01_003B41E0(void *owner, s32 *index) {
+    u8 *m = D_L01_001E001C_003B3430[0] + (*index << 8);
+    func_L01_003B31B8(owner, m);
+    if (*(s16 *)(m + 0xAA) == 0x19E4) {
+        func_L01_003B54C0((Moby_003B3CC0 *)m, 1);
+    } else {
+        func_L01_003B3098(m);
+    }
+}
+/* localdecomp:end func_L01_003B41E0 */
 
 INCLUDE_ASM("asm/levels", func_L01_003B4240);
 

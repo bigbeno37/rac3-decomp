@@ -316,7 +316,64 @@ INCLUDE_ASM("asm/levels", func_L39_006D9E10);
 
 INCLUDE_ASM("asm/levels", func_L39_006D9E68);
 
-INCLUDE_ASM("asm/levels", func_L39_006D9FD8);
+/* localdecomp:start func_L39_006D9FD8 */
+typedef struct {
+    s32 f0;
+    u8 f4;
+    u8 pad5[0xBB];
+    u8 fC0;
+    u8 padC1[0x23];
+    u8 fE4;
+    u8 padE5[0x7];
+    u8 fEC;
+    u8 padED[0x7];
+    u8 fF4;
+    u8 padF5[0x67];
+    u8 f15C;
+    u8 f15D;
+    u8 pad15E[0x2];
+    s32 f160;
+    s32 f164;
+    u8 f168;
+    u8 pad169[0x3];
+    s32 f16C;
+    s32 f170;
+    u8 pad174[0x24];
+    u8 f198;
+    u8 f199;
+    u8 pad19A[0x2];
+    s32 f19C;
+    s32 f1A0;
+    u8 f1A4;
+    u8 pad1A5[0x3];
+    s32 f1A8;
+    s32 f1AC;
+} S_006D9FD8;
+void *func_L39_006D9FD8(void *arg0) {
+    S_006D9FD8 *p = arg0;
+    p->f0 = -1;
+    p->f4 = 0;
+    p->fC0 = 0;
+    p->fE4 = 0;
+    p->fEC = 0;
+    p->fF4 = 0;
+    p->f15C = 0;
+    p->f15D = 0;
+    p->f160 = -1;
+    p->f164 = -1;
+    p->f168 = 0;
+    p->f16C = 10000;
+    p->f170 = -1;
+    p->f198 = 0;
+    p->f199 = 0;
+    p->f19C = -1;
+    p->f1A0 = -1;
+    p->f1A4 = 0;
+    p->f1A8 = 10000;
+    p->f1AC = -1;
+    return arg0;
+}
+/* localdecomp:end func_L39_006D9FD8 */
 
 INCLUDE_ASM("asm/levels", func_L39_006DA038);
 
