@@ -1,6 +1,15 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/levels", func_L01_003E1F48);
+/* localdecomp:start func_L01_003E1F48 */
+extern void *D_L01_001DF5A8;
+void *func_L01_003E1F48(void *object, s32 index, s32 *size) {
+    if (index == 0) {
+        *size = 4;
+        return &D_L01_001DF5A8;
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_003E1F48 */
 
 INCLUDE_ASM("asm/levels", func_L01_003E1F68);
 

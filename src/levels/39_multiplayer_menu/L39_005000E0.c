@@ -1,6 +1,13 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/levels", func_L39_005000E0);
+/* localdecomp:start func_L39_005000E0 */
+s32 func_L39_005000E0(void *arg0) {
+    *(s32 *)((u8 *)arg0 + 0xC) = 0;
+    *(s32 *)((u8 *)arg0 + 0x1C) = 0;
+    *(s32 *)((u8 *)arg0 + 0x20) = 0;
+    return 1;
+}
+/* localdecomp:end func_L39_005000E0 */
 
 INCLUDE_ASM("asm/levels", func_L39_005000F8);
 

@@ -216,6 +216,25 @@ The entries below stopped after both Low and High review. Their INCLUDE_ASM mark
 | `func_L39_004BB470` | Catalogue / integration | No compiler comparison: actual PAL/US frozen span contains 12-byte C getter followed by zero/orphan mask 7/zero/orphan mask 8. The frozen span bundles an ordinary 12-byte getter with orphan instructions. Direct PAL/US and resident reference scans found entry calls only; computed references remain possible. This is boundary review, not handwritten classification; no full-span C candidate. Low and High completed without an integrated match; retain INCLUDE_ASM. Boundary evidence concerns the assigned span, not a handwritten classification of its ordinary C prefix. |
 | `func_L39_00504500` | Code generation | 5 instructions: frame 0x10 versus 0x20; ra slot 8 versus 0x10; restore order s0/ra versus ra/s0. Low and High completed without an integrated match; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00504500.c). |
 | `func_L39_00518A38` | Code generation | 2 instruction words: initial andi/sll order reversed; literal raw offsets 0 and 4; no relocations. Low and High completed without an integrated match; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00518A38.c). |
+| `func_L39_00515DA8` | Code generation | 20 instruction differences; the 92-byte draft exceeds retail's 88 bytes. High rewrites reproduced Low's output. The simpler Low allocation/copy draft is retained. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00515DA8.c). |
+| `func_L39_006CD218` | Code generation | The best Low draft differs only in the initial address-register pair. Three High probes worsened the result to 37, 15 and 22 checker differences. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006CD218.c). |
+| `func_L39_006CD270` | Code generation | The best Low draft has two address-register differences; all other 20 words agree. High's builtin-copy form grew to 96 bytes versus retail's 88. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006CD270.c). |
+| `func_L39_006D6868` | Code generation | 13 register-allocation differences remain in the 88-byte body. Independent High review reproduced Low's output. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006D6868.c). |
+| `func_L39_006D9E10` | Code generation | 13 of 22 words differ only in register allocation. The High draft preserves the established unsized s32 global declaration. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006D9E10.c). |
+| `func_L39_006DA628` | Code generation | 13 of 22 words differ only in register allocation. The High draft preserves the established unsized s32 global declaration. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006DA628.c). |
+| `func_L39_006DCCE0` | Code generation | The initial address-register pair differs; the other 20 words agree after resolving actual relocations. The simpler Low draft is retained. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006DCCE0.c). |
+| `func_L01_0032BE90` | Code generation | 16 checker differences remain: the fixed assembler emits an 88-byte body with a literal pool instead of retail's inline constant. All 34 PAL placements were audited. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L01_0032BE90.c). |
+| `func_L16_003E2518` | Code generation | The fixed assembler emits 80 bytes plus an eight-byte literal pool instead of retail's 96-byte inline-constant body. The checker reports 15 differences; two literal relocations remain unresolved in the raw audit. US explicitly differs. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L16_003E2518.c). |
+| `func_L30_00342030` | Code generation | Nine checker differences remain: the 88-byte draft uses a literal pool instead of retail's 96-byte inline-constant body. US explicitly differs. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L30_00342030.c). |
+| `func_L39_00500450` | Code generation | Seven frame/save/restore words differ; the call body agrees after resolving actual relocations. The simpler Low draft is retained. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00500450.c). |
+| `func_L39_00504528` | Code generation | Five frame/save/restore words differ; all allocation, error-reporting and zeroing instructions agree. Callee arguments and pointer returns were independently audited. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00504528.c). |
+| `func_L39_00518E48` | Code generation | Ten of 24 words differ in frame layout and scheduling. The retained scalar-input draft copies the evidenced 18 bytes and forwards all four helper arguments; its natural structure extent does not prove the original allocation size. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00518E48.c). |
+| `func_L39_0067F0A0` | Catalogue / integration | Both isolated 96-byte bodies match, but the shared wrapper has incompatible downstream contracts: menu s32(s32), story void(void). All 35 wrapper and 34 callback placements per version were audited. Notes only; a uniform cast or declaration does not repair the contract. Low and High remain unresolved; retain INCLUDE_ASM. |
+| `func_L39_0067F1B0` | Catalogue / integration | Both isolated 96-byte bodies match. Independent review confirms the same shared-wrapper contract conflict as func_L39_0067F0A0. Notes only; Low's function-pointer cast is unsuitable for integration. Low and High remain unresolved; retain INCLUDE_ASM. |
+| `func_L39_006873F0` | Code generation | Seven words differ: six allocation/prologue differences and unused retail argument setup. The High draft preserves the empty callee's established void(void) declaration; Low's six-difference draft misdeclares it. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006873F0.c). |
+| `func_L39_006B78F8` | Code generation | Four scheduling/register words differ. The draft also requires an explicit three-argument forwarding correction in existing func_L39_00688340; that separate proposal remains uncompiled and unintegrated. US has no twin. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006B78F8.c). |
+| `func_L39_006CD1B8` | Code generation | The initial address-register pair differs; the other 22 words agree. The draft preserves the established unsized s32 global and literal 32-byte copy. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006CD1B8.c). |
+| `func_L39_006D6808` | Code generation | 14 register-allocation words differ in the 96-byte body. The High draft preserves the established unsized s32 global and 36-byte aggregate with four-byte alignment. Low and High remain unresolved; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006D6808.c). |
 
 ## Validated batches
 
@@ -383,3 +402,36 @@ The same commit records 32 completed Low/High attempts: 26 useful drafts and
 six notes-only boundary or catalogue issues. These remain assembly and add no
 matching-function count. Post-return remnants and unsupported fill are kept
 distinct from ordinary C code-generation failures.
+
+
+Batch 09 adds 21 level C functions, bringing this campaign to 275 new PAL
+matches. These cover state accessors, flags, callback wrappers, random state,
+and bounded string-copy wrappers. Existing file-wide flags and catalogue
+boundaries remain unchanged. All 21 additions have applicable US counterparts.
+
+Prescribed validation and audit each ran once at priority -5. The three PAL
+cores, all 49 PAL levels, and all 54 US programs printed retail MATCH. All 14
+preflight levels passed. Repository checks and all 36 unit tests passed.
+All 149 applicable US C placements are covered, with no baseline regressions.
+Independent supplemental inspection verifies all 146 PAL and 149 US candidate
+placements, alignment and mapped references. There are no existing-C corrections
+counted in this batch.
+
+The validator's supplemental inspector stopped because it applied the PAL
+multiplayer default address to US. The parent preserved that failure and
+completed a corrected read-only inspection: PAL uses 0x00225780, US uses
+0x00225900. A second supplemental assertion was widened to verify the full
+preserved twelve-byte zero gap before the level22 remnant on both versions.
+No source fix or full-validation retry was needed. A separate
+resident ABI review identified the bounded-copy routine in the actual i5bootn
+multiplayer payload, rather than the different boot ELF address space; both
+regions consume destination, source and count and return the original
+destination pointer. Loader evidence and retail routine identity corroborate
+that mapping.
+
+Frozen source hashes stayed unchanged. Three observed PAL timeouts recovered;
+twelve preliminary US checker retry notices ended in six no-result contexts.
+All 54 non-candidate no-result diagnostics remain separately archived, while
+final linked builds and candidate C coverage passed. The same commit records
+19 completed Low/High attempts as 17 unlinked drafts and two notes-only shared
+wrapper contract blockers. They retain INCLUDE_ASM and add no match count.

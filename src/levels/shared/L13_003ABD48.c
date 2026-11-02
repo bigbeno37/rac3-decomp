@@ -45,7 +45,14 @@ void func_L13_003AE5F8(u8 *m, s32 b) {
 }
 /* localdecomp:end func_L13_003AE5F8 */
 
-INCLUDE_ASM("asm/levels", func_L13_003AE678);
+/* localdecomp:start func_L13_003AE678 */
+/* Caller-specific alias: level 22 calls func_L01_003537A0 instead. */
+extern void func_L13_003AE5F8_003AE678(u8 *, s32);
+
+void func_L13_003AE678(u8 *m) {
+    func_L13_003AE5F8_003AE678(m, 1);
+}
+/* localdecomp:end func_L13_003AE678 */
 
 INCLUDE_ASM("asm/levels", func_L13_003AE698);
 
