@@ -6,15 +6,47 @@ INCLUDE_ASM("asm/levels", func_L39_006D8EC0);
 
 INCLUDE_ASM("asm/levels", func_L39_006D8EF0);
 
-INCLUDE_ASM("asm/levels", func_L39_006D8F30);
+/* localdecomp:start func_L39_006D8F30 */
+static __inline__ u32 align_006D8F30(u32 value, u32 alignment) {
+    u32 remainder = value % alignment;
+    if (remainder != 0) {
+        value += alignment - remainder;
+    }
+    return value;
+}
+u32 func_L39_006D8F30(u32 arg0) {
+    return align_006D8F30(arg0, 4) - arg0 + 0x134;
+}
+/* localdecomp:end func_L39_006D8F30 */
 
 INCLUDE_ASM("asm/levels", func_L39_006D8F58);
 
-INCLUDE_ASM("asm/levels", func_L39_006D8F98);
+/* localdecomp:start func_L39_006D8F98 */
+u32 func_L39_006D8F98(u32 arg0) {
+    u32 alignment = 4;
+    u32 aligned = arg0;
+    u32 remainder = arg0 % alignment;
+    if (remainder != 0) {
+        aligned = arg0 + (alignment - remainder);
+    }
+    return aligned - arg0 + 0x48;
+}
+/* localdecomp:end func_L39_006D8F98 */
 
 INCLUDE_ASM("asm/levels", func_L39_006D8FC0);
 
-INCLUDE_ASM("asm/levels", func_L39_006D9000);
+/* localdecomp:start func_L39_006D9000 */
+static __inline__ u32 align_address_006D9000(u32 address, u32 alignment) {
+    u32 remainder = address % alignment;
+    if (remainder != 0) {
+        address += alignment - remainder;
+    }
+    return address;
+}
+u32 func_L39_006D9000(u32 arg0) {
+    return align_address_006D9000(arg0, 4) - arg0 + 0x54C;
+}
+/* localdecomp:end func_L39_006D9000 */
 
 INCLUDE_ASM("asm/levels", func_L39_006D9028);
 

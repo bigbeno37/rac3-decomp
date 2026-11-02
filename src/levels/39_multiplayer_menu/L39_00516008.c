@@ -135,7 +135,22 @@ INCLUDE_ASM("asm/levels", func_L39_00518200);
 
 INCLUDE_ASM("asm/levels", func_L39_00518240);
 
-INCLUDE_ASM("asm/levels", func_L39_00518440);
+/* localdecomp:start func_L39_00518440 */
+typedef struct {
+    unsigned long value;
+    u8 pad8[0xE];
+    u8 flags;
+    u8 byte17;
+} S_00518440;
+
+void func_L39_00518440(S_00518440 *self, s32 value) {
+    if (!(self->flags & 4)) {
+        self->flags |= 4;
+        self->value++;
+    }
+    self->byte17 = value;
+}
+/* localdecomp:end func_L39_00518440 */
 
 INCLUDE_ASM("asm/levels", func_L39_00518468);
 

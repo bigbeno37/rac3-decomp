@@ -107,6 +107,18 @@ The entries below stopped after both Low and High review. Their INCLUDE_ASM mark
 | `func_L39_004C4EE0` | Boundary | Low probe: 2 diff; exact 8-byte getter prefix, independent trailing return-1 body missing. This is a malformed multi-body range, not evidence that either constituent function was handwritten. Keep the current marker pending boundary repair. |
 | `func_L39_004CBF60` | Nonzero padding | Low check.py: 1 diff; all 3 executable instructions match, missing trailing 0xCDCDCDCD at 0x004CBF6C. High independently verified retail and saved object. Low and High stopped without a complete integrated match; ordinary C remains plausible and INCLUDE_ASM is retained. Draft: [C](../nonmatching/levels/func_L39_004CBF60.c). |
 
+| `func_L39_006BDCC8` | Code generation | 3 diff: global high-half register v1 versus v0, and singleton load versus ra-save scheduling; unchanged from Low. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006BDCC8.c). |
+| `func_L01_004360B8` | Catalogue variant | Low canonical PAL/US candidate matches, but independent retail/object derive rejects all 15 multiplayer placements at nonrelocated stores +0x20/+0x24: 0x24E10/0x24E14 versus 0x24DE0/0x24DE4. All 34 story placements use +0x24E10/+0x24E14; all 15 multiplayer placements use +0x24DE0/+0x24DE4. Canonical PAL/US checks do not establish an integrated match. Shared catalogue layout variants require a legitimate representation. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L01_004360B8.c). |
+| `func_L39_005A8CC8` | Code generation | 11 differing words; 52 bytes vs retail 48, swapped v0/v1, grouped/reversed base stores and empty return delay slot. All 15 PAL placements agree, but all 17 US placements shift the fixed globals by +0x180. The preserved absolute-address draft is PAL-only. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_005A8CC8.c). |
+| `func_L39_005E3A10` | Code generation | 2 differing words at +0x08/+0x0c: table-low addiu and index sll are swapped. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_005E3A10.c). |
+| `func_L30_0034C460` | Code generation | 10 diff; 40-byte body vs retail 48. movz coalescing replaces retail copies and movn; remaining registers and scheduling differ. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L30_0034C460.c). |
+| `func_L07_003318D8` | Code generation | 2 words: generated lui v0/addiu v1,v0 versus retail lui v1/addiu v1,v1; all other words agree. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L07_003318D8.c). |
+| `func_L39_00508080` | Code generation | 4 differing words, same 48-byte size: object v1 versus retail a0; constant v0 versus retail v1. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00508080.c). |
+| `func_L39_00515F90` | Code generation | Latest: 12 positional diffs, 56 versus 48 bytes. Best retained draft: 6 positional diffs, 48 bytes; input register, null branch/save/zero initialization and callback/payload load scheduling differ. Preserved High probe 4 is the best draft: six differences at the correct 48-byte size. Its null-path pointer-to-integer conversion relies on this target ABI. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00515F90.c). |
+| `func_L39_006DD3D0` | Code generation | 4 diff, 48 bytes: initial global/argument load order and condition register; all instructions after initial branch match. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006DD3D0.c). |
+| `func_L01_0041A7D0` | Code generation | 6. Six differences remain in mask/counter registers and setup order. The draft relies on existing owning-file declarations for D_001A7E18 and T_00417F60. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L01_0041A7D0.c). |
+| `func_L09_00403E40` | Code generation | 8 diff; 56 bytes; register allocation only. Low and High stopped without an integrated match. Ordinary C remains plausible; retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L09_00403E40.c). |
+
 ## Validated batches
 
 Batch 02 adds 26 C functions beyond the first 12 committed matches. It covers
@@ -150,3 +162,23 @@ three PAL timeouts recovered, while six preliminary US probes still yielded no
 result after their two retries each. All full linked programs and the C coverage
 audit nevertheless passed. Preflight per-level logs were overwritten by the
 subsequent all-level stage, so the retry count covers retained logs only.
+
+
+Batch 04 adds 62 level-39 C functions, bringing this campaign to 138 new
+matches. The additions cover dispatch and deletion wrappers, state updates,
+indexed fields, and alignment helpers. Consumed deletion arguments are explicitly
+forwarded; compiler flags remain unchanged.
+
+Validation ran once: tools/build.py --target all -j 8 printed three retail MATCH
+results, tools/build_levels.py -P 4 -j 2 printed 49 of 49 PAL levels match, and
+JOBS=8 sh tools/carry_us.sh printed 54 of 54 US targets match. Level 39 also
+passed preflight. Repository checks and all 36 unit tests passed. Every one of
+the 62 additions has complete applicable US C coverage, with no prior coverage
+regression. Frozen, initial, final and post-audit build-input hashes agree.
+
+Preserved logs contain 15 retry notices: three PAL timeouts recovered, while six
+preliminary US checker probes exhausted their two retries each without a result.
+The full carry, all final linked builds and the C coverage audit nevertheless
+passed. No manual validation retry or source fix was needed. Preflight and final
+PAL level logs were archived separately; successful checker subprocess output
+may remain internal, so no unobserved retry count is claimed.
