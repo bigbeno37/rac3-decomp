@@ -46,7 +46,15 @@ INCLUDE_ASM("asm/levels", func_L07_003A5D80);
 
 INCLUDE_ASM("asm/levels", func_L07_003A5ED0);
 
-INCLUDE_ASM("asm/levels", func_L07_003A5FA0);
+/* localdecomp:start func_L07_003A5FA0 */
+extern s32 func_00382468(s32);
+u8 func_L07_003A5FA0(void *arg0) {
+    u8 *state = *(u8 **)((u8 *)arg0 + 0x68);
+    if (*(s32 *)(state + 0x498) == 0) return 0;
+    if (*(s32 *)(state + 0x494) == 0) return 1;
+    return func_00382468(2);
+}
+/* localdecomp:end func_L07_003A5FA0 */
 
 INCLUDE_ASM("asm/levels", func_L07_003A5FE0);
 

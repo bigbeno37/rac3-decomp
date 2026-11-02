@@ -20,6 +20,17 @@ s32 func_L09_003CD998(void *arg0, s32 arg1) {
 }
 /* localdecomp:end func_L09_003CD998 */
 
-INCLUDE_ASM("asm/levels", func_L09_003CD9F0);
+/* localdecomp:start func_L09_003CD9F0 */
+extern void func_L01_004450F0(s32, s32, s32);
+s32 func_L09_003CD9F0(void *arg0) {
+    s32 result;
+    if ((*(u8 *)((u8 *)arg0 + 0x20) == 3) || (result = 0, 0)) {
+        *(u8 *)((u8 *)arg0 + 0xBC) = 0;
+        func_L01_004450F0((s32)arg0, 4, -1);
+        result = 1;
+    }
+    return result;
+}
+/* localdecomp:end func_L09_003CD9F0 */
 
 INCLUDE_ASM("asm/levels", func_L09_003CDA30);

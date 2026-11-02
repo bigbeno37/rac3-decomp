@@ -1,6 +1,16 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/levels", func_L39_0067FAE8);
+/* localdecomp:start func_L39_0067FAE8 */
+extern void *func_L39_0067EE40(void *, void *);
+extern u8 D_L39_0047B6C0[];
+void *func_L39_0067FAE8(void *self, void *init) {
+    func_L39_0067EE40(self, init);
+    *(void **)((u8 *)self + 0x60) = D_L39_0047B6C0;
+    *(s32 *)((u8 *)self + 0x64) = -1;
+    *(s32 *)((u8 *)self + 0x68) = 0;
+    return self;
+}
+/* localdecomp:end func_L39_0067FAE8 */
 
 /* localdecomp:start func_L39_0067FB28 */
 extern u8 D_L39_0047B6C0[];
@@ -16,7 +26,22 @@ INCLUDE_ASM("asm/levels", func_L39_0067FB50);
 
 INCLUDE_ASM("asm/levels", func_L39_0067FB80);
 
-INCLUDE_ASM("asm/levels", func_L39_0067FBB0);
+/* localdecomp:start func_L39_0067FBB0 */
+extern s32 func_L01_005170B8(s32, s32);
+
+s32 func_L39_0067FBB0(void *arg0, s32 arg1) {
+    s32 result;
+    s32 handle = *(s32 *)((u8 *)arg0 + 0x64);
+    if (handle == -1) return 0;
+    *(s32 *)((u8 *)arg0 + 0x68) = arg1;
+    if (arg1 != 0) {
+        result = func_L01_005170B8(handle, arg1);
+    } else {
+        result = 1;
+    }
+    return result;
+}
+/* localdecomp:end func_L39_0067FBB0 */
 
 INCLUDE_ASM("asm/levels", func_L39_0067FBF0);
 

@@ -25,7 +25,17 @@ INCLUDE_ASM("asm/levels", func_L07_003AF678);
 
 INCLUDE_ASM("asm/levels", func_L07_003AF758);
 
-INCLUDE_ASM("asm/levels", func_L07_003AF7B8);
+/* localdecomp:start func_L07_003AF7B8 */
+extern void func_0038D750(void *, s32, f32);
+extern s32 func_0038D688(void *, void *, void *);
+
+void func_L07_003AF7B8(void *arg0, f32 angle) {
+    f32 rotation[4];
+    u8 *child = *(u8 **)((u8 *)arg0 + 0x68);
+    func_0038D750(rotation, 1, angle);
+    func_0038D688(child + 0xA0, child + 0xA0, rotation);
+}
+/* localdecomp:end func_L07_003AF7B8 */
 
 INCLUDE_ASM("asm/levels", func_L07_003AF7F8);
 
@@ -100,7 +110,17 @@ INCLUDE_ASM("asm/levels", func_L07_003B24C8);
 
 INCLUDE_ASM("asm/levels", func_L07_003B2738);
 
-INCLUDE_ASM("asm/levels", func_L07_003B2870);
+/* localdecomp:start func_L07_003B2870 */
+extern void func_L07_003B2738(void *);
+void func_L01_004450F0(void *, s32, s32);
+void func_L07_003B2870(void *arg0) {
+    void *data = *(void **)((u8 *)arg0 + 0x68);
+    *(u8 *)((u8 *)arg0 + 0xBE) &= 0xFB;
+    *(s32 *)((u8 *)data + 0x14) = 0;
+    func_L07_003B2738(arg0);
+    func_L01_004450F0(arg0, 1, -1);
+}
+/* localdecomp:end func_L07_003B2870 */
 
 /* localdecomp:start func_L07_003B28B8 */
 s32 func_L07_003B28B8(void *arg0) {

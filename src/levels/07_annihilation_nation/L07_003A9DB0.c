@@ -6,7 +6,17 @@ INCLUDE_ASM("asm/levels", func_L07_003AA228);
 
 INCLUDE_ASM("asm/levels", func_L07_003AA458);
 
-INCLUDE_ASM("asm/levels", func_L07_003AA9C0);
+/* localdecomp:start func_L07_003AA9C0 */
+extern void func_L07_00334740(void *);
+extern void func_L07_003AAA50(void *, s32);
+void func_L07_003AA9C0(void *arg0) {
+    u8 *state = *(u8 **)((u8 *)arg0 + 0x68);
+    *(s32 *)(state + 0x53C) = 0;
+    *(s32 *)(state + 0x188) &= ~0x10;
+    func_L07_00334740(arg0);
+    func_L07_003AAA50(arg0, 1);
+}
+/* localdecomp:end func_L07_003AA9C0 */
 
 /* localdecomp:start func_L07_003AAA08 */
 void func_L07_00334800();
@@ -41,7 +51,18 @@ INCLUDE_ASM("asm/levels", func_L07_003AC2D0);
 
 INCLUDE_ASM("asm/levels", func_L07_003AC500);
 
-INCLUDE_ASM("asm/levels", func_L07_003ACA00);
+/* localdecomp:start func_L07_003ACA00 */
+extern void func_L07_00334740(void *);
+extern void func_L07_003ACA90(void *, s32);
+
+void func_L07_003ACA00(void *arg0) {
+    u8 *state = *(u8 **)((u8 *)arg0 + 0x68);
+    *(s32 *)(state + 0x56C) = 0;
+    *(s32 *)(state + 0x188) &= ~0x10;
+    func_L07_00334740(arg0);
+    func_L07_003ACA90(arg0, 1);
+}
+/* localdecomp:end func_L07_003ACA00 */
 
 /* localdecomp:start func_L07_003ACA48 */
 void func_L07_00334800();

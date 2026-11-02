@@ -6,7 +6,15 @@ INCLUDE_ASM("asm/levels", func_L39_004D1F30);
 
 INCLUDE_ASM("asm/levels", func_L39_004D1FB8);
 
-INCLUDE_ASM("asm/levels", func_L39_004D2050);
+/* localdecomp:start func_L39_004D2050 */
+void func_L39_004D2050(u32 *state) {
+    state[0] = 0x67452301;
+    state[1] = 0xEFCDAB89;
+    state[2] = 0x98BADCFE;
+    state[3] = 0x10325476;
+    state[4] = 0xC3D2E1F0;
+}
+/* localdecomp:end func_L39_004D2050 */
 
 INCLUDE_ASM("asm/levels", func_L39_004D2090);
 

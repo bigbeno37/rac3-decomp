@@ -19,7 +19,19 @@ INCLUDE_ASM("asm/levels", func_L39_00668660);
 
 INCLUDE_ASM("asm/levels", func_L39_00668BD8);
 
-INCLUDE_ASM("asm/levels", func_L39_00668C90);
+/* localdecomp:start func_L39_00668C90 */
+typedef struct { s32 a,b,c,d,e,f,g; } Entry_668C90;
+extern Entry_668C90 D_L39_0033AB08[];
+void func_L39_00668C90(s32 i, s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g) {
+    D_L39_0033AB08[i].a = a;
+    D_L39_0033AB08[i].b = b;
+    D_L39_0033AB08[i].c = c;
+    D_L39_0033AB08[i].d = d;
+    D_L39_0033AB08[i].e = e;
+    D_L39_0033AB08[i].f = f;
+    D_L39_0033AB08[i].g = g;
+}
+/* localdecomp:end func_L39_00668C90 */
 
 /* localdecomp:start func_L39_00668CD8 */
 typedef int u128_t __attribute__((mode(TI)));

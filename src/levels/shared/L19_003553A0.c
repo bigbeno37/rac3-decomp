@@ -116,4 +116,12 @@ void func_L19_00356008(s32 a0) {
 
 INCLUDE_ASM("asm/levels", func_L19_00356030);
 
-INCLUDE_ASM("asm/levels", func_L19_00356088);
+/* localdecomp:start func_L19_00356088 */
+s32 func_L19_00356088(s32 idx, s32 arg) {
+    u8 *m = D_L19_001DF71C[0] + (idx << 8);
+    Vars354F48 *v = *(Vars354F48 **)(m + 0x68);
+    s32 slot = -1;
+    func_L19_0044A9A0(arg, v->slots, v->count, &slot);
+    return slot;
+}
+/* localdecomp:end func_L19_00356088 */

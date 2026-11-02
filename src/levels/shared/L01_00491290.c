@@ -41,7 +41,20 @@ struct O_490778 {
     V_490778 *vt;
 };
 
-INCLUDE_ASM("asm/levels", func_L01_00491290);
+/* localdecomp:start func_L01_00491290 */
+extern u8 D_00143950[];
+extern void func_003A5348(s32, s32, s32);
+extern s32 func_0013BFE0(s32);
+void func_L01_00491290(s32 buttons) {
+    if (buttons & 0xA040) {
+        struct Settings_491290 { s32 words[2]; s32 enabled; } *p;
+        ((s32 (*)(s32, s32, s32))func_003A5348)(4, 0, 0);
+        p = (struct Settings_491290 *)D_00143950;
+        p->enabled = p->enabled == 0;
+        func_0013BFE0(p->enabled ^ 1);
+    }
+}
+/* localdecomp:end func_L01_00491290 */
 
 /* localdecomp:start func_L01_004912D8 */
 extern u8 D_00143950[];
