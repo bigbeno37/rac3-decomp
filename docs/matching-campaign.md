@@ -253,6 +253,17 @@ The entries below stopped after both Low and High review. Their INCLUDE_ASM mark
 | `func_L03_00322548` | Catalogue / integration | Five initial address/index words differ. Retail storage is a scalar object-pool pointer in BSS, while the closest diagnostic form uses an unapproved array declaration. The indexed virtual target and all consumed arguments remain unresolved. Preserve notes only; retain INCLUDE_ASM. US remains unchecked. |
 | `func_L03_0032C890` | Code generation | The closest 104-byte form has five address/load-order differences but requires an unproved shift count in 0..31. Preserve the explicit count-mask form instead: 108 bytes and 21 positional differences. It reflects the hardware shift semantics without assuming that range. Both callees and actual relocations were audited; US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L03_0032C890.c). |
 
+| `func_L39_004DEA00` | Code generation | Seven frame/save/restore words differ in the 104-byte body. Three High formulations did not improve on Low. The complete body and all five actual call relocations were audited without masks; getter, lookup and three-argument operation contracts are preserved. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_004DEA00.c). |
+| `func_L07_003D5170` | Code generation | The scalar pool-pointer draft is 100 bytes versus 104 retail bytes: a GP-relative load replaces the two-word HI/LO load, causing 16 positional differences. Actual BSS storage supports a scalar pointer, not the earlier unsized pointer-array declaration. All three callee contracts and literal member offsets are preserved. Cross-file helper declarations still need reconciliation before integration. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L07_003D5170.c). |
+| `func_L39_004F6130` | Code generation | Twelve register-allocation and scheduling words differ in the 104-byte body. Three High formulations produced identical bytes. The append status, pointer reloads and cleanup order are preserved. Fill and release results remain unused under conservative void declarations; their return contracts are not established for every path. Protected allocator internals are only partly decoded. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_004F6130.c). |
+| `func_L39_004F63B8` | Code generation | Two words at +0x40/+0x44 remain swapped: the forward-pointer increment and the second-word store. The 104-byte struct-pair formulation reproduces the earlier near miss. It preserves both helper arguments and reverses sixteen pairs without reversing the words within each pair. All other words agree after the genuine call relocation is resolved. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_004F63B8.c). |
+| `func_L39_00504970` | Code generation | Seven frame/save/restore words differ in the 104-byte body; all body words agree after resolving the genuine call relocation. The three-argument decoder contract, signed result and alias-sensitive output/count store order are preserved. This source corresponds to Low probe-02, not Low candidate-pal.o. No supported source object explains the larger retail save slots. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_00504970.c). |
+| `func_L39_005057D0` | Code generation | Nine frame/save/restore words differ in the 104-byte body. Three High formulations did not improve the frame layout. The evidence-backed six-argument helper call and consumed status return are preserved, including reloading source field +8 after the call. The six-field object size is supported by its allocator. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_005057D0.c). |
+| `func_L39_005065C8` | Code generation | Seventeen words differ: 96 candidate bytes versus 104 retail bytes. The eight-byte constructor, allocation-failure return and five explicit reporter arguments are preserved. The unexplained retail stack store of 0x40 and larger frame are not fabricated in C. Allocator signatures are supported by static default/replacement callback review; deep allocator and diagnostic semantics remain incomplete. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_005065C8.c). |
+| `func_L39_005177C0` | Code generation | Sixteen frame/save/restore and entry-move words differ in the 104-byte body. Low and two High formulations produce identical bytes; calls and the final flag update agree. All seven incoming arguments and the existing unsigned-long/u32 field contract are preserved. Future integration must reuse or move the existing S_00517868 typedef, which currently follows this marker, rather than duplicate it. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_005177C0.c). |
+| `func_L39_006CD588` | Code generation | Ten register-allocation words differ in the 104-byte body; three High helper formulations produce identical bytes. The two-input extent calculation and all four helper arguments are supported by actual callees. An existing caller declares only one argument although retail forwards its incoming second argument; that caller contract requires correction before any integration. US remains unchecked. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_006CD588.c). |
+| `func_L39_0067F100` | Interface contract | Isolated PAL and US checks and complete 104-byte raw comparisons pass. This is a menu-placement draft: its s32(s32) wrapper contract is supported there, while story copies use void(void). The tracked shared wrapper cannot truthfully receive this uniform declaration, and an existing caller also declares this function void. The return reload is evidence-backed. Placement-specific contracts and the caller declaration must be reconciled before integration; casts or aliases do not resolve that conflict. Full linked matching is unverified. Retain INCLUDE_ASM. Draft: [C](../nonmatching/levels/func_L39_0067F100.c). |
+
 ## Validated batches
 
 Batch 02 adds 26 C functions beyond the first 12 committed matches. It covers
@@ -479,3 +490,27 @@ errors remain preserved. No source fix or full-validation retry was needed.
 The same commit records 16 completed Low/High attempts: nine unlinked drafts and
 seven notes-only declaration, callback or version-contract issues. They retain
 INCLUDE_ASM and add no matching count.
+
+
+Batch 11 adds five plain-C level functions, bringing this campaign to 296 new
+PAL matches. They cover callback dispatch, a state query, and object updates.
+Three existing C corrections preserve the callback-table pointer return,
+forward the predicate's object argument explicitly, and reconcile the lookup's
+observed third argument. The earlier lookup caller's body is unchanged.
+These corrections add no matching-function count. File-wide flags, catalogue
+boundaries and assembly/remnant classifications remain unchanged.
+
+Validation and audit each ran once at priority -5. All three PAL cores, all 49
+PAL levels, all six preflight levels and all 54 US programs printed retail MATCH.
+Repository checks and all 36 unit tests passed. All five additions have US C
+coverage across 64 placements. Complete linked inspection covers 126 new,
+140 corrected and 100 unchanged-caller placements, with actual relocations
+resolved and following alignment gaps preserved. All 5,574 baseline coverage
+rows retain their prior coverage, and build inputs retain the frozen hash.
+
+The 54 non-candidate checker diagnostics and six exhausted checker retry chains
+remain archived separately from the successful linked builds. No source fix or
+manual full-validation retry was needed. The same commit preserves ten completed
+two-tier attempts as unlinked drafts with their remaining code-generation or
+interface-contract limitations. Their INCLUDE_ASM markers remain intact and
+they add no matching count.

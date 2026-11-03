@@ -464,9 +464,11 @@ void func_L01_00326D78(s32 a0) {
 /* localdecomp:end func_L01_00326D78 */
 
 /* localdecomp:start func_L01_00326D98 */
-extern s32 func_L01_0043B568(s32 a0, s32 a1, s32 a2);
-void func_L01_00326D98(void) {
-    ((void (*)(s32, s32, s32))((Vt003254A8 * (*)(s32 a0, s32 a1, s32 a2))func_L01_0043B568))(6476, 1, 28);
+/* Preserve this owning file's existing lookup declaration and its observed
+ * third argument. Lookup returns a pointer encoded in the 32-bit result. */
+extern s32 func_L01_0043B568(s32, s32, s32);
+void *func_L01_00326D98(void) {
+    return (void *)func_L01_0043B568(6476, 1, 28);
 }
 /* localdecomp:end func_L01_00326D98 */
 
@@ -808,11 +810,11 @@ s32 func_L01_00329780(u8 *a0) {
 /* localdecomp:end func_L01_00329780 */
 
 /* localdecomp:start func_L01_003297B0 */
+/* M_329358 comes from the existing owning-file prelude. */
 extern s32 func_L01_00449050(void *);
-
 s32 func_L01_003297B0(M_329358 *m) {
     if (!(m->h34 & 2)) return 0;
-    ((void (*)(void))func_L01_00449050)();
+    func_L01_00449050(m);
     return m->b20 == 0xFD;
 }
 /* localdecomp:end func_L01_003297B0 */

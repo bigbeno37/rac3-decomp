@@ -17,17 +17,19 @@ void func_L01_0043B510(s32 arg0) {
 /* localdecomp:end func_L01_0043B510 */
 
 /* localdecomp:start func_L01_0043B548 */
-extern s32 func_L01_0043B568(s32 a0, s32 a1);
+extern s32 func_L01_0043B568(s32 a0, s32 a1, s32 requested_size);
 void func_L01_0043B548(void *p, s32 a) {
     ((void (*)(void *, s32, s32))func_L01_0043B568)(p, 0, a);
 }
 /* localdecomp:end func_L01_0043B548 */
 
 /* localdecomp:start func_L01_0043B568 */
+/* requested_size is passed by retail callers but not consumed by this body. */
+
 typedef s32 (*Fn438488)(s32, s32, void *);
 extern u8 *func_L01_0045E420(s32);
 
-s32 func_L01_0043B568(s32 a0, s32 a1) {
+s32 func_L01_0043B568(s32 a0, s32 a1, s32 requested_size) {
     s32 buf[4];
     u8 *p;
     p = func_L01_0045E420(a0);

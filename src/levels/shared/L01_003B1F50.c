@@ -402,7 +402,28 @@ INCLUDE_ASM("asm/levels", func_L01_003B62E0);
 
 INCLUDE_ASM("asm/levels", func_L01_003B6370);
 
-INCLUDE_ASM("asm/levels", func_L01_003B6458);
+/* localdecomp:start func_L01_003B6458 */
+typedef struct { u8 p0[0x20]; u8 b20; u8 p21[0x13]; u16 h34; } M_329358;
+typedef struct {
+    u8 unused[8];
+    s32 (*test)(M_329358 *);
+    void (*activate)(void *);
+} Callbacks_3B6458;
+/* Existing owning-file scalar declaration (func_L01_003B2928).
+ * Its unsized array alias is used by the separate full-address getter. */
+extern u8 *D_L01_001E001C;
+extern void *func_L01_00326D98(void);
+void func_L01_003B6458(u8 *obj) {
+    s32 index = *(s32 *)(*(u8 **)(obj + 0x68) + 0x6C);
+    if (index != -1) {
+        u8 *m = D_L01_001E001C + (index << 8);
+        Callbacks_3B6458 *callbacks = func_L01_00326D98();
+        if (!callbacks->test((M_329358 *)m)) {
+            callbacks->activate(m);
+        }
+    }
+}
+/* localdecomp:end func_L01_003B6458 */
 
 /* localdecomp:start func_L01_003B64C0 */
 
