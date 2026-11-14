@@ -6198,7 +6198,7 @@
 #define func_L05_00458608 func_L05_0045C170
 #define func_L05_00465110 func_L05_00468EA8
 #define func_L05_00468C10 func_L05_0046CA50
-#define func_L05_00480000 func_L31_00460008
+#define func_L05_00480000 func_L31_00460028
 #define func_L05_004922D0 func_L05_004961F0
 #define func_L05_004A1BC8 func_L05_004A5C78
 #define func_L05_004AF278 func_L05_004B34D0
@@ -9339,6 +9339,7 @@
 #define func_L39_004C4CC0 func_L39_004C4EC0
 #define func_L39_004C4CC8 func_L39_004C4EC8
 #define func_L39_004C4CE0 func_L39_004C4EE0
+#define func_L39_004C4CE8 func_L39_004C4EE8
 #define func_L39_004C4CF0 func_L39_004C4EF0
 #define func_L39_004C4CF8 func_L39_004C4EF8
 #define func_L39_004C4D08 func_L39_004C4F08
@@ -10282,6 +10283,7 @@
 #define func_L39_00515C00 func_L39_00515E00
 #define func_L39_00515C18 func_L39_00515E18
 #define func_L39_00515D30 func_L39_00515F30
+#define func_L39_00515D38 func_L39_00515F38
 #define func_L39_00515D90 func_L39_00515F90
 #define func_L39_00515DC0 func_L39_00515FC0
 #define func_L39_00515DE0 func_L39_00515FE0
@@ -10335,6 +10337,7 @@
 #define func_L39_00518040 func_L39_00518240
 #define func_L39_00518268 func_L39_00518468
 #define func_L39_005183C8 func_L39_005185C8
+#define func_L39_005183D0 func_L39_005185D0
 #define func_L39_00518470 func_L39_00518670
 #define func_L39_00518630 func_L39_00518830
 #define func_L39_00518728 func_L39_00518928
@@ -10402,6 +10405,7 @@
 #define func_L39_00521950 func_L39_00521DE8
 #define func_L39_00521B48 func_L39_00521FE0
 #define func_L39_00521DB0 func_L39_00522248
+#define func_L39_00521DC0 func_L39_00522260
 #define func_L39_00521E88 func_L39_00522328
 #define func_L39_00522B00 func_L39_00522FA8
 #define func_L39_00523248 func_L39_005236F0
@@ -10724,6 +10728,7 @@
 #define func_L39_0058D6C0 func_L39_0058E888
 #define func_L39_0058DCF0 func_L39_0058EEB8
 #define func_L39_0058EE78 func_L39_00590038
+#define func_L39_0058EEC0 func_003D9508
 #define func_L39_0058F888 func_L39_00590A38
 #define func_L39_005905B0 func_0038CEA8
 #define func_L39_005921C0 func_L39_00593468
@@ -11402,6 +11407,7 @@
 #define func_L39_00646330 func_L39_0066C808
 #define func_L39_00646338 func_L39_00648BB0
 #define func_L39_00646360 func_L39_00648BD8
+#define func_L39_00646380 func_L39_00648BF8
 #define func_L39_00646388 func_L39_00648C00
 #define func_L39_00646390 func_L39_00648C08
 #define func_L39_00649F38 func_L40_0051E8E0
@@ -12193,6 +12199,7 @@
 #define func_L39_006B0770 func_L39_006B30D8
 #define func_L39_006B07A0 func_L39_006B3108
 #define func_L39_006B0940 func_L39_006B32A8
+#define func_L39_006B0948 func_L39_006B32B0
 #define func_L39_006B09A0 func_L39_006B3308
 #define func_L39_006B1878 func_L39_006B41E0
 #define func_L39_006B1880 func_L39_006B41E8
@@ -12398,6 +12405,7 @@
 #define func_L39_006CE648 func_L39_006D0DD0
 #define func_L39_006D0730 func_L39_006D2EB8
 #define func_L39_006D0818 func_L39_006D2FA0
+#define func_L39_006D0C58 func_L39_006D33E0
 #define func_L39_006D0CB8 func_L39_006D3440
 #define func_L39_006D0D08 func_L39_006D3490
 #define func_L39_006D0D50 func_L39_006D34D8
@@ -12418,6 +12426,7 @@
 #define func_L39_006D46E8 func_L39_006D6E78
 #define func_L39_006D47D0 func_L39_006D6F60
 #define func_L39_006D47F0 func_L39_006D6F80
+#define func_L39_006D4CC0 func_L39_006D7818
 #define func_L39_006D4D60 func_L39_006D78B8
 #define func_L39_006D5640 func_L39_006D8198
 #define func_L39_006D56D0 func_L39_006D8228
@@ -12781,6 +12790,7 @@
 #define func_L40_004E1E58 func_L40_004E4518
 #define func_L40_004E9318 func_L40_004EB9D8
 #define func_L40_004E9338 func_L40_004EB9F8
+#define func_L40_004E9340 func_L40_004EBA00
 #define func_L40_00513D18 func_L40_005164F0
 #define func_L40_005184E0 func_L40_0051AD00
 #define func_L40_00531F48 func_L40_005347C8
@@ -12832,6 +12842,7 @@
 #define func_L41_0048FC00 func_L41_00491C10
 #define func_L43_0041D068 func_L43_0041D990
 #define func_L43_0041EED8 func_L43_0041F848
+#define func_L46_0041BFF0 func_L46_0041C860
 #define func_L48_003DF530 func_L48_003DF798
 #define func_L48_003DF868 func_L48_003DFAD0
 #define func_L48_003E0368 func_L48_003E05D0
