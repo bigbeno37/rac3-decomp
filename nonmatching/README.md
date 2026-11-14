@@ -642,7 +642,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L39_004E2F70` | levels | rac4-decomp's `func_L00_0051EC00`, ported | 1 instruction(s) differ |
 | `func_L39_004E3028` | levels | rac4-decomp's `func_L00_0051EE28`, ported | 1 instruction(s) differ |
 | `func_L39_004F20E0` | levels | rac4-decomp's `func_L00_0052DEE0`, ported | 1 instruction(s) differ |
-| `func_L39_004F7590` | levels | rac4-decomp's `func_004033B0`, ported | 5 instruction(s) differ |
 | `func_L39_00515E00` | levels | rac4-decomp's `func_L00_00554600`, ported | 6 instruction(s) differ |
 | `func_L39_005161F8` | levels | rac2-decomp's `func_0011FA20`, ported | 8 instruction(s) differ |
 | `func_L39_0059FEF0` | levels | rac2-decomp's `func_002932B8`, ported | 1 instruction(s) differ |
@@ -799,7 +798,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L40_0040D310` | levels | rewritten from retail (2026-11-11), after the p2w3 port | 2 words: the $gp immediates of the frame counter loads in delay slots, the Ps2EeAs gp0 problem of func_L40_0040D678; details in the file header |
 | `func_L40_0040D678` | levels | written from retail (2026-11-11) | 2 words: the $gp immediates of the frame counter loads in delay slots. Ps2EeAs writes such an access (size unknown) with addend -0x4000 and gp0 0x4000, which GNU ld, check.py and level_symbols.py do not apply; the C is retail's otherwise; details in the file header |
 | `func_L40_0041B9F0` | levels | prep, no twin (opcode < 0.3) | m2c draft only, not compiling; COP2 blocks |
-| `func_L39_0050DBB0` | levels | rac4-decomp's func_0040B730 | 4 diff: use unsigned long (u64 is 128-bit); ldl/ldr/sdl/sdr right but value reg $v1 vs retail $v0; 5 wordings same |
 | `func_L01_00439A98` | levels | rac2-decomp's func_0029F840 | 7 diff with `-mvu0-use-vf0-vf2` (the file is already `@ps2as`; it would also need the flag and vu0.h), no do-while: vec_add_ab for the inline VU0 add, an `unsigned long` load for the 64-bit argument, m reused as the output pointer. Left: the delay slot of the `!= 0xFF` branch (retail `bne` + `move $a0,$s0`, gcc `bnel` + the `lwc1`) |
 | `func_L39_004BBEB8` | levels | rac4-decomp's func_L00_004F8268 | 1 diff: retail has stray extra word addiu sp,sp,0x50 after the epilogue (past jr delay slot); all else equal; not producible |
 | `func_L19_003357A0` | levels | rac2-decomp's func_L03_0038AA20 | flags: donor C unchanged; retail builds f32 constants inline (lui/ori/mtc1) which needs the @ps2as marker on src/levels/shared/L19_003357A0.c in config/levels/text_parts.txt (currently no marker); file holds INCLUDE_ASM stubs perhaps so needs its own single-function range |
