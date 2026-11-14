@@ -6849,6 +6849,7 @@ levels	func_L39_004C8568	1	-
 levels	func_L39_004C8748	1	-
 levels	func_L39_004C8950	1	-
 levels	func_L39_004C8C10	1	-
+levels	func_L39_004C8E30	0	level_39: no object of the block alone checks MATCH
 levels	func_L39_004C91C0	1	-
 levels	func_L39_004C9368	1	-
 levels	func_L39_004C9568	1	-
@@ -6870,6 +6871,7 @@ levels	func_L39_004CBB38	1	-
 levels	func_L39_004CBCF0	1	-
 levels	func_L39_004CBDC0	1	-
 levels	func_L39_004CBE68	1	-
+levels	func_L39_004CBEE0	0	level_39: no object of the block alone checks MATCH
 levels	func_L39_004CBF60	1	-
 levels	func_L39_004CBF70	1	-
 levels	func_L39_004CBFC8	1	-
@@ -7008,6 +7010,7 @@ levels	func_L39_004DE150	1	-
 levels	func_L39_004DE280	1	-
 levels	func_L39_004DE550	1	-
 levels	func_L39_004DE6D0	1	-
+levels	func_L39_004DE868	0	level_39: no object of the block alone checks MATCH
 levels	func_L39_004DE8E8	1	-
 levels	func_L39_004DE8F8	1	-
 levels	func_L39_004DE908	1	-
@@ -7735,6 +7738,7 @@ levels	func_L39_00528A88	17	-
 levels	func_L39_00528AB8	17	-
 levels	func_L39_00528AF0	17	-
 levels	func_L39_00528BF0	17	-
+levels	func_L39_00529E30	17	-
 levels	func_L39_0052AE98	17	-
 levels	func_L39_0052AF78	17	-
 levels	func_L39_0052BD50	17	-
@@ -8633,7 +8637,7 @@ levels	func_L39_00672930	17	-
 levels	func_L39_00672C00	17	-
 levels	func_L39_00672E98	17	-
 levels	func_L39_00673540	17	-
-levels	func_L39_00673A80	16	-
+levels	func_L39_00673A80	17	-
 levels	func_L39_00673B68	17	-
 levels	func_L39_00674320	17	-
 levels	func_L39_00674D58	17	-
@@ -8890,6 +8894,7 @@ levels	func_L39_00683CD8	1	-
 levels	func_L39_00683CE8	1	-
 levels	func_L39_00683FF8	1	-
 levels	func_L39_00684130	1	-
+levels	func_L39_00684190	0	level_39: no object of the block alone checks MATCH
 levels	func_L39_00684218	1	-
 levels	func_L39_00684488	1	-
 levels	func_L39_006844B0	1	-
@@ -9609,7 +9614,6 @@ levels	func_L40_003D5710	12	-
 levels	func_L40_003D5818	12	-
 levels	func_L40_003D61B8	12	-
 levels	func_L40_003D61D8	12	-
-levels	func_L40_003D6FD8	17	-
 levels	func_L40_003D9CA0	16	-
 levels	func_L40_003DA2D0	16	-
 levels	func_L40_003DA350	16	-

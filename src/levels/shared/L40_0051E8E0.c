@@ -1,6 +1,6 @@
 #include "common.h"
 
-/* localdecomp:start func_L40_0051E8E0 */
+/* localdecomp:start func_L39_0064C7E0 */
 typedef int u128_t __attribute__((mode(TI)));
 extern u8 D_L40_003BFE20[];
 extern s32 D_L40_0025FA00[];
@@ -13,7 +13,7 @@ extern s32 func_L39_006212E8(void *);
 extern void func_L39_00633670(u8 *, f32);
 extern void func_L39_00633620(u8 *, f32, f32);
 extern void func_L39_0062D0C8(u8 *, f32);
-extern void func_L39_0067FA28_0051E8E0(u8 *, f32, f32);
+extern void func_L31_004F3CA0_0064C7E0(u8 *, f32, f32);
 extern void func_L39_00632888(u8 *, f32, void *, void *);
 extern void func_L39_00632988(u8 *, f32, void *, void *);
 extern s32 func_003D3CB0(void *, void *, s32, void *, s32);
@@ -27,9 +27,9 @@ extern void func_0038CE20(void *, void *, f32);
 extern s32 func_L39_005B8928(s32);
 extern void func_L01_00446A70(s32, s32, s32, s32, s32, f32);
 extern void func_L39_0062E930(u8 *);
-extern void func_L39_0067FA18_0051E8E0(u8 *);
+extern void func_L30_004F0170_0064C7E0(u8 *);
 
-void func_L40_0051E8E0(u8 *g) {
+void func_L39_0064C7E0(u8 *g) {
     f32 fb4;
     s32 n;
     s32 i;
@@ -241,7 +241,7 @@ main:
                 func_L39_0062D0C8(g, *(f32 *)(g + 0x1514));
             }
         }
-        func_L39_0067FA28_0051E8E0(g, 0.5f, 0.040000003f);
+        func_L31_004F3CA0_0064C7E0(g, 0.5f, 0.040000003f);
         {
         u8 *q = g + 0x19E4;
         if (*q == 0) {
@@ -452,6 +452,6 @@ done:
         }
     }
     func_L39_0062E930(g);
-    func_L39_0067FA18_0051E8E0(g);
+    func_L30_004F0170_0064C7E0(g);
 }
-/* localdecomp:end func_L40_0051E8E0 */
+/* localdecomp:end func_L39_0064C7E0 */
