@@ -6678,7 +6678,7 @@ levels	func_L36_003F6330	1	-
 levels	func_L36_0046C7C8	1	-
 levels	func_L36_0046EA00	1	-
 levels	func_L39_004B3100	1	-
-levels	func_L39_004B3160	0	level_39: no object of the block alone checks MATCH
+levels	func_L39_004B3160	1	-
 levels	func_L39_004B3F28	1	-
 levels	func_L39_004B3F88	1	-
 levels	func_L39_004B40C8	1	-
