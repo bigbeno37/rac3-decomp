@@ -8259,6 +8259,7 @@ levels	func_L23_003A53D0	1	-
 levels	func_L23_003A5590	1	-
 levels	func_L23_003A5750	1	-
 levels	func_L23_003A6150	1	-
+levels	func_L23_003A6688	1	-
 levels	func_L23_003A6838	1	-
 levels	func_L23_003A6970	1	-
 levels	func_L23_003A6A60	1	-
@@ -8290,6 +8291,7 @@ levels	func_L23_003AFC40	1	-
 levels	func_L23_003B0010	1	-
 levels	func_L23_003B0110	1	-
 levels	func_L23_003B0200	1	-
+levels	func_L23_003B0480	0	level_23: D_L23_001DE288 is 0x001DE2C8 here, 0x001DE288 for func_L23_003AE0B8
 levels	func_L23_003B08E0	1	-
 levels	func_L23_003B1230	1	-
 levels	func_L23_003B12C8	1	-
@@ -8300,6 +8302,7 @@ levels	func_L23_003B3EA8	1	-
 levels	func_L23_003B4108	1	-
 levels	func_L23_003B44E8	1	-
 levels	func_L23_003B44F8	1	-
+levels	func_L23_003B48D0	1	-
 levels	func_L23_003B4E68	1	-
 levels	func_L23_003B5068	1	-
 levels	func_L23_003B5188	1	-
