@@ -5370,6 +5370,7 @@ levels	func_L01_0049E5C0	34	-
 levels	func_L01_0049E648	34	-
 levels	func_L01_0049E710	34	-
 levels	func_L01_0049E9F0	34	-
+levels	func_L01_0049EA38	34	-
 levels	func_L01_0049EE28	34	-
 levels	func_L01_0049F168	51	-
 levels	func_L01_0049F798	34	-
@@ -8355,6 +8356,7 @@ levels	func_L20_003CE198	1	-
 levels	func_L20_003CE2D0	1	-
 levels	func_L20_003CE638	1	-
 levels	func_L20_003CEEB0	1	-
+levels	func_L20_003CF108	1	-
 levels	func_L20_003CFB08	1	-
 levels	func_L20_003CFE80	1	-
 levels	func_L20_003D4708	1	-
@@ -8375,6 +8377,7 @@ levels	func_L20_003E5C28	1	-
 levels	func_L20_003E5EB8	1	-
 levels	func_L20_003E6150	1	-
 levels	func_L20_003E6D30	1	-
+levels	func_L20_003E6F88	1	-
 levels	func_L20_003E7988	1	-
 levels	func_L20_003E7C98	1	-
 levels	func_L20_003E8288	1	-
@@ -8382,6 +8385,7 @@ levels	func_L20_003E8318	1	-
 levels	func_L20_003E8B30	1	-
 levels	func_L20_003E8C98	1	-
 levels	func_L20_003E8E68	1	-
+levels	func_L20_003E90C0	0	level_20: D_L20_001DF1A4 is 0x001DF1E4 here, 0x001DF1A4 for func_L20_003E5EB8
 levels	func_L20_003E9AC0	1	-
 levels	func_L20_003EB388	1	-
 levels	func_L20_003EB4E0	1	-
