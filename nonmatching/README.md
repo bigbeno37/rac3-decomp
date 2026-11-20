@@ -908,7 +908,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_00317DF0` | levels | Codex wave 10 near miss | near miss: 206 words differ with the file's flags |
 | `func_L01_003186A8` | levels | Codex wave 10 near miss | near miss: 23 words differ with the file's flags |
 | `func_L01_00318AF8` | levels | Codex wave 10 near miss | near miss: 14 words; local-alloc rematerialises a one-instruction literal (lui 0x80) in the branch block instead of keeping it in $t0 from the preheader |
-| `func_L01_00318E68` | levels | Codex wave 10 near miss | near miss: 47 words differ with the file's flags |
 | `func_L01_00319258` | levels | Codex wave 10 near miss | near miss: 112 words differ with the file's flags |
 | `func_L01_00319880` | levels | Codex wave 10 near miss | near miss: 79 words differ with the file's flags |
 | `func_L01_00319F00` | levels | Codex wave 10 near miss | near miss: 140 words differ with the file's flags |
