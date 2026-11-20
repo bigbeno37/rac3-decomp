@@ -486,7 +486,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L20_003F4918` | levels | PAL reconstruction, 2026-11-16 | Best candidate has 27 differences after ten attempts; FP allocation/abs scheduling, color constant and argument ordering Sonnet worker b14-y3 (2026-11-18): fabs_asm reproduces retail's abs.s position but moves the colour `lui $s0` to the top and puts a nop in the jal delay slot, which shifts every later word; compare variants by alignment, not by position. |
 | `func_L07_0032F988` | levels | PAL reconstruction, wave 2 | 181 positional differences; saved registers, group-base/index allocation and spills |
 | `func_L07_0032FDC8` | levels | PAL reconstruction, wave 2 | 298 positional differences; hero-base lifetime, block placement and saved registers |
-| `func_L07_00333DB8` | levels | Codex wave 8 near miss | near miss: 7 words differ with the file's flags |
 | `func_L07_003A6498` | levels | PAL reconstruction, wave 2 | 12 differences; scratch address setup and second-loop allocation |
 | `func_L07_003A6C90` | levels | Codex wave 8 near miss | near miss: 57 words differ with the file's flags |
 | `func_L07_003AF398` | levels | PAL reconstruction, wave 2 | Snippet MATCH only; full PAL07 read-only-section layout conflicts with other tables in the owning file; deferred with the other new table producers |
