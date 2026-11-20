@@ -564,7 +564,32 @@ s32 func_L01_004A1128(void) {
 
 INCLUDE_ASM("asm/levels", func_L01_004A1180);
 
-INCLUDE_ASM("asm/levels", func_L01_004A1520);
+/* localdecomp:start func_L01_004A1520 */
+extern void func_003BA4F8(void *, s32);
+extern u8 *D_001D52FC;
+extern void func_L01_004A1E18(void);
+extern void func_L01_004A1D40(s32);
+extern s32 func_L01_0047DAB0(void);
+extern void func_L01_0047DAC8(void);
+extern void func_L01_00516090_004A1520(s32);
+extern u8 D_L01_001D672C;
+__asm__(".extern D_L01_001D672C, 16");
+extern s32 func_L01_0047EBE0(void);
+extern void func_L01_00517748(s32);
+
+void func_L01_004A1520(s32 a0) {
+    func_003BA4F8(func_003B9BD0(0), *(s32 *)(D_001D52FC + 0x1C4));
+    func_L01_004A1E18();
+    func_L01_004A1D40(a0);
+    if (func_L01_0047DAB0() != 0) {
+        func_L01_0047DAC8();
+        func_L01_00516090_004A1520(a0);
+        if (D_L01_001D672C == 0) {
+            func_L01_00517748(func_L01_0047EBE0());
+        }
+    }
+}
+/* localdecomp:end func_L01_004A1520 */
 
 /* localdecomp:start func_L01_004A15B0 */
 extern void func_L01_00517918(s32);
