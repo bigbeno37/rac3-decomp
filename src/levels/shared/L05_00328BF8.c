@@ -449,7 +449,48 @@ void func_L05_003296F8(u8 *o, u8 *s) {
 }
 /* localdecomp:end func_L05_003296F8 */
 
-INCLUDE_ASM("asm/levels", func_L05_003298C0);
+/* localdecomp:start func_L05_003298C0 */
+typedef struct {
+    u8 p0[0x90];
+    s32 t90[4];
+    s32 tA0[4];
+    u8 pB0[0xD0 - 0xB0];
+    s32 tD0[4];
+    s32 tE0[4];
+    s32 tF0[4];
+    s32 t100[4];
+    s32 t110[4];
+    s32 t120[4];
+} S_003298C0;
+
+void func_L05_003298C0(u8 *o, S_003298C0 *s) {
+    s32 i;
+    s32 j;
+    s32 t;
+
+    for (i = 0; i < 4; i++) {
+        if (s->tE0[i] != -1) {
+            t = s->t110[i];
+            if (t == -1 || (D_001BBC40[t + D_001D545C * 16] & 0x80) == 0) {
+                if (s->t100[i] == -1) {
+                    continue;
+                }
+                if (func_00382380(D_001A4C60, s->t100[i], 0) == 0) {
+                    continue;
+                }
+            }
+            for (j = 0; j < 4 && s->tE0[i] != s->t90[j]; j++) {
+            }
+            s->tA0[j] = s->tF0[i];
+            s->tD0[j] = s->t120[i];
+            s->tE0[i] = -1;
+            if (s->t100[i] != -1 && (D_001BBC40[s->t110[i] + D_001D545C * 16] & 0x80) == 0) {
+                func_L01_0043B510(s->t110[i]);
+            }
+        }
+    }
+}
+/* localdecomp:end func_L05_003298C0 */
 
 /* localdecomp:start func_L05_00329A78 */
 
