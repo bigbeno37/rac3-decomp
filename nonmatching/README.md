@@ -489,7 +489,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L07_003A6C90` | levels | Codex wave 8 near miss | near miss: 57 words differ with the file's flags |
 | `func_L07_003AF398` | levels | PAL reconstruction, wave 2 | Snippet MATCH only; full PAL07 read-only-section layout conflicts with other tables in the owning file; deferred with the other new table producers |
 | `func_L07_003AFD10` | levels | PAL reconstruction, wave 2 | 454 positional differences; saved pointer/frame, audio-slot addressing and switch/tail merges; behaviour/ABI review pending |
-| `func_L07_003B3160` | levels | Codex wave 10 near miss | near miss: 151 words differ with the file's flags |
 | `func_L07_003B64D0` | levels | Codex wave 10 near miss | held at landing (5f54b6f2): the C matches on its own (tools/check.py, every place), but in the level build its .rodata lands at another address than retail's |
 | `func_L07_003B6E98` | levels | Codex wave 10 near miss | near miss: 126 words differ with the file's flags |
 | `func_L07_003B8D80` | levels | Codex wave 10 near miss | near miss: 29 words differ with the file's flags |
