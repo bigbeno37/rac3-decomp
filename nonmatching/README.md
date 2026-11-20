@@ -671,7 +671,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_00393C80` | levels | Codex wave 8 near miss | near miss: 15 words differ with the file's flags |
 | `func_L01_00394828` | levels | Codex wave 8 near miss | near miss: 59 words differ with the file's flags |
 | `func_L01_00396B78` | levels | Codex wave 8 near miss | near miss: 8 words differ with the file's flags |
-| `func_L01_00396E08` | levels | Codex wave 6 near miss | near miss: 0 words differ with the file's flags |
 | `func_L01_003970C8` | levels | Codex wave 6 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
 | `func_L01_003973F8` | levels | Codex wave 8 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
 | `func_L01_00399E80` | levels | Codex wave 8 near miss | near miss: 248 words differ with the file's flags |
