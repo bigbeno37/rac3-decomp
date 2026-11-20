@@ -232,7 +232,24 @@ s32 func_L01_004BAF08(u32 i) {
 }
 /* localdecomp:end func_L01_004BAF08 */
 
-INCLUDE_ASM("asm/levels", func_L01_004BAF50);
+/* localdecomp:start func_L01_004BAF50 */
+extern u8 D_00142CC1[];
+extern u8 D_00142700[];
+extern u8 D_001D5570[] __attribute__((section(".sdata")));
+extern void func_L01_004BAE90(u32 a0);
+void func_L01_004BAF50(void) {
+    func_L01_004BAE90(1);
+    if (D_00142CC1[0] != 0) {
+        func_L01_004BAE90(2);
+    }
+    if (D_00142700[0] != 0) {
+        func_L01_004BAE90(3);
+    }
+    if (D_001D5570[6] != 0) {
+        func_L01_004BAE90(4);
+    }
+}
+/* localdecomp:end func_L01_004BAF50 */
 
 /* localdecomp:start func_L01_004BAFB8 */
 extern s32 func_L01_004BAF08(u32 i);
