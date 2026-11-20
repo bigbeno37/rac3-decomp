@@ -1029,7 +1029,29 @@ void func_L06_00359A88(u8 *a0, u8 *a1) {
 }
 /* localdecomp:end func_L06_00359A88 */
 
-INCLUDE_ASM("asm/levels", func_L06_00359B60);
+/* localdecomp:start func_L06_00359B60 */
+extern f32 func_0038D098(f32);
+extern f32 func_0038D0B0(f32);
+extern f32 D_L06_001DD400[] __attribute__((section(".sdata")));
+__asm__(".extern D_L06_001DD400, 32");
+extern f32 D_L06_001DD404[] __attribute__((section(".sdata")));
+__asm__(".extern D_L06_001DD404, 28");
+
+void func_L06_00359B60(u8 *a0, u8 *a1, f32 scale, f32 angle) {
+    f32 s = func_0038D098(angle);
+    f32 c = func_0038D0B0(angle);
+    s32 i;
+
+    for (i = 0; i < 4; i++) {
+        f32 x = D_L06_001DD400[i * 2];
+        f32 y = D_L06_001DD404[i * 2];
+        *(vu0_q *)a1 = *(vu0_q *)(a0 + 0x20);
+        ((f32 *)a1)[0] += (x * s - y * c) * scale;
+        ((f32 *)a1)[1] += (y * s + x * c) * scale;
+        a1 += 0x10;
+    }
+}
+/* localdecomp:end func_L06_00359B60 */
 
 /* localdecomp:start func_L06_00359C38 */
 extern s32 func_0038DBD8(s32, s32, f32);
