@@ -153,7 +153,69 @@ typedef struct {
 
 INCLUDE_ASM("asm/levels", func_L01_003241A0);
 
-INCLUDE_ASM("asm/levels", func_L01_00324E50);
+/* localdecomp:start func_L01_00324E50 */
+typedef struct { u8 pad[0x58]; f32 weight; } Weight_00324E50;
+typedef struct { u8 pad[0x68]; Weight_00324E50 *vars; } Moby_00324E50;
+typedef struct { u8 p0[8]; u8 *f8; s32 fC; u8 p10[12]; s32 f1C; u8 p20[16]; s32 f30; u8 p34[12]; s32 f40; u8 p44[16]; s32 f54; s32 f58; s32 f5C; u8 p60[20]; s32 f74; u8 p78[12]; s32 f84; s32 f88; } Vars_00324E50;
+extern u8 *D_L01_001E001C;
+extern u16 *D_L01_0021DE20[];
+extern s32 D_L01_001E0058;
+extern void func_L01_00325570(void *, S_324F38 *);
+extern void func_L01_00325708(s32, u8 *);
+extern s32 D_L01_001DCA10;
+extern void func_L01_00325110(u8 *, u8 *);
+extern void func_L01_004450F0(void *, s32, s32);
+void func_L01_00324E50(u8 *m, u8 *arg) {
+    Vars_00324E50 *v = (Vars_00324E50 *)arg;
+    u16 *p;
+    Moby_00324E50 *o;   /* the group member, then its vars */
+    s32 count, bad;
+    f32 value;
+    func_L01_00325110(m, (u8 *)v);
+    D_L01_001DCA10 = (s32)m;
+    if (v->f40) {
+        v->f8 = D_L01_001E001C + ((*D_L01_0021DE20[v->f1C] & 0x7FFF) << 8);
+    } else {
+        v->f8 = 0;
+    }
+    v->fC = -1;
+    v->f5C = -1;
+    v->f84 = -1;
+    v->f30 = 0;
+    v->f74 = 0;
+    v->f54 = 0;
+    v->f88 = 0;
+    m[0x30] = 0xFF;
+    func_L01_00325570(m, (S_324F38 *)v);
+    func_L01_00325708((s32)m, (u8 *)v);
+    if (v->f58) {
+        bad = 0;
+        count = 0;
+        p = D_L01_0021DE20[v->f1C];
+        while ((v->f1C & 0xFF) != 0xFF && v->f1C <= D_L01_001E0058 && p != 0 && ((s16)p[-1] >= 0 || p == D_L01_0021DE20[v->f1C])) {
+            o = (Moby_00324E50 *)(D_L01_001E001C + ((*p & 0x7FFF) << 8));
+            if (o == 0) break;
+            count++;
+            o = (Moby_00324E50 *)o->vars;
+            if (((Weight_00324E50 *)o)->weight < 0.0f) bad = 1;
+            p++;
+        }
+        if (bad) {
+            u16 *q;
+            value = 1.0f / (f32)count;
+            q = D_L01_0021DE20[v->f1C];
+            while ((v->f1C & 0xFF) != 0xFF && v->f1C <= D_L01_001E0058 && q != 0 && ((s16)q[-1] >= 0 || q == D_L01_0021DE20[v->f1C])) {
+                o = (Moby_00324E50 *)(D_L01_001E001C + ((*q & 0x7FFF) << 8));
+                if (o == 0) break;
+                o = (Moby_00324E50 *)o->vars;
+                ((Weight_00324E50 *)o)->weight = value;
+                q++;
+            }
+        }
+    }
+    func_L01_004450F0(m, 1, -1);
+}
+/* localdecomp:end func_L01_00324E50 */
 
 /* localdecomp:start func_L01_003250A8 */
 extern s32 D_001D545C;
