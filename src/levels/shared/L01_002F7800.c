@@ -1221,7 +1221,27 @@ void func_L01_002FD530(s32 kind) {
 }
 /* localdecomp:end func_L01_002FD530 */
 
-INCLUDE_ASM("asm/levels", func_L01_002FD818);
+/* localdecomp:start func_L01_002FD818 */
+extern void func_L01_002FDA10(u8 *, void *);
+extern void func_003D9508(vu0_q *, s32, u32, s32, f32, f32, f32);
+void func_L01_002FD818(u8 *owner) {
+    s32 i;
+    Effect_002FD530 *p;
+
+    for (i = 0; i < 3; i++) {
+        Effect_002FD530 *base = D_L01_0026EAB0;
+        p = &base[i];
+        if (p->kind == (s32)owner) {
+            func_L01_002FDA10(owner, p);
+            if (p->remaining == 0) {
+                func_003D9508((vu0_q *)p->attached, 0x31, 0x3F007F00, 1, func_003824E0(0.125f, 0.25f) * 5.0f, 1.25f, 0.0f);
+                func_003D9508((vu0_q *)p->attached, 0x31, 0x5F7F7F7F, 1, func_003824E0(0.0625f, 0.125f) * 5.0f, 1.24f, 0.0f);
+                func_003D9508((vu0_q *)p->attached, 0xB, 0x10003F00, 1, func_003824E0(0.15f, 0.35f) * 5.0f, 1.23f, 0.0f);
+            }
+        }
+    }
+}
+/* localdecomp:end func_L01_002FD818 */
 
 /* localdecomp:start func_L01_002FD988 */
 void func_L01_002FD988(f32 *p) {

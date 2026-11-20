@@ -530,7 +530,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_003C1AE0` | boot_elf | Codex wave 8 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
 | `func_003EF698` | boot_elf | Codex wave 6 near miss | near miss: 173 words differ with the file's flags |
 | `func_L01_002FBB10` | levels | Codex wave 6 near miss | near miss: 13 words differ with the file's flags |
-| `func_L01_002FD818` | levels | Codex wave 4 near miss | near miss: 1 word, `sltiu` against retail's `slti` (an unsigned counter keeps the loop from being reversed; the `D_L01_0026EAB0_002FD818` alias avoids the file's other type for that array) |
 | `func_L01_002FDA10` | levels | Codex wave 8 near miss | near miss: 79 words differ with the file's flags |
 | `func_L01_002FDC18` | levels | Codex wave 8 near miss | near miss: 15 words differ with the file's flags |
 | `func_L01_00306A98` | levels | Codex wave 8 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
