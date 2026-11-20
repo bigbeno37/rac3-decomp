@@ -1716,7 +1716,25 @@ void func_L01_00514720(s32 *dst) {
 }
 /* localdecomp:end func_L01_00514720 */
 
-INCLUDE_ASM("asm/levels", func_L01_00514750);
+/* localdecomp:start func_L01_00514750 */
+extern s32 D_001D4C40;
+typedef struct {
+    u8 pad0[0x25F8];
+    s32 buttons[4];
+} Hero_00514750;
+s32 func_L01_00514750(s32 *input) {
+    s32 changed = 0;
+    Hero_00514750 *hero = (Hero_00514750 *)&D_001A4BE0;
+    s32 i;
+    for (i = 0; i < 4; i++) {
+        if ((&D_001D4C40)[i] != input[i]) {
+            changed = 1;
+            hero->buttons[i] = input[i] ? input[i] : 0xCC;
+        }
+    }
+    return changed;
+}
+/* localdecomp:end func_L01_00514750 */
 
 /* localdecomp:start func_L01_005147A8 */
 extern u8 D_001427AB[];
