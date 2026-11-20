@@ -81,7 +81,36 @@ int func_L06_00355148(void *moby)
 }
 /* localdecomp:end func_L06_00355148 */
 
-INCLUDE_ASM("asm/levels", func_L06_003551E8);
+/* localdecomp:start func_L06_003551E8 */
+extern void func_L01_004450F0(u8 *a0, s32 a1, s32 a2);
+extern s32 func_L06_00351390(u8 *a0, u8 *a1);
+extern f32 func_L01_00477F20(void *, f32, f32, f32, s32);
+s32 func_L06_003551E8(u8 *a0) {
+    u8 *v = *(u8 **)(a0 + 0x68);
+    s32 idx;
+
+    if (*(s32 *)(v + 0x350) == 0 && func_L06_00351390(a0, v)) {
+        func_L01_004450F0(a0, 1, 1);
+        return 1;
+    }
+    if (a0[0x20] == 15) {
+        func_L01_004450F0(a0, 16, -1);
+        return 1;
+    }
+    if (a0[0x20] == 1 || (a0[0x20] >= 4 && a0[0x20] <= 14)) {
+        idx = *(s32 *)(v + 0x344);
+        *(f32 *)(v + 0x34C) = func_L01_00477F20(*(void **)(v + 0x358), 0.0f,
+                              idx + *(f32 *)(v + 0x348) / *(f32 *)((idx << 4) + *(u8 **)(v + 0x358) + 0x1C),
+                              20.0f, *(s32 *)(v + 0x27C))
+                          * *(s32 *)(v + 0x27C);
+        if (a0[0x20] < 4 || a0[0x20] > 14) {
+            func_L01_004450F0(a0, 3, -1);
+            return 1;
+        }
+    }
+    return 0;
+}
+/* localdecomp:end func_L06_003551E8 */
 
 /* localdecomp:start func_L06_003552F8 */
 extern void func_L01_004450F0(u8 *a0, s32 a1, s32 a2);
