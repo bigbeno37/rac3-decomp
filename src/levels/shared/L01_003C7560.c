@@ -159,7 +159,44 @@ void func_L01_003C7A68(void *a, char *b, float f) {
 }
 /* localdecomp:end func_L01_003C7A68 */
 
-INCLUDE_ASM("asm/levels", func_L01_003C7A98);
+/* localdecomp:start func_L01_003C7A98 */
+f32 func_L01_003C7A98(u8 *s, Path_003C7810 *p, s32 *idx, f32 t, f32 dist) {
+    f32 rem = 1.0f;
+    f32 step;
+    f32 k;
+    while (rem > 0.0f) {
+        if (t < 0.0f) {
+            *idx = -1;
+            step = dist / *(f32 *)(s + 0x14C) * rem;
+            if (t + step >= 0.0f) {
+                *idx = 0;
+                k = (0.0f - t) / step;
+                rem -= k * rem;
+                t = 0.0f;
+            } else {
+                t += step;
+                rem = 0.0f;
+            }
+        } else {
+            s32 i = (s32)t;
+            f32 frac;
+            *idx = i;
+            step = dist / p->pts[i].w * rem;
+            frac = t + step - (f32)i;
+            if (frac >= 1.0f && i < p->count - 1) {
+                k = (step - (frac - 1.0f)) / step;
+                t += step * k;
+                rem -= k * rem;
+                *idx = (s32)t;
+            } else {
+                t += step;
+                rem = 0.0f;
+            }
+        }
+    }
+    return t;
+}
+/* localdecomp:end func_L01_003C7A98 */
 
 /* localdecomp:start func_L01_003C7BC0 */
 typedef int u128_t __attribute__((mode(TI)));
