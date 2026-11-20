@@ -538,7 +538,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_00318C30` | levels | Codex wave 6 near miss | near miss: 74 words differ with the file's flags |
 | `func_L01_00318D80` | levels | Codex wave 8 near miss | near miss: 0 words differ with the file's flags |
 | `func_L01_003190A8` | levels | Codex wave 8 near miss | near miss: 14 words differ with the file's flags |
-| `func_L01_00319718` | levels | Codex wave 4 near miss | near miss: 1 word, sltiu against retail's slti (unsigned counter, same class as func_L01_002FD818); the alias D_L01_00273B80_00319718 keeps the file's u8 type |
 | `func_L01_00319A88` | levels | Codex wave 8 near miss | near miss: 42 words differ with the file's flags |
 | `func_L01_0031A560` | levels | Codex wave 8 near miss | near miss: 0 words differ with the file's flags |
 | `func_L01_0031A820` | levels | Codex wave 6 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
