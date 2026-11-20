@@ -758,7 +758,37 @@ void func_L01_004C13B0(s32 alpha, Ent4BD808 *list) {
 
 INCLUDE_ASM("asm/levels", func_L01_004C1460);
 
-INCLUDE_ASM("asm/levels", func_L01_004C17E8);
+/* localdecomp:start func_L01_004C17E8 */
+typedef struct {
+    s32 a;
+    s32 b;
+    s32 c;
+    s32 d;
+    s32 e;
+    s32 f;
+    u8 pad18[8];
+    s32 f20;
+    f32 g;
+    s32 state;
+    u8 pad2C[4];
+    f32 x;
+    f32 y;
+    s32 f38;
+    s32 f3C;
+} S_004C17E8;
+extern S_004C17E8 D_L01_001E0F38 __attribute__((section(".sdata")));
+
+void func_L01_004C17E8(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, f32 g) {
+    D_L01_001E0F38.a = a;
+    D_L01_001E0F38.c = c;
+    D_L01_001E0F38.d = d;
+    D_L01_001E0F38.e = e;
+    D_L01_001E0F38.f = f;
+    D_L01_001E0F38.b = b;
+    D_L01_001E0F38.g = g;
+    D_L01_001E0F38.state = 1;
+}
+/* localdecomp:end func_L01_004C17E8 */
 
 INCLUDE_ASM("asm/levels", func_L01_004C1838);
 
