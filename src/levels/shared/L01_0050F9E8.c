@@ -1067,7 +1067,26 @@ void func_L01_00511A40(u128_t *src, s32 a1, f32 f) {
 
 LINKER_REMNANT("asm/levels", func_L01_00511A90);
 
-INCLUDE_ASM("asm/levels", func_L01_00511A98);
+/* localdecomp:start func_L01_00511A98 */
+extern int D_001A71A4[];
+s32 func_L01_00511A98(void)
+{
+    s32 state = D_001A71A4[0];
+    if (state == 104) goto two;
+    if (state > 104) goto right;
+    if (state < 102) goto zero;
+    goto one;
+right:
+    if (state != 105) goto zero;
+    return 1;
+two:
+    return 2;
+one:
+    return 1;
+zero:
+    return 0;
+}
+/* localdecomp:end func_L01_00511A98 */
 
 /* localdecomp:start func_L01_00511AE8 */
 extern D_001A4BE0_t D_001A4BE0;
