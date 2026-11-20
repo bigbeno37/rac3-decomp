@@ -1674,7 +1674,53 @@ void func_L01_00328248(s32 a0) {
 }
 /* localdecomp:end func_L01_00328248 */
 
-INCLUDE_ASM("asm/levels", func_L01_00328280);
+/* localdecomp:start func_L01_00328280 */
+extern f32 D_L01_001DCA34;
+extern f32 D_L01_001DCA38;
+extern f32 D_L01_001DCA3C;
+extern f32 D_L01_001DCA40;
+__asm__(".extern D_L01_001DCA34, 4");
+__asm__(".extern D_L01_001DCA38, 4");
+__asm__(".extern D_L01_001DCA3C, 4");
+__asm__(".extern D_L01_001DCA40, 4");
+extern void func_L01_00516468_00328280(s32);
+extern s32 func_003B5060(s32);
+extern s32 func_003E5090(s32);
+extern s32 func_00392A18(void);
+extern s32 func_L01_00517448(s32, s32, s32);
+extern s32 func_L01_00516470(s32, f32, f32);
+extern s32 func_L01_005170B8(s32, s32);
+extern s32 func_L01_00517538(s32, f32, f32);
+extern s32 func_003E8630(s32, s32);
+extern s32 func_003E8348(s32, s32);
+
+void func_L01_00328280(s32 unused, u8 *save) {
+    if (*(s32 *)(*(u8 **)(*(u8 **)(save + 0x30) + 0x68) + 0x30) == 0) {
+        func_L01_00516468_00328280(1);
+        func_003B5060(0x30000);
+        func_003E5090(0x30001);
+        func_003E5090(0x30002);
+        func_003E5090(0x30003);
+        func_L01_00517448(0x30001, func_00392A18(), 0x2F);
+        func_L01_00517448(0x30002, func_00392A18(), 0x30);
+        func_L01_00517448(0x30003, func_00392A18(), 0x31);
+        func_L01_00516470(0x30001, D_L01_001DCA34, D_L01_001DCA38);
+        func_L01_00516470(0x30002, D_L01_001DCA34, D_L01_001DCA38);
+        func_L01_00516470(0x30003, D_L01_001DCA34, D_L01_001DCA38);
+        func_L01_005170B8(0x30001, 0x332299DE);
+        func_L01_005170B8(0x30002, 0x331465B7);
+        func_L01_005170B8(0x30003, 0x331465B7);
+        func_L01_00517538(0x30001, D_L01_001DCA3C, D_L01_001DCA40);
+        func_L01_00517538(0x30002, D_L01_001DCA3C, D_L01_001DCA40);
+        func_L01_00517538(0x30003, D_L01_001DCA3C, D_L01_001DCA40);
+        func_003E8630(0x30000, 0x30002);
+        func_003E8630(0x30000, 0x30001);
+        func_003E8630(0x30000, 0x30003);
+        func_003E8348(0x15, 0x30000);
+        func_L01_00516468_00328280(0);
+    }
+}
+/* localdecomp:end func_L01_00328280 */
 
 /* localdecomp:start func_L01_00328428 */
 extern void func_L01_00517918(s32);

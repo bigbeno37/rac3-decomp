@@ -576,7 +576,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_00325B18` | levels | Codex wave 6 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
 | `func_L01_00325C88` | levels | Codex wave 8 near miss | near miss: 164 words differ with the file's flags |
 | `func_L01_00326E50` | levels | Codex wave 8 near miss | near miss: 10 words differ with the file's flags |
-| `func_L01_00328280` | levels | Codex wave 8 near miss | near miss: 0 words differ with the file's flags |
 | `func_L01_00328598` | levels | Codex wave 8 near miss | near miss: 140 words differ with the file's flags |
 | `func_L01_003290D0` | levels | Codex wave 6 near miss | near miss: 10 words differ with the file's flags |
 | `func_L01_003291D0` | levels | Codex wave 8 near miss | near miss: 17 words; the `mfc1 $2` + `daddu` pair needs the converted value to survive in a temporary, which drops `value` below `vars` in allocation priority; the same family has 7 more unmatched functions in level 01 |
