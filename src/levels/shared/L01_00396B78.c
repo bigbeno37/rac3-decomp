@@ -111,7 +111,57 @@ void func_L01_00397060(f32 *m, f32 s) {
 
 INCLUDE_ASM("asm/levels", func_L01_003970C8);
 
-INCLUDE_ASM("asm/levels", func_L01_00397278);
+/* localdecomp:start func_L01_00397278 */
+typedef struct {
+    f32 verts[4][4];
+    u32 color[4];
+    f32 uv[8];
+    unsigned long f70;
+    unsigned long tex;
+    unsigned long reg80;
+    unsigned long prim;
+} Quad_00397278;
+extern void func_L01_00396FD8_00397278(u8 *p);
+extern void func_L01_00397060_00397278(f32 *m, f32 s);
+extern unsigned long func_00389598(s32 tex);
+extern f32 func_0038D160(f32 a, f32 b);
+extern f32 func_0038CED8(Vec4 *v);
+extern void func_0038D328(f32 *mat, f32 *rot);
+extern void func_0038CF68_00397278(Vec4 *dst, Vec4 *src, f32 s);
+extern void func_003D2DA0(Quad_00397278 *quad, f32 *mat, s32 a);
+/* agent_comet_glow_draw (open-rac-engine): one added quad of the comet's glow, facing along dir */
+void func_L01_00397278(Vec4 *origin, u32 color, s32 alpha, f32 scale, f32 roll, s32 tex, s32 flags, Vec4 *dir)
+{
+    Quad_00397278 quad;
+    f32 mat[16];
+    f32 rot[4];
+    Vec4 off;
+    u32 col;
+
+    func_L01_00396FD8_00397278((u8 *)&quad);
+    quad.tex = func_00389598(tex);
+    col = color + (alpha << 24);
+    quad.prim = ((unsigned long)flags << 2) | 0x8000000040;
+    quad.color[3] = col;
+    quad.color[2] = col;
+    quad.color[1] = col;
+    quad.color[0] = col;
+    quad.reg80 = 0xFF9000000260;
+    quad.f70 = 0;
+    rot[3] = 0.0f;
+    rot[2] = func_0038D160(dir->v[0], dir->v[1]);
+    rot[1] = -func_0038D160(func_0038CED8(dir), dir->v[2]);
+    rot[0] = roll;
+    func_0038D328(mat, rot);
+    func_0038CF68_00397278(&off, dir, 0.025f);
+    mat[12] = origin->v[0] + off.v[0];
+    mat[15] = 1.0f;
+    mat[13] = origin->v[1] + off.v[1];
+    mat[14] = origin->v[2] + off.v[2];
+    func_L01_00397060_00397278((f32 *)&quad, scale);
+    func_003D2DA0(&quad, mat, 0);
+}
+/* localdecomp:end func_L01_00397278 */
 
 INCLUDE_ASM("asm/levels", func_L01_003973F8);
 
