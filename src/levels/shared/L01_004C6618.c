@@ -197,7 +197,6 @@ __asm__(".extern D_L01_001DAE80, 4");
 extern s32 D_L01_001DAE88 __attribute__((section(".sdata")));
 __asm__(".extern D_L01_001DAE88, 4");
 
-INCLUDE_ASM("asm/levels", func_L01_004C6D40);
 void func_L01_004C67A0(Tile_004C67A0 *tile, s32 count, s32 add, f32 x, f32 y, f32 radius, f32 strength) {
     Tile_004C67A0 *tiles = tile;
     s32 row, col;
@@ -256,6 +255,74 @@ void func_L01_004C67A0(Tile_004C67A0 *tile, s32 count, s32 add, f32 x, f32 y, f3
 }
 /* localdecomp:end func_L01_004C67A0 */
 
+/* localdecomp:start func_L01_004C6D40 */
+typedef struct {
+    f32 grid[16][16];
+    u8 pad400[0x80];
+    f32 edgeY[16];
+    f32 edgeX[16];
+    u8 pad500[0x8C];
+    f32 corner;
+    u8 pad590[0x30];
+} Layer_004C6D40;
+typedef struct {
+    f32 x, y, z;
+    u8 padC[0x50 - 0xC];
+    Layer_004C6D40 cells[3];
+    u8 pad[0x1190 - 0x50 - 3 * 0x5C0];
+} Tile_004C6D40;
+extern s32 D_L01_001DAE88 __attribute__((section(".sdata")));
+__asm__(".extern D_L01_001DAE88, 4");
+extern s32 func_L01_004C6620(f32, f32, f32);
+extern void func_0038CE90(Vec4_004C4AD8 *, Vec4_004C4AD8 *, T_004C4AD8 *);
+extern void func_0038CF68(Vec4_004C4AD8 *, Vec4_004C4AD8 *, f32);
+
+s32 func_L01_004C6D40(f32 *height, Vec4_004C4AD8 *normal, f32 x, f32 y, f32 z) {
+    Vec4_004C4AD8 dx, dy;
+    Tile_004C6D40 *tile;
+    f32 *grid;
+    s32 off;
+    s32 idx, ix, iy, layer;
+    f32 rx, ry, u, v, a, b, c, d, bottom, top;
+
+    idx = func_L01_004C6620(x, y, z);
+    if (idx < 0) return 0;
+    tile = (Tile_004C6D40 *)&D_L01_001E1090[idx];
+    rx = x - (tile->x + D_L01_001DAEA8[0]);
+    ry = y - (tile->y + D_L01_001DAEA8[1]);
+    ix = (s32)(rx / D_L01_001DAEA8[2]);
+    iy = (s32)(ry / D_L01_001DAEA8[3]);
+    u = (rx - (f32)ix * D_L01_001DAEA8[2]) / D_L01_001DAEA8[2];
+    v = (ry - (f32)iy * D_L01_001DAEA8[3]) / D_L01_001DAEA8[3];
+    grid = tile->cells[0].grid[0];
+    off = D_L01_001DAE88 * 0x5C0;
+    layer = D_L01_001DAE88;
+    a = *(f32 *)((u8 *)grid + ((ix << 2) + (iy << 6) + off));
+    if (ix == 15) b = *(f32 *)((u8 *)tile + ((iy << 2) + off) + 0x510);
+    else b = *(f32 *)((u8 *)grid + (((ix + 1) << 2) + (iy << 6) + off));
+    if (iy == 15) c = tile->cells[layer].edgeY[ix];
+    else c = tile->cells[layer].grid[iy + 1][ix];
+    if (ix == 15) {
+        if (iy == 15) d = tile->cells[layer].corner;
+        else d = tile->cells[layer].edgeX[iy + 1];
+    } else {
+        if (iy == 15) d = tile->cells[layer].edgeY[ix + 1];
+        else d = tile->cells[layer].grid[iy + 1][ix + 1];
+    }
+    if (height) {
+        bottom = a + (b - a) * u;
+        top = c + (d - c) * u;
+        *height = bottom + (top - bottom) * v + tile->z;
+    }
+    if (normal) {
+        dx.x = D_L01_001DAEA8[2]; dx.y = 0.0f; dx.z = b - a; dx.w = 1.0f;
+        dy.x = 0.0f; dy.y = D_L01_001DAEA8[3]; dy.z = c - a; dy.w = 1.0f;
+        func_0038CE90(normal, &dx, (T_004C4AD8 *)&dy);
+        func_0038CF68(normal, normal, 1.0f);
+    }
+    return 1;
+}
+/* localdecomp:end func_L01_004C6D40 */
 
 LINKER_REMNANT("asm/levels", func_L01_004C7028);
 
