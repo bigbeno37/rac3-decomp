@@ -387,11 +387,89 @@ void func_L01_004BC0B8(s32 a0) {
 
 INCLUDE_ASM("asm/levels", func_L01_004BC0F8);
 
-INCLUDE_ASM("asm/levels", func_L01_004BCAE8);
+/* localdecomp:start func_L01_004BCAE8 */
+typedef struct {
+    s32 id;
+    s32 cost;
+    s32 idx;
+    s32 pad;
+} Item_004BCAE8;
+typedef struct {
+    u8 pad0[40];
+    void *f28;
+    u8 pad2C[84];
+    s32 cur;
+    s32 state;
+    u8 pad88[184];
+    Item_004BCAE8 items[96];
+} Shop_004BCAE8;
+extern S_00244740 D_L01_002446C0[];
+extern s32 D_00142660_004BCAE8[];
+extern char *D_001D52FC;
+__asm__(".extern D_001D52FC, 16");
+extern s32 D_L01_001E0F90;
+__asm__(".extern D_L01_001E0F90, 16");
+extern s32 D_L01_001E0F90_004BCAE8;
+__asm__(".extern D_L01_001DABD4, 4");
+__asm__(".extern D_L01_001DABC8, 1");
+__asm__(".extern D_L01_001DABD0, 4");
+extern s32 D_L01_001DABD4;
+extern u8 D_L01_001DABC8;
+extern s32 D_L01_001DABD0;
+extern s32 func_003A52A0(s32, s32, void *);
+extern s32 func_00381FF0(s32);
+extern void func_L01_004BC0B8(s32 a0);
+extern void func_L01_004BD170(void);
+extern void func_L01_004BF980(void);
 
 INCLUDE_ASM("asm/levels", func_L01_004BCD08);
+void func_L01_004BCAE8(u8 *a0, u8 *a1) {
+    s32 cost = ((Shop_004BCAE8 *)D_L01_002446C0)->items[((Shop_004BCAE8 *)D_L01_002446C0)->cur].cost;
 
 INCLUDE_ASM("asm/levels", func_L01_004BCFB0);
+    if (((Shop_004BCAE8 *)D_L01_002446C0)->state == 1) {
+        *a0 = 0;
+        if (D_00142660_004BCAE8[0] < cost) {
+            func_003A52A0(2, 0x11, ((Shop_004BCAE8 *)D_L01_002446C0)->f28);
+            ((Shop_004BCAE8 *)D_L01_002446C0)->state = 0;
+        } else {
+            func_003A52A0(0, 0x11, ((Shop_004BCAE8 *)D_L01_002446C0)->f28);
+            ((Shop_004BCAE8 *)D_L01_002446C0)->state = 2;
+        }
+    } else if (((Shop_004BCAE8 *)D_L01_002446C0)->state == 2) {
+        if ((*(s32 *)(D_001D52FC + 0x1C4) & 0x10) && !(D_L01_001E0F90 & 0x10)) {
+            *a0 = 0;
+            ((Shop_004BCAE8 *)D_L01_002446C0)->state = 3;
+        } else if ((*(s32 *)(D_001D52FC + 0x1C4) & 0x40) && !(D_L01_001E0F90_004BCAE8 & 0x40)) {
+            *a0 = 1;
+            ((Shop_004BCAE8 *)D_L01_002446C0)->state = 3;
+        }
+    } else if (((Shop_004BCAE8 *)D_L01_002446C0)->state == 3) {
+        if (*a0 != 0) {
+            if (D_00142660_004BCAE8[0] >= cost && D_L01_001DABD4 != 4) {
+                D_L01_001DABC8 = 1;
+                D_L01_001DABD0 = ((Shop_004BCAE8 *)D_L01_002446C0)->items[((Shop_004BCAE8 *)D_L01_002446C0)->cur].idx;
+                func_003A52A0(7, 0x11, ((Shop_004BCAE8 *)D_L01_002446C0)->f28);
+                D_00142660_004BCAE8[0] -= cost;
+                func_L01_004BC0B8(func_00381FF0(0x17A));
+                func_003A52A0(7, 0x11, ((Shop_004BCAE8 *)D_L01_002446C0)->f28);
+                func_L01_004BD170();
+            } else if (D_L01_001DABD4 == 4) {
+                func_L01_004BC0B8(func_00381FF0(0x17B));
+                func_003A52A0(0, 0x11, ((Shop_004BCAE8 *)D_L01_002446C0)->f28);
+            } else if (D_00142660_004BCAE8[0] < cost) {
+                func_L01_004BC0B8(func_00381FF0(0x17B));
+                func_003A52A0(0, 0x11, ((Shop_004BCAE8 *)D_L01_002446C0)->f28);
+            }
+        } else {
+            func_003A52A0(0, 0x11, ((Shop_004BCAE8 *)D_L01_002446C0)->f28);
+        }
+        ((Shop_004BCAE8 *)D_L01_002446C0)->state = 0;
+        func_L01_004BF980();
+    }
+}
+/* localdecomp:end func_L01_004BCAE8 */
+
 
 INCLUDE_ASM("asm/levels", func_L01_004BD170);
 
