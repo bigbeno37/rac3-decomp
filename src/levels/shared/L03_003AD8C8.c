@@ -15,7 +15,50 @@ void func_L03_003AD8C8(M_3ABF90 *m, s32 i) {
 }
 /* localdecomp:end func_L03_003AD8C8 */
 
-INCLUDE_ASM("asm/levels", func_L03_003AD910);
+/* localdecomp:start func_L03_003AD910 */
+extern s32 func_00382468(s32);
+extern s32 func_00382498(s32, s32);
+extern void func_L03_003B5EF8(void *, s32, s32, f32);
+extern void *func_L03_003B6CB8(void *, s32, f32);
+
+s32 func_L03_003AD910(u8 *a0, s32 n, s32 lo, s32 mid) {
+    u8 *s = *(u8 **)(a0 + 0x68);
+    f32 *v = (f32 *)(s + (*(s32 *)(s + 0x2C) * 32 + 0x1F0));
+    s32 used = 0;
+    s32 i;
+    for (i = 0; i < n; i++) {
+        s32 k = func_00382468(8) * 4;
+        s32 t;
+        while ((used >> k) & 1) {
+            if (k < 28) {
+                k += 4;
+            } else if (k == 28) {
+                k = 0;
+            }
+        }
+        used |= 1 << k;
+        t = func_00382498(0, 100);
+        if (t < lo) {
+            t = 1;
+        } else if (t < lo + mid) {
+            t = 0;
+        } else {
+            t = 2;
+        }
+        if (t < 2u) {
+            if (t == 0 && *(s32 *)(s + 0x838) == 1) {
+                if (*(s32 *)(s + 0x834) >= func_00382498(0, 100)) {
+                    t = 1;
+                }
+            }
+            func_L03_003B5EF8(a0, k, t, *v);
+        } else {
+            func_L03_003B6CB8(a0, k, *v);
+        }
+    }
+    return n;
+}
+/* localdecomp:end func_L03_003AD910 */
 
 /* localdecomp:start func_L03_003ADA98 */
 extern void func_L01_00456230(void *, s32);
