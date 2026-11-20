@@ -303,7 +303,69 @@ void func_L01_004BB120(u32 a0) {
 
 INCLUDE_ASM("asm/levels", func_L01_004BB140);
 
-INCLUDE_ASM("asm/levels", func_L01_004BB330);
+/* localdecomp:start func_L01_004BB330 */
+typedef struct {
+    s32 f0;
+    s32 f4;
+    s32 f8;
+    s32 fC;
+    s32 f10;
+    s32 f14;
+    s32 f18;
+    s32 f1C;
+    s32 f20;
+} T_004BB330;
+typedef struct {
+    s32 f0;
+    s32 f4;
+    s32 f8;
+    s32 fC;
+    s32 f10;
+    s32 f14;
+    s32 f18;
+    s32 f1C;
+    u8 b20;
+    u8 p21[3];
+} E_004BB330;
+typedef struct {
+    u8 p0[320];
+    E_004BB330 e[42];
+    u8 p1[1856 - 320 - 42 * 36];
+    s32 count;
+} B_004BB330;
+extern const T_004BB330 D_L01_002BD300[];
+extern u32 D_001D54D0;
+__asm__(".extern D_001D54D0, 16");
+extern B_004BB330 D_L01_002446C0_004BB330;
+extern s32 func_L01_00452818(void);
+extern s32 func_L01_00435FC8(s32 a0);
+extern s32 func_00381FF0(s32);
+
+void func_L01_004BB330(void) {
+    s32 v;
+    s32 i;
+
+    v = func_L01_00452818();
+    D_L01_002446C0_004BB330.count = 0;
+    for (i = 0; i < 38; i++) {
+        if (v < D_L01_002BD300[i].f14) {
+            continue;
+        }
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].f4 = D_L01_002BD300[i].f18;
+        if (func_L01_00435FC8(D_L01_002BD300[i].f0) != 0) {
+            D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].f4 = 0;
+        }
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].f0 = D_L01_002BD300[i].f10;
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].f14 = func_00381FF0(D_L01_002BD300[i].f4);
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].f1C = D_L01_002BD300[i].f1C;
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].f8 = D_L01_002BD300[i].f8;
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].fC = D_L01_002BD300[i].fC;
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].f10 = D_L01_002BD300[i].f0;
+        D_L01_002446C0_004BB330.e[D_L01_002446C0_004BB330.count].b20 = (D_L01_002BD300[i].f8 & D_001D54D0) == D_L01_002BD300[i].fC;
+        D_L01_002446C0_004BB330.count++;
+    }
+}
+/* localdecomp:end func_L01_004BB330 */
 
 LINKER_REMNANT("asm/levels", func_L01_004BB4D8);
 
