@@ -813,7 +813,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_004E96E8` | levels | Codex wave 6 near miss | near miss: 15 words differ with the file's flags |
 | `func_L01_004E9980` | levels | Codex wave 8 near miss | near miss: 9 words differ with the file's flags |
 | `func_L01_004EAB10` | levels | Codex wave 8 near miss | near miss: 217 words differ with the file's flags |
-| `func_L01_004F3F40` | levels | Codex wave 8 near miss | near miss: 77 words; the lean/limit FPR pair and the 1.3089969f/0.1f constants move together, the layout that fixes one breaks the other; `__builtin_fabsf` is 2 words better than fabs_asm |
 | `func_L01_004F5540` | levels | Codex wave 8 near miss | near miss: 2 words differ with the file's flags |
 | `func_L01_004F5810` | levels | Codex wave 8 near miss | near miss: 174 words differ with the file's flags |
 | `func_L01_004FFA10` | levels | Codex wave 6 near miss | near miss: 8 words differ with the file's flags |
