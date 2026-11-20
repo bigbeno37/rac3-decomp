@@ -492,7 +492,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L07_0032F988` | levels | PAL reconstruction, wave 2 | 181 positional differences; saved registers, group-base/index allocation and spills |
 | `func_L07_0032FDC8` | levels | PAL reconstruction, wave 2 | 298 positional differences; hero-base lifetime, block placement and saved registers |
 | `func_L07_00333DB8` | levels | Codex wave 8 near miss | near miss: 7 words differ with the file's flags |
-| `func_L07_003A5078` | levels | Codex wave 10 near miss | near miss: 26 words differ with the file's flags |
 | `func_L07_003A6498` | levels | PAL reconstruction, wave 2 | 12 differences; scratch address setup and second-loop allocation |
 | `func_L07_003A6C90` | levels | Codex wave 8 near miss | near miss: 57 words differ with the file's flags |
 | `func_L07_003AF398` | levels | PAL reconstruction, wave 2 | Snippet MATCH only; full PAL07 read-only-section layout conflicts with other tables in the owning file; deferred with the other new table producers |
