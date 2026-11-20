@@ -574,7 +574,18 @@ void func_L01_004BF5F8(void) {
 }
 /* localdecomp:end func_L01_004BF5F8 */
 
-INCLUDE_ASM("asm/levels", func_L01_004BF618);
+/* localdecomp:start func_L01_004BF618 */
+extern S_00244740 D_L01_002446C0[];
+
+void func_L01_004BF618(s32 type) {
+    s32 i;
+    for (i = 0; i < (*(B_4BBAF0 *)&D_L01_002446C0).count; i++) {
+        if ((*(B_4BBAF0 *)&D_L01_002446C0).e[i].type == type) {
+            (*(B_4BBAF0 *)&D_L01_002446C0).e[i].b16 = 1;
+        }
+    }
+}
+/* localdecomp:end func_L01_004BF618 */
 
 /* localdecomp:start func_L01_004BF660 */
 extern s32 func_L01_004BF900(void);
