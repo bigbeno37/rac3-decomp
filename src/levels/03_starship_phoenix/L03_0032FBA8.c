@@ -622,4 +622,114 @@ void func_L03_00330DC0(void *a, s32 i, f32 b, f32 c) {
 }
 /* localdecomp:end func_L03_00330DC0 */
 
-INCLUDE_ASM("asm/levels", func_L03_00330EC8);
+/* localdecomp:start func_L03_00330EC8 */
+#include "vu0.h"
+typedef struct S_00330EC8b { u8 pad00[0xF7]; u8 fF7; f32 fF8; } S_00330EC8b;
+typedef struct S_00330EC8a { u8 pad00[0x10]; vu0_v4 pos; u8 pad20[0x48]; S_00330EC8b *f68; } S_00330EC8a;
+extern s32 func_00382468(s32);
+extern f32 func_003824E0(f32, f32);
+extern f32 func_00382538(void);
+extern void func_00382760(void *, f32, f32, f32);
+extern void func_L01_00474078(void *, void *, s32, f32, f32, f32, f32, s32, s32, s32, s32);
+
+/* 0 or 1 at random */
+static __inline__ s32 coin_00330EC8(void) {
+    return func_00382468(2);
+}
+
+/* 1 or -1: the sign sg, or a random one when sg is -1 */
+static __inline__ s32 rsign_00330EC8(s32 sg) {
+    s32 s;
+
+    if (sg == -1 ? coin_00330EC8() : sg) {
+        s = 1;
+    } else {
+        s = -1;
+    }
+    return s;
+}
+
+/* the axis ax, or a random one (x or y) when ax is -1 */
+static __inline__ s32 pick_00330EC8(s32 ax) {
+    s32 k;
+
+    if (ax == -1) {
+        k = coin_00330EC8();
+    } else {
+        k = ax;
+    }
+    return k;
+}
+
+/* a random length between lo and hi, with sign s */
+static __inline__ f32 rand_len_00330EC8(f32 lo, f32 hi, s32 s) {
+    f32 d = func_003824E0(lo, hi);
+
+    return d * (f32)s;
+}
+
+void func_L03_00330EC8(void *arg0) {
+    S_00330EC8a *a = arg0;
+    S_00330EC8b *p = a->f68;
+    vu0_v4 v;
+    f32 t;
+    f32 y;
+    f32 lo;
+    f32 hi;
+    s32 i;
+    s32 j;
+    s32 n;
+    s32 ax;
+    s32 sg;
+
+    t = 2.0f - p->fF8;
+    if (1.0f < t) {
+        y = 1.0f;
+    } else {
+        y = t;
+    }
+    for (i = 0; i < 5; i++) {
+        n = 4;
+        if (!((p->fF7 >> i) & 1)) continue;
+        if (i == 4) {
+            n = 8;
+            lo = 0.0f;
+            hi = 10.5f;
+            ax = -1;
+            sg = -1;
+        } else {
+            lo = 10.5f;
+            hi = 22.83f;
+            ax = i % 2;
+            sg = 1 - i / 2;
+        }
+        for (j = 0; j < n; j++) {
+            f32 *q;
+
+            {
+                s32 k = pick_00330EC8(ax);
+                s32 s = rsign_00330EC8(sg);
+
+                qzero(&v);
+                q = &(&v.x)[k];
+                *q = rand_len_00330EC8(lo, hi, s);
+            }
+            {
+                vu0_v4 w;
+
+                vec_add_ab(&w, &a->pos, &v);
+                {
+                    vu0_v4 u;
+
+                    {
+                        f32 r = func_00382538();
+
+                        func_00382760(&u, 0.40000004f, r, func_003824E0(1.0f, y) * 1.5707964f);
+                    }
+                    func_L01_00474078(&w, &u, 0x11, 0.08f, 2.0f, 1.5f, 1.0f, 0x80FF2020, 0x80404040, 10, 0);
+                }
+            }
+        }
+    }
+}
+/* localdecomp:end func_L03_00330EC8 */
