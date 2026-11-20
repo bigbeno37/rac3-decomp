@@ -425,7 +425,6 @@ extern void func_L01_004BF980(void);
 void func_L01_004BCAE8(u8 *a0, u8 *a1) {
     s32 cost = ((Shop_004BCAE8 *)D_L01_002446C0)->items[((Shop_004BCAE8 *)D_L01_002446C0)->cur].cost;
 
-INCLUDE_ASM("asm/levels", func_L01_004BCFB0);
     if (((Shop_004BCAE8 *)D_L01_002446C0)->state == 1) {
         *a0 = 0;
         if (D_00142660_004BCAE8[0] < cost) {
@@ -575,6 +574,104 @@ void func_L01_004BCD08(u8 *a0, u8 *a1) {
 }
 /* localdecomp:end func_L01_004BCD08 */
 
+/* localdecomp:start func_L01_004BCFB0 */
+typedef struct {
+    s32 f0;
+    s32 price;
+    s32 f8;
+    s32 fC;
+    s32 id;
+    s32 f14;
+    s32 f18;
+    s32 f1C;
+    u8 owned;
+    u8 p21[3];
+} E_004BCFB0;
+typedef struct {
+    u8 p0[0x28];
+    void *text;
+    u8 p2C[0x4C - 0x2C];
+    s32 f4C;
+    u8 p50[0x80 - 0x50];
+    s32 cur;
+    s32 state;
+    u8 p88[0x140 - 0x88];
+    E_004BCFB0 e[42];
+    u8 p1[0x740 - 0x140 - 42 * 36];
+    s32 count;
+    u8 p744[0x76C - 0x744];
+    s32 f76C;
+} B_004BCFB0;
+typedef struct {
+    s32 bolts;
+    u8 p4[68];
+    s32 f72;
+} Save_004BCFB0;
+extern B_004BCFB0 D_L01_002446C0_004BCFB0;
+extern Save_004BCFB0 D_00142660_004BCFB0;
+extern char *D_001D52FC;
+__asm__(".extern D_001D52FC, 16");
+extern u32 D_001D54D0_004BCFB0;
+extern s32 D_L01_001E0F90;
+__asm__(".extern D_L01_001E0F90, 16");
+extern s32 D_L01_001E0F90_004BCFB0;
+extern s32 func_003A52A0(s32, s32, void *);
+extern void func_L01_00435FF0(s32);
+extern void func_L01_004BB330(void);
+extern void func_L01_004BF980(void);
+
+void func_L01_004BCFB0(u8 *a0, u8 *a1) {
+    s32 cur = D_L01_002446C0_004BCFB0.cur;
+    s32 price = D_L01_002446C0_004BCFB0.e[cur].price;
+    s32 bolts;
+
+    if (D_L01_002446C0_004BCFB0.state == 1) {
+        *a0 = 0;
+        if (D_00142660_004BCFB0.bolts < price || D_L01_002446C0_004BCFB0.e[cur].owned != 0) {
+            func_003A52A0(2, 0x11, D_L01_002446C0_004BCFB0.text);
+            D_L01_002446C0_004BCFB0.state = 0;
+        } else {
+            func_003A52A0(0, 0x11, D_L01_002446C0_004BCFB0.text);
+            D_L01_002446C0_004BCFB0.state = 2;
+        }
+    } else if (D_L01_002446C0_004BCFB0.state == 2) {
+        if (*(s32 *)(D_001D52FC + 0x1C4) & 0x10) {
+            if (!(D_L01_001E0F90 & 0x10)) {
+                *a0 = 0;
+                D_L01_002446C0_004BCFB0.state = 3;
+                return;
+            }
+        }
+        if (*(s32 *)(D_001D52FC + 0x1C4) & 0x40) {
+            if (!(D_L01_001E0F90_004BCFB0 & 0x40)) {
+                *a0 = 1;
+                D_L01_002446C0_004BCFB0.state = 3;
+            }
+        }
+    } else if (D_L01_002446C0_004BCFB0.state == 3) {
+        if (*a0 != 0) {
+            bolts = D_00142660_004BCFB0.bolts;
+            if (bolts >= price) {
+                D_L01_002446C0_004BCFB0.f76C = 1;
+                D_00142660_004BCFB0.bolts = bolts - price;
+                D_001D54D0_004BCFB0 = D_L01_002446C0_004BCFB0.f4C;
+                func_L01_00435FF0(D_L01_002446C0_004BCFB0.e[cur].id);
+                func_L01_004BB330();
+                if (D_L01_002446C0_004BCFB0.count < D_L01_002446C0_004BCFB0.cur) {
+                    D_L01_002446C0_004BCFB0.cur = D_L01_002446C0_004BCFB0.count;
+                }
+                func_003A52A0(7, 0x11, D_L01_002446C0_004BCFB0.text);
+            } else {
+                func_003A52A0(0, 0x11, D_L01_002446C0_004BCFB0.text);
+            }
+        } else {
+            func_003A52A0(0, 0x11, D_L01_002446C0_004BCFB0.text);
+        }
+        D_L01_002446C0_004BCFB0.state = 0;
+        func_L01_004BF980();
+    }
+}
+/* localdecomp:end func_L01_004BCFB0 */
 
 INCLUDE_ASM("asm/levels", func_L01_004BD170);
 
