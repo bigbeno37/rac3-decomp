@@ -742,6 +742,45 @@ void func_L05_0032A0B0(u8 *a0, u8 *a1, s32 a2, s32 a3) {
 }
 /* localdecomp:end func_L05_0032A0B0 */
 
-INCLUDE_ASM("asm/levels", func_L05_0032A238);
+/* localdecomp:start func_L05_0032A238 */
+f32 func_L05_0032A238(u8 *a0, s32 *tab, s32 *out, f32 t, f32 spd) {
+    f32 rem = 1.0f;
+    f32 step;
+    f32 d;
+    f32 frac;
+    s32 i;
+
+    while (rem > 0.0f) {
+        if (t < 0.0f) {
+            *out = -1;
+            step = spd / *(f32 *)(a0 + 0x18C) * rem;
+            if (t + step >= 0.0f) {
+                frac = (0.0f - t) / step;
+                *out = 0;
+                t = 0.0f;
+                rem -= frac * rem;
+            } else {
+                t += step;
+                rem = 0.0f;
+            }
+        } else {
+            i = t;
+            *out = i;
+            step = spd / *(f32 *)((u8 *)tab + (i << 4) + 0x1C) * rem;
+            d = t + step - (f32)i;
+            if (d >= 1.0f && i < tab[0] - 1) {
+                frac = (step - (d - 1.0f)) / step;
+                t += step * frac;
+                rem -= frac * rem;
+                *out = t;
+            } else {
+                t += step;
+                rem = 0.0f;
+            }
+        }
+    }
+    return t;
+}
+/* localdecomp:end func_L05_0032A238 */
 
 INCLUDE_ASM("asm/levels", func_L05_0032A360);
