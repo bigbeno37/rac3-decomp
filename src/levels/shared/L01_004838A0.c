@@ -200,7 +200,15 @@ s32 func_L01_00484AA0(void) {
 
 INCLUDE_ASM("asm/levels", func_L01_00484AF8);
 
-INCLUDE_ASM("asm/levels", func_L01_00485A10);
+/* localdecomp:start func_L01_00485A10 */
+s32 func_L01_00485A10(s32 i, s32 a, s32 b) {
+    s32 r = i % 2;
+    if (r) {
+        a = b;
+    }
+    return a + i / 2;
+}
+/* localdecomp:end func_L01_00485A10 */
 
 /* localdecomp:start func_L01_00485A38 */
 extern S_002EA318 D_L01_002EA2D8[];
