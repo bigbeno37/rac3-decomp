@@ -695,7 +695,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_003937E8` | levels | Codex wave 8 near miss | near miss: 206 words differ with the file's flags |
 | `func_L01_00393C80` | levels | Codex wave 8 near miss | near miss: 15 words differ with the file's flags |
 | `func_L01_00394828` | levels | Codex wave 8 near miss | near miss: 59 words differ with the file's flags |
-| `func_L01_003949E8` | levels | Codex wave 6 near miss | near miss: 3 words; the sched1/alloc tie puts the lq/sq copy after the kind store (source order can give either the load order or $s2=kind, not both) |
 | `func_L01_00396B78` | levels | Codex wave 8 near miss | near miss: 8 words differ with the file's flags |
 | `func_L01_00396E08` | levels | Codex wave 6 near miss | near miss: 0 words differ with the file's flags |
 | `func_L01_003970C8` | levels | Codex wave 6 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
