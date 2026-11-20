@@ -267,7 +267,78 @@ void func_L01_004ACB38(void)
 }
 /* localdecomp:end func_L01_004ACB38 */
 
-INCLUDE_ASM("asm/levels", func_L01_004ACBC8);
+/* localdecomp:start func_L01_004ACBC8 */
+extern f32 D_L01_001DF950_004ACBC8[1];
+extern s32 D_L01_001DF958_004ACBC8[1];
+typedef struct { u8 pad[0x20]; s16 h20, h22; } T_16C580_004ACBC8;
+extern T_16C580_004ACBC8 D_0016C580_004ACBC8;
+extern s32 D_001D545C;
+extern s32 D_00143950 __attribute__((section(".data")));
+typedef struct {
+    u8 pad0[0x34];
+    s32 frame;
+    s32 tick;
+    s32 chunk;
+} Scene_004ACBC8;
+extern Scene_004ACBC8 D_L01_001E6D80_004ACBC8;
+extern s32 D_L01_001D673C;
+extern s32 D_L01_001DFB44;
+extern s32 D_L01_001D6674;
+extern u8 D_001D5638;
+extern s32 D_L01_001E1070;
+extern u8 *D_L01_001E1060_004ACBC8[];
+extern void func_0039A690(s32);
+extern void func_0039EC28(s32, s32);
+extern s32 func_L01_005003D0(s32, s32);
+extern void func_L01_005108C0(s32);
+extern void func_L01_004B9798(s32);
+extern void func_003A9050(void);
+extern void func_003A8220(void *);
+
+void func_L01_004ACBC8(s32 a0)
+{
+    s32 i;
+    s32 t;
+
+    for (i = 0; i < 1; i++) {
+        D_L01_001DF950_004ACBC8[i] = 1.0f;
+        D_L01_001DF958_004ACBC8[i] = 0;
+    }
+    D_0016C580_004ACBC8.h20 = 0;
+    D_0016C580_004ACBC8.h22 = -1;
+    if (D_001D545C == a0) {
+        s32 n;
+        func_L01_004AC900(3);
+        n = D_00143950 ? 0x50 : 0x60;
+        D_L01_001E6D80_004ACBC8.frame = 0;
+        D_L01_001E6D80_004ACBC8.chunk = D_L01_001E6D80_004ACBC8.frame / n;
+        func_0039A690(D_L01_001E6D80_004ACBC8.chunk);
+        D_L01_001E6D80_004ACBC8.tick = D_L01_001E6D80_004ACBC8.frame % n;
+        return;
+    }
+    if (D_L01_001D673C != 0) {
+        D_L01_001DFB44 = a0;
+        D_L01_001D6674 = 1;
+        return;
+    }
+    if (D_001D5638 != 0) {
+        D_001D5638 = 0;
+    } else {
+        func_0039EC28(0, a0);
+    }
+    func_L01_005003D0(0x65, 2);
+    D_001A4BE0[0x25E5] = 1;
+    func_L01_005108C0(0);
+    func_L01_004B9798(1);
+    D_L01_001DFB44 = a0;
+    D_0016C580_004ACBC8.h20 = 1;
+    D_0016C580_004ACBC8.h22 = -1;
+    func_003A9050();
+    t = D_L01_001E1070 - 0x60000;
+    D_L01_001E1070 = t;
+    func_003A8220(D_L01_001E1060_004ACBC8[0] + t);
+}
+/* localdecomp:end func_L01_004ACBC8 */
 
 /* localdecomp:start func_L01_004ACD40 */
 typedef struct { u8 pad[0x20]; s16 h20, h22; } T_16C580;
