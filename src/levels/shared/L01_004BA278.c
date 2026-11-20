@@ -422,7 +422,6 @@ extern void func_L01_004BC0B8(s32 a0);
 extern void func_L01_004BD170(void);
 extern void func_L01_004BF980(void);
 
-INCLUDE_ASM("asm/levels", func_L01_004BCD08);
 void func_L01_004BCAE8(u8 *a0, u8 *a1) {
     s32 cost = ((Shop_004BCAE8 *)D_L01_002446C0)->items[((Shop_004BCAE8 *)D_L01_002446C0)->cur].cost;
 
@@ -469,6 +468,112 @@ INCLUDE_ASM("asm/levels", func_L01_004BCFB0);
     }
 }
 /* localdecomp:end func_L01_004BCAE8 */
+
+/* localdecomp:start func_L01_004BCD08 */
+typedef struct {
+    s32 cost;
+    s32 id;
+    s32 slot;
+    s32 pad;
+} Item_004BCD08;
+typedef struct {
+    u8 pad0[40];
+    void *f28;
+    u8 pad2C[84];
+    s32 cur;
+    s32 state;
+    u8 pad88[188];
+    Item_004BCD08 items[96];
+} Shop_004BCD08;
+typedef struct {
+    s32 f0;
+    s32 f4;
+    s32 f8;
+    s32 fC;
+} Slot_004BCD08;
+extern S_00244740 D_L01_002446C0[];
+extern Slot_004BCD08 D_L01_002F1C20[];
+extern char *D_001D52FC;
+__asm__(".extern D_001D52FC, 16");
+extern s32 D_L01_001E0F90;
+__asm__(".extern D_L01_001E0F90, 16");
+extern s32 D_L01_001E0F90_004BCD08;
+extern s16 D_001426A0[];
+__asm__(".extern D_L01_001DABC8, 1");
+__asm__(".extern D_L01_001DABCC, 4");
+__asm__(".extern D_L01_001DABD0, 4");
+extern u8 D_L01_001DABC8;
+extern s32 D_L01_001DABCC;
+extern s32 D_L01_001DABD0;
+extern s32 func_003A52A0(s32, s32, void *);
+extern s32 func_00381FF0(s32);
+extern void func_003A2750(s32);
+extern s32 func_L01_004526F8(void);
+extern s32 func_L01_004526A0(s32);
+extern s32 func_L01_005147A8(s32);
+extern void func_L01_004C4E60(void);
+extern void func_L01_00425978(s32);
+extern void func_L01_004BB120_004BCD08(u32 a0);
+extern void func_L01_004BC0B8(s32 a0);
+extern void func_L01_004BF980(void);
+
+void func_L01_004BCD08(u8 *a0, u8 *a1) {
+    s32 slot;
+    s32 cost = ((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].cost;
+
+    if (((Shop_004BCD08 *)D_L01_002446C0)->state == 1) {
+        *a0 = 0;
+        if (func_L01_004526F8() < cost) {
+            func_003A52A0(2, 0x11, ((Shop_004BCD08 *)D_L01_002446C0)->f28);
+            ((Shop_004BCD08 *)D_L01_002446C0)->state = 0;
+        } else {
+            func_003A52A0(0, 0x11, ((Shop_004BCD08 *)D_L01_002446C0)->f28);
+            ((Shop_004BCD08 *)D_L01_002446C0)->state = 2;
+        }
+    } else if (((Shop_004BCD08 *)D_L01_002446C0)->state == 2) {
+        if ((*(s32 *)(D_001D52FC + 0x1C4) & 0x10) && !(D_L01_001E0F90 & 0x10)) {
+            *a0 = 0;
+            ((Shop_004BCD08 *)D_L01_002446C0)->state = 3;
+        } else if ((*(s32 *)(D_001D52FC + 0x1C4) & 0x40) && !(D_L01_001E0F90_004BCD08 & 0x40)) {
+            *a0 = 1;
+            ((Shop_004BCD08 *)D_L01_002446C0)->state = 3;
+        }
+    } else if (((Shop_004BCD08 *)D_L01_002446C0)->state == 3) {
+        if (*a0 != 0) {
+            if (func_L01_004526F8() >= cost) {
+                func_L01_005147A8(((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].id);
+                slot = ((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].slot;
+                ((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].cost = 0;
+                D_L01_002F1C20[slot].f8 = 0;
+                func_L01_004BB120_004BCD08(((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].id);
+                D_L01_001DABC8 = 1;
+                D_L01_001DABCC = ((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].id;
+                func_003A52A0(7, 0x11, ((Shop_004BCD08 *)D_L01_002446C0)->f28);
+                func_L01_004526A0(cost);
+                D_L01_001DABD0 = ((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].id;
+                func_L01_004C4E60();
+                if (D_L01_001DABD0 == -1) {
+                    func_L01_005147A8(0);
+                    func_L01_00425978(D_001426A0[0]);
+                } else {
+                    func_L01_005147A8(((Shop_004BCD08 *)D_L01_002446C0)->items[((Shop_004BCD08 *)D_L01_002446C0)->cur].id);
+                    func_L01_00425978(D_001426A0[0]);
+                }
+                func_003A2750(1);
+                func_L01_004BC0B8(func_00381FF0(0x17A));
+                func_003A52A0(7, 0x11, ((Shop_004BCD08 *)D_L01_002446C0)->f28);
+            } else {
+                func_L01_004BC0B8(func_00381FF0(0x17B));
+                func_003A52A0(0, 0x11, ((Shop_004BCD08 *)D_L01_002446C0)->f28);
+            }
+        } else {
+            func_003A52A0(0, 0x11, ((Shop_004BCD08 *)D_L01_002446C0)->f28);
+        }
+        ((Shop_004BCD08 *)D_L01_002446C0)->state = 0;
+        func_L01_004BF980();
+    }
+}
+/* localdecomp:end func_L01_004BCD08 */
 
 
 INCLUDE_ASM("asm/levels", func_L01_004BD170);
