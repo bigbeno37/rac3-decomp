@@ -796,7 +796,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_00456270` | levels | Codex wave 6 near miss | near miss: 11 words differ with the file's flags |
 | `func_L01_00456910` | levels | Codex wave 8 near miss | near miss: 83 words differ with the file's flags |
 | `func_L01_00456C98` | levels | Codex wave 8 near miss | near miss: 358 words differ with the file's flags |
-| `func_L01_00459EF0` | levels | Codex wave 6 near miss | near miss: 0 words differ with the file's flags |
 | `func_L01_004602C0` | levels | Codex wave 6 near miss | near miss: 37 words at S+@ps2as (the function needs @ps2as, its file's neighbours cannot take it); one sched1 tie, the 0x1DFC24 scalar stores and one switch-case register permutation |
 | `func_L01_00463038` | levels | Codex wave 8 near miss | near miss: 24 words differ with the file's flags |
 | `func_L01_00463378` | levels | Codex wave 8 near miss | near miss: 53 words differ with the file's flags |
