@@ -381,7 +381,30 @@ void func_L07_00352FF0(u8 *arg0, f32 arg1) {
 }
 /* localdecomp:end func_L07_00352FF0 */
 
-INCLUDE_ASM("asm/levels", func_L07_00353178);
+/* localdecomp:start func_L07_00353178 */
+#include "vu0.h"
+extern void func_0038CF68(void *, void *, f32);
+extern f32 func_003C3D30(void *, s32, s32, f32);
+extern f32 func_003C3BE8(f32, f32, f32);
+extern void func_L01_0045AA30(void *, void *);
+void func_L07_00353178(u8 *self, s32 sequence, s32 joint, s32 amount,
+                       f32 time, f32 speed, f32 height, f32 start, f32 end, f32 peak) {
+    vu0_v4 position, scaled, delta;
+    f32 factor;
+    f32 angle;
+    if (self[0x42] != sequence) return;
+    if (!(start <= time && time < end)) return;
+    *(vu0_q *)&position = *(vu0_q *)(self + 0x10);
+    func_0038CF68(&scaled, self + 0xC0 + joint * 16, (amount * speed) / (end - start));
+    vec_add_ab(&position, &position, &scaled);
+    if (time < 16.0f) factor = (time - start) / (peak - start);
+    else factor = 1.0f - (time - peak) / (end - peak);
+    angle = func_003C3D30(&position, 0, 0, 0.5f);
+    position.z = func_003C3BE8(angle, angle + height, factor);
+    vec_sub_ba(&delta, &position, self + 0x10);
+    func_L01_0045AA30(self, &delta);
+}
+/* localdecomp:end func_L07_00353178 */
 
 /* localdecomp:start func_L07_003532D0 */
 extern f32 func_L07_00353D60(u8 *);
