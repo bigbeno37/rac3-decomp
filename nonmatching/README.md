@@ -684,7 +684,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L01_0039AEB8` | levels | Codex wave 8 near miss | near miss: 388 words differ with the file's flags |
 | `func_L01_0039C560` | levels | Codex wave 8 near miss | near miss: does not compile in its file's context yet (declaration conflicts; the worker's note at the top has the details) |
 | `func_L01_003A4180` | levels | NTSC-U draft of `func_L01_003A2A38` (Codex wave 3) | near miss: 55 words differ on NTSC-U with the file's flags (NTSC-U twin `func_L01_003A2A38`, whose code is not the PAL one) |
-| `func_L01_003A6DA8` | levels | Codex wave 6 near miss | near miss: 39 words; a while whose first test is register-only moves the loop head behind the test (new block-order class), plus the 10-slot reset order |
 | `func_L01_003A6F80` | levels | Codex wave 6 near miss | near miss: 6 words differ with the file's flags |
 | `func_L01_003A78E8` | levels | Codex wave 8 near miss | near miss: 61 words differ with the file's flags |
 | `func_L01_003A7DC0` | levels | Codex wave 8 near miss | near miss: 11 words differ with the file's flags |
