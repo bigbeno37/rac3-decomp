@@ -2,7 +2,35 @@
 
 LINKER_REMNANT("asm/levels", func_L01_0044CCC0);
 
-INCLUDE_ASM("asm/levels", func_L01_0044CCC8);
+/* localdecomp:start func_L01_0044CCC8 */
+extern u8 D_001D5530[] __attribute__((section(".sdata")));
+extern s32 D_00143050[];
+
+void func_L01_0044CCC8(s32 id) {
+    s32 i;
+    s32 n;
+
+    if (D_001D5530[id] == 0) {
+        s32 t = 0;
+        do {
+            t++;
+            if (t >= 60) {
+                break;
+            }
+        } while (1);
+        D_001D5530[id] = 1;
+        if (id < 30 && id != 24) {
+            n = 0;
+            for (i = 0; i < 60; i++) {
+                if (D_00143050[i] != 0) {
+                    n++;
+                }
+            }
+            D_00143050[n] = id;
+        }
+    }
+}
+/* localdecomp:end func_L01_0044CCC8 */
 
 /* localdecomp:start func_L01_0044CD60 */
 typedef struct {
