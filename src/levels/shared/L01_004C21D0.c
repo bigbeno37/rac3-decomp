@@ -974,7 +974,50 @@ void func_L01_004C4D90(s32 arg0) {
 }
 /* localdecomp:end func_L01_004C4D90 */
 
-INCLUDE_ASM("asm/levels", func_L01_004C4E60);
+/* localdecomp:start func_L01_004C4E60 */
+typedef struct { s32 w0; s32 w4; s32 w8; s32 wC; } E_004C4E60;
+extern T_4C1638 D_L01_002F1C20[];
+extern char D_L01_001DAE40[];
+extern s32 D_L01_001DABD0;
+extern s32 D_L01_001DABCC;
+extern u8 D_L01_001DABC9;
+__asm__(".extern D_L01_001DABD0, 4");
+__asm__(".extern D_L01_001DABCC, 4");
+__asm__(".extern D_L01_001DABC9, 1");
+extern char *func_003B9E30(s32, s32, s32);
+extern s32 func_L01_004BB0F0(s32);
+extern void func_L01_00498948(s32, s32, s32);
+extern char *func_00381FF0(s32);
+extern void func_0011B2E8(char *, char *, char *, s32);
+void func_L01_004C4E60(void) {
+    E_004C4E60 *base = (E_004C4E60 *)D_L01_002F1C20;
+    s32 n = 0;
+    s32 off = 0;
+    s32 none = 0xFF;
+    do {
+        if (((E_004C4E60 *)((u8 *)base + off))->w8 != none) {
+            char *text = func_003B9E30(func_003B9BD0(0), 0, n);
+            ((void (*)(char *, char *, char *))func_0011B2E8)(text, D_L01_001DAE40, func_00381FF0(((E_004C4E60 *)((u8 *)D_L01_002F1C20 + off))->w0));
+            if (func_L01_004BB0F0(((E_004C4E60 *)((u8 *)D_L01_002F1C20 + off))->wC)) {
+                func_L01_00498948(func_003B9BD0(0), n, 0);
+            } else {
+                func_L01_00498948(func_003B9BD0(0), n, 2);
+            }
+            if (D_L01_001DABD0 < 5 && ((E_004C4E60 *)((u8 *)D_L01_002F1C20 + off))->wC == -1) {
+                D_L01_001DABC9 = 0;
+                D_L01_001DABCC = 0;
+                func_L01_00498948(func_003B9BD0(0), n, 3);
+            } else if (((E_004C4E60 *)((u8 *)D_L01_002F1C20 + off))->wC == D_L01_001DABD0) {
+                D_L01_001DABCC = ((E_004C4E60 *)((u8 *)D_L01_002F1C20 + off))->wC;
+                D_L01_001DABC9 = 1;
+                func_L01_00498948(func_003B9BD0(0), n, 3);
+            }
+            n++;
+        }
+        off += 16;
+    } while ((E_004C4E60 *)((u8 *)D_L01_002F1C20 + off) < base + 10);
+}
+/* localdecomp:end func_L01_004C4E60 */
 
 /* localdecomp:start func_L01_004C4FE8 */
 extern S_func_004C07D8 D_00160C40[];
