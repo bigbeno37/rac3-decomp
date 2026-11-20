@@ -3731,6 +3731,7 @@ levels	func_L01_0035E598	34	-
 levels	func_L01_0035E638	34	-
 levels	func_L01_0035EF20	34	-
 levels	func_L01_0035FEB8	34	-
+levels	func_L01_00360170	34	-
 levels	func_L01_003609D0	51	-
 levels	func_L01_00360A00	34	-
 levels	func_L01_00361568	34	-
@@ -3780,6 +3781,7 @@ levels	func_L01_00379B20	34	-
 levels	func_L01_0037A0F8	34	-
 levels	func_L01_0037ADE0	34	-
 levels	func_L01_0037B6C0	34	-
+levels	func_L01_0037BCF8	51	-
 levels	func_L01_0037C208	34	-
 levels	func_L01_0037C6E8	34	-
 levels	func_L01_0037C720	34	-
@@ -3787,6 +3789,7 @@ levels	func_L01_0037C758	34	-
 levels	func_L01_0037C798	34	-
 levels	func_L01_0037C7D8	34	-
 levels	func_L01_0037C860	34	-
+levels	func_L01_0037C978	34	-
 levels	func_L01_0037E2E8	34	-
 levels	func_L01_00382578	34	-
 levels	func_L01_003837A8	34	-
@@ -3803,12 +3806,14 @@ levels	func_L01_0038B950	34	-
 levels	func_L01_0038B988	51	-
 levels	func_L01_0038C9A0	34	-
 levels	func_L01_0038C9B0	34	-
+levels	func_L01_0038CC38	34	-
 levels	func_L01_0038CDC8	34	-
 levels	func_L01_0038CE18	34	-
 levels	func_L01_0038D108	51	-
 levels	func_L01_0038D138	34	-
 levels	func_L01_0038D498	34	-
 levels	func_L01_0038E070	34	-
+levels	func_L01_0038E4D0	34	-
 levels	func_L01_0038E968	34	-
 levels	func_L01_0038EE78	34	-
 levels	func_L01_0038F678	34	-
@@ -4210,6 +4215,7 @@ levels	func_L01_003E30B8	34	-
 levels	func_L01_003E31A8	34	-
 levels	func_L01_003E32E8	51	-
 levels	func_L01_003E32F0	51	-
+levels	func_L01_003E36E8	0	level_01: D_001DF640_sda is 0x001DF680 here, 0x001DF640 for func_L01_003E1568
 levels	func_L01_003E37F0	1	-
 levels	func_L01_003E4008	51	-
 levels	func_L01_003E4028	51	-
@@ -4892,6 +4898,7 @@ levels	func_L01_00467608	51	-
 levels	func_L01_00468640	51	-
 levels	func_L01_004686D8	34	-
 levels	func_L01_00468B70	34	-
+levels	func_L01_00468D98	51	-
 levels	func_L01_00468F08	51	-
 levels	func_L01_00469130	51	-
 levels	func_L01_00469928	51	-
@@ -5966,6 +5973,7 @@ levels	func_L02_0030FB58	23	-
 levels	func_L02_0030FC08	23	-
 levels	func_L02_0030FF48	23	-
 levels	func_L02_003102A8	23	-
+levels	func_L02_00310368	23	-
 levels	func_L02_00310428	23	-
 levels	func_L02_003104A8	23	-
 levels	func_L02_00310730	23	-
