@@ -647,7 +647,24 @@ void func_L01_00487F50(s32 *a, s32 *b) {
 }
 /* localdecomp:end func_L01_00487F50 */
 
-INCLUDE_ASM("asm/levels", func_L01_00487F78);
+/* localdecomp:start func_L01_00487F78 */
+extern s32 D_L01_002EAB28[];
+extern s32 D_L01_001D88F0[] __attribute__((section(".sdata")));
+__asm__(".extern D_L01_001D88F0, 8");
+
+s32 func_L01_00487F78(s32 a, s32 b, s32 c) {
+    s32 i;
+    switch (a) {
+    case 0:
+        i = b * 4 + c;
+        return D_L01_002EAB28[i];
+    case 1:
+        i = b * 2 + c;
+        return D_L01_001D88F0[i];
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_00487F78 */
 
 /* localdecomp:start func_L01_00487FC8 */
 typedef struct { u8 pad[0x38]; u16 h38; u8 pad3A[0xF0 - 0x3A]; } E_4848A8_00487FC8;
