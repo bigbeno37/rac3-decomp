@@ -1049,7 +1049,82 @@ s32 func_L01_0031B038(s32 a0) {
 }
 /* localdecomp:end func_L01_0031B038 */
 
-INCLUDE_ASM("asm/levels", func_L01_0031B090);
+/* localdecomp:start func_L01_0031B090 */
+typedef struct { u8 active, level; u8 pad2[0x46]; s16 replacement; u8 pad4A[0xA6]; } Weapon_0031B090;
+typedef struct { s32 timer, color, amount, zero; f32 speed; u8 *owner; s32 arg, active; } Entry_0031B090;
+typedef struct { f32 per_second; s32 seconds; u8 pad8[8]; } AcidRow_0031B090;
+extern Weapon_0031B090 D_L01_002C5600[];
+extern u8 D_00142A60[];
+extern u8 D_001425C0[];
+extern AcidRow_0031B090 D_L01_00274940_0031B090[][204];
+extern f32 *func_00382348(u8 *);
+extern s32 func_L01_0031B038(s32);
+extern E_31ABE0 D_L01_00274580[];
+extern void func_003C6FB0(u8 *, s32 *, s32 *, s32 *);
+
+/* the item (through the D_001425C0 map) is owned and at level 2 */
+static __inline__ u8 isV2_0031B090(s32 n) {
+    if (D_L01_002C5600[D_001425C0[n]].active) {
+        if (D_L01_002C5600[D_001425C0[n]].level == 2) return 1;
+        return 0;
+    }
+    return 0;
+}
+/* the item (through the D_001425C0 map) is owned and at level 3; the u8 flag gives retail's andi */
+static __inline__ u8 isV3_0031B090(s32 n) {
+    u8 v3;
+    return v3 = D_L01_002C5600[D_001425C0[n]].active && D_L01_002C5600[D_001425C0[n]].level == 3;
+}
+s32 func_L01_0031B090(u8 *m, s32 weapon, s32 arg) {
+    s32 result = 1;
+    s32 mode;
+    s32 effective = ((Weapon_0031B090 *)(weapon * 240 + (u8 *)D_L01_002C5600))->replacement;
+    unsigned long flags;
+    f32 *health;
+    s32 i;
+    s32 r, g, b;
+    Entry_0031B090 *entry;
+    if (effective == 0) effective = weapon;
+    flags = D_00142A60[effective];
+    if (((flags >> 3) & 1) == 0) return 1;
+    mode = 0;
+    if (isV2_0031B090(effective) || isV3_0031B090(effective)) mode = 1;
+    if ((*(u8 **)(m + 0x24))[0x46] != 5) return 1;
+    if ((*(u16 *)(m + 0x34) & 0x1000) == 0) return 1;
+    if (*(s8 *)(m + 0x20) < 0) return 1;
+    if (*(s32 *)(m + 0x98) == 0) return 1;
+    health = func_00382348(m);
+    if (health == 0) return 1;
+    if (*health <= 0.0f) return 1;
+    if (func_L01_0031B038((s32)m) != -1) return 1;
+    for (i = 0; i < 30; i++) {
+        if (D_L01_00274580[i].id == 0) {
+            u8 *q;
+            s32 got = 0;
+            entry = (Entry_0031B090 *)&D_L01_00274580[i];
+            entry->owner = m;
+            entry->timer = D_L01_00274940_0031B090[mode][weapon].seconds * 50;
+            entry->speed = D_L01_00274940_0031B090[mode][weapon].per_second * 0.01666667f;
+            if (*(u16 *)(m + 0x34) & 0x20) {
+                q = *(u8 **)(*(u8 **)(m + 0x68) + 0x10);
+                if (q != 0 && *(s16 *)q != 0) {
+                    r = q[4]; g = q[5]; b = q[6];
+                    got = 1;
+                }
+            }
+            if (!got) func_003C6FB0(entry->owner, &r, &g, &b);
+            entry->color = (b << 16) + (g << 8) + r;
+            entry->amount = 0x8000;
+            entry->arg = arg;
+            entry->zero = 0;
+            entry->active = 1;
+            result = 0;
+            break;
+        }
+    }
+    return result;
+}
+/* localdecomp:end func_L01_0031B090 */
 
 /* localdecomp:start func_L01_0031B358 */
 __asm__(".extern D_L01_001DC7F8, 4");
