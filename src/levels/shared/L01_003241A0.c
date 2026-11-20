@@ -591,7 +591,72 @@ s32 func_L01_00325C40(s32 a0, u8 *a1, s32 a2) {
 }
 /* localdecomp:end func_L01_00325C40 */
 
-INCLUDE_ASM("asm/levels", func_L01_00325C88);
+/* localdecomp:start func_L01_00325C88 */
+typedef struct { u8 p0[0x6C]; s32 link; } LinkVars_00325C88;
+typedef struct { u8 p0[0x68]; void *vars; u8 p6C[0xAA - 0x6C]; s16 kind; } Moby_00325C88;
+typedef struct { s32 next; u8 p4[8]; s32 group; } Chain_00325C88;
+extern s32 func_L01_00449050(void *);
+extern s32 func_L01_00325C40(s32, u8 *, s32);
+extern u8 *D_L01_001E001C;
+extern u16 *D_L01_0021DE20[];
+extern s32 D_L01_001E0058;
+void func_L01_00325C88(u8 *checkpoint, Save_00325F60 *save, u8 *moby) {
+    u8 *vars;
+    Moby_00325C88 *m;
+    Chain_00325C88 *c;
+    u16 *p;
+    s32 x;   /* the group member; in the first pass then its link */
+
+    *(s32 *)((u8 *)save + 0x60) = 0;
+    vars = *(u8 **)(moby + 0x68);
+    if (*(s32 *)(vars + 0x18) == -1) {
+        return;
+    }
+    m = (Moby_00325C88 *)(D_L01_001E001C + (*(s32 *)(vars + 0x18) << 8));
+    while (m != 0 && m->kind != 0x19E4) {
+        c = (Chain_00325C88 *)m->vars;
+        if (c->group != -1) {
+            p = D_L01_0021DE20[c->group];
+            while ((c->group & 0xFF) != 0xFF && c->group <= D_L01_001E0058 && p != 0 && ((s16)p[-1] >= 0 || p == D_L01_0021DE20[c->group])) {
+                x = (s32)(D_L01_001E001C + ((*p & 0x7FFF) << 8));
+                if (x == 0) break;
+                x = ((LinkVars_00325C88 *)((Moby_00325C88 *)x)->vars)->link;
+                if (x != -1) {
+                    u8 *node = (u8 *)func_L01_00449050(D_L01_001E001C + (x << 8));
+                    *(s32 *)(node + 4) = 0;
+                }
+                p++;
+            }
+        }
+        if (c->next == -1) break;
+        m = (Moby_00325C88 *)(D_L01_001E001C + (c->next << 8));
+    }
+    m = (Moby_00325C88 *)(D_L01_001E001C + (*(s32 *)(vars + 0x18) << 8));
+    while (m != 0 && m->kind != 0x19E4) {
+        c = (Chain_00325C88 *)m->vars;
+        if (c->group != -1) {
+            u16 *q = D_L01_0021DE20[c->group];
+            while ((c->group & 0xFF) != 0xFF && c->group <= D_L01_001E0058 && q != 0 && ((s16)q[-1] >= 0 || q == D_L01_0021DE20[c->group])) {
+                s32 link;
+                x = (s32)(D_L01_001E001C + ((*q & 0x7FFF) << 8));
+                if (x == 0) break;
+                link = ((LinkVars_00325C88 *)((Moby_00325C88 *)x)->vars)->link;
+                if (link != -1) {
+                    u8 *obj = D_L01_001E001C + (link << 8);
+                    if (func_L01_00325C40((s32)checkpoint, (u8 *)save, (s32)obj) == 0) {
+                        u8 *node = (u8 *)func_L01_00449050(obj);
+                        *(s32 *)(node + 4) = *(s32 *)((u8 *)save + 0x60);
+                        *(u8 **)((u8 *)save + 0x60) = obj;
+                    }
+                }
+                q++;
+            }
+        }
+        if (c->next == -1) break;
+        m = (Moby_00325C88 *)(D_L01_001E001C + (c->next << 8));
+    }
+}
+/* localdecomp:end func_L01_00325C88 */
 
 /* localdecomp:start func_L01_00325F60 */
 
