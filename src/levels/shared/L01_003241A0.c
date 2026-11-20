@@ -1898,7 +1898,43 @@ s32 func_L01_00329180(u8 *a0) {
 }
 /* localdecomp:end func_L01_00329180 */
 
-INCLUDE_ASM("asm/levels", func_L01_003291D0);
+/* localdecomp:start func_L01_003291D0 */
+extern s32 D_001D545C;
+extern f32 D_L01_001DAA3C;
+extern u8 D_001426E0[];
+extern f32 D_L01_002F17E0[];
+extern u8 D_001BBC40[];
+extern E_00329038 D_L01_002AEA10[];
+extern s32 func_L01_0041A4F0(void);
+s32 func_L01_003291D0(u8 *m) {
+    u8 *vars = *(u8 **)(m + 0x68);
+    s32 value = *(s32 *)(vars + 0x54);
+    s32 divisor = 1;
+    if (func_L01_0041A4F0()) {
+        s32 scaled = value * (D_001D545C == 7 && D_001426E0[0x7B] ? D_L01_001DAA3C : D_L01_002F17E0[D_001D545C]);
+        value = scaled;
+        if (D_001D545C == 4) value = scaled * 15;
+    }
+    if (vars[0x53] == 255 || D_L01_002AEA10[vars[0x53]].w12 == 0) {
+        s32 key = *(s32 *)(vars + 8);
+        if (key != -1) {
+            if (D_001BBC40[key + D_001D545C * 16] & 128) divisor = 10;
+        }
+    } else {
+        E_00329038 *entry = &D_L01_002AEA10[vars[0x53]];
+        u8 flag = D_001426E0[entry->w12];
+        if (flag >= 2) divisor = 10;
+        else if (flag == 1) divisor = 3;
+    }
+    if (divisor >= 2) {
+        s32 result = value / divisor;
+        result -= result % 100;
+        if (result == 0) result = 100;
+        return result;
+    }
+    return value;
+}
+/* localdecomp:end func_L01_003291D0 */
 
 /* localdecomp:start func_L01_00329338 */
 extern s32 D_001D545C;
