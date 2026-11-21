@@ -263,7 +263,29 @@ void func_L01_00367430(s32 a, f32 amount) {
 
 LINKER_REMNANT("asm/levels", func_L01_00367580);
 
-INCLUDE_ASM("asm/levels", func_L01_00367590);
+/* localdecomp:start func_L01_00367590 */
+#include "vu0.h"
+extern s32 D_001D545C;
+extern vu0_v4 D_L01_001E1CE0_00367590 __attribute__((section(".sdata")));
+extern vu0_v4 D_L01_001E1CF0_00367590 __attribute__((section(".sdata")));
+extern f32 func_0038CF00(void *, void *);
+extern void func_0038CF68(void *, void *, f32);
+
+/* cam_clamp_distance: keeps the camera's target within 40 units of its position (80 in level 11) */
+void func_L01_00367590(void) {
+    f32 lim = 40.0f;
+    vu0_v4 v;
+
+    if (D_001D545C == 11) {
+        lim = 80.0f;
+    }
+    if (lim <= func_0038CF00(&D_L01_001E1CE0_00367590, &D_L01_001E1CF0_00367590)) {
+        vec_sub_ab(&v, &D_L01_001E1CF0_00367590, &D_L01_001E1CE0_00367590);
+        func_0038CF68(&v, &v, D_001D545C == 11 ? 80.0f : 40.0f);
+        vec_add_ab(&D_L01_001E1CF0_00367590, &D_L01_001E1CE0_00367590, &v);
+    }
+}
+/* localdecomp:end func_L01_00367590 */
 
 /* localdecomp:start func_L01_00367658 */
 extern f32 D_L01_001E1C70;
