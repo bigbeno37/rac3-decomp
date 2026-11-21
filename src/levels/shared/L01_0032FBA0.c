@@ -64,7 +64,54 @@ INCLUDE_ASM("asm/levels", func_L01_00330820);
 
 INCLUDE_ASM("asm/levels", func_L01_00331230);
 
-INCLUDE_ASM("asm/levels", func_L01_00331D28);
+/* localdecomp:start func_L01_00331D28 */
+typedef struct { f32 x, y, z, w; } __attribute__((aligned(16))) V4_00331D28;
+typedef struct {
+    V4_00331D28 v;
+    void *owner;
+    s32 flags;
+    u8 f18;
+    u8 f19;
+    u16 f1A;
+    f32 f1C;
+    s32 one;
+} S_00331D28;
+typedef struct {
+    u8 pad_0[0x64];
+    s32 f64;
+    f32 f68;
+} P_00331D28;
+typedef struct {
+    u8 pad_0[0x10];
+    V4_00331D28 pos;
+    u8 pad_20[0x68 - 0x20];
+    P_00331D28 *vars;
+    u8 pad_6C[0xAA - 0x6C];
+    u16 oclass;
+} M_00331D28;
+extern V4_00331D28 D_L01_001D66B0 __attribute__((section(".sdata")));
+extern void func_0038CF68(void *, void *, f32);
+extern void func_003D4D00(void *, s32, s32, S_00331D28 *, f32);
+
+void func_L01_00331D28(M_00331D28 *m, f32 f) {
+    P_00331D28 *v = m->vars;
+    S_00331D28 s;
+    u8 mode;
+
+    s.owner = m;
+    s.flags = v->f64;
+    s.f1C = f;
+    s.one = 1;
+    s.v = D_L01_001D66B0;
+    func_0038CF68(&s, &s, 1.0f);
+    s.v.w = 5627.925f;
+    mode = 2;
+    s.f18 = 3;
+    s.f19 = mode;
+    s.f1A = m->oclass;
+    func_003D4D00(&m->pos, 0, 0, &s, v->f68);
+}
+/* localdecomp:end func_L01_00331D28 */
 
 INCLUDE_ASM("asm/levels", func_L01_00331DD0);
 
