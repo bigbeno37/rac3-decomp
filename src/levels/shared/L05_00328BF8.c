@@ -783,4 +783,34 @@ f32 func_L05_0032A238(u8 *a0, s32 *tab, s32 *out, f32 t, f32 spd) {
 }
 /* localdecomp:end func_L05_0032A238 */
 
-INCLUDE_ASM("asm/levels", func_L05_0032A360);
+/* localdecomp:start func_L05_0032A360 */
+extern void func_0038CDF8(f32 *, f32 *, f32 *, f32);
+
+void func_L05_0032A360(u8 *a0, s32 *tab, s32 i, f32 *dst, f32 t) {
+    vu0_q a;
+    vu0_q b;
+    s32 off;
+
+    if (i >= tab[0]) {
+        a = *(vu0_q *)(a0 + 0x190);
+        b = *(vu0_q *)(a0 + 0x1A0);
+    } else if (i == tab[0] - 2) {
+        off = (i << 4) + 0x10;
+        a = *(vu0_q *)((u8 *)tab + off);
+        b = ((vu0_q *)tab)[i + 2];
+    } else if (i == tab[0] - 1) {
+        off = (i << 4) + 0x10;
+        a = *(vu0_q *)((u8 *)tab + off);
+        b = *(vu0_q *)(a0 + 0x190);
+    } else {
+        if (i < 0) {
+            a = *(vu0_q *)(a0 + 0x180);
+        } else {
+            off = (i << 4) + 0x10;
+            a = *(vu0_q *)((u8 *)tab + off);
+        }
+        b = ((vu0_q *)tab)[i + 2];
+    }
+    func_0038CDF8(dst, (f32 *)&a, (f32 *)&b, t);
+}
+/* localdecomp:end func_L05_0032A360 */
