@@ -960,7 +960,52 @@ void func_L01_00318878(s32 owner) {
 
 INCLUDE_ASM("asm/levels", func_L01_003189B0);
 
-INCLUDE_ASM("asm/levels", func_L01_00318AF8);
+/* localdecomp:start func_L01_00318AF8 */
+#include "vu0.h"
+typedef struct {
+    vu0_q pos;
+    vu0_q vel;
+    f32 f20, f24, f28, f2C;
+    s32 value;
+    s32 pad34;
+    s32 color;
+    s32 time, duration;
+    s32 owner;
+    u8 pad48[8];
+} Spark_00318AF8;
+extern E_L01_00272780_00318408 D_L01_00272780[];
+extern f32 func_003824E0(f32, f32);
+extern s32 func_00382498(s32, s32);
+extern f32 func_00382538(void);
+extern f32 func_L01_00443A18(f32, f32);
+
+void func_L01_00318AF8(u8 *obj, vu0_q *position, s32 value)
+{
+    s32 *vars = *(s32 **)(obj + 0x68);
+    s32 i;
+
+    for (i = 0; i < 64; i++) {
+        if (((Spark_00318AF8 *)D_L01_00272780)[i].owner == 0) {
+            Spark_00318AF8 *p = &((Spark_00318AF8 *)D_L01_00272780)[i];
+            p->owner = (s32)obj;
+            p->value = value;
+            p->pos = *position;
+            qzero(&p->vel);
+            if (vars[6] != 0)
+                p->color = 0x204060;
+            else
+                p->color = 0x800000;
+            p->f20 = func_003824E0(0.1f, 0.3f);
+            p->f24 = func_003824E0(0.4f, 0.5f);
+            p->duration = p->time = (func_00382498(25, 40) * 5 + 2) / 6;
+            p->f2C = func_00382538();
+            p->f28 = func_L01_00443A18(180.0f, 360.0f) * 0.017453292f * 0.020000001415610313f;
+            vars[0]++;
+            return;
+        }
+    }
+}
+/* localdecomp:end func_L01_00318AF8 */
 
 INCLUDE_ASM("asm/levels", func_L01_00318C30);
 
