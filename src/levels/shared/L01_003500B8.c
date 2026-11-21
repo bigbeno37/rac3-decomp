@@ -504,7 +504,94 @@ void func_L01_00353A78(u8 *a) {
 }
 /* localdecomp:end func_L01_00353A78 */
 
-INCLUDE_ASM("asm/levels", func_L01_00353A88);
+/* localdecomp:start func_L01_00353A88 */
+#include "vu0.h"
+
+typedef struct {
+    f32 x, y, z, w;
+} __attribute__((aligned(16))) V_00353A88;
+typedef struct {
+    u8 pad0[0x10];
+    s32 x10;
+    u8 pad14[0x10];
+    f32 x24;
+    u8 pad28[0x1C];
+    u16 x44;
+} O_00353A88;
+typedef struct {
+    u8 pad0[0xC0];
+    V_00353A88 xC0;
+    u8 padD0[0x28];
+    s32 xF8;
+    s32 xFC;
+    f32 x100;
+    u8 pad104[0xC];
+    f32 x110[2];
+    f32 x118;
+    u8 pad11c[0x2C];
+    s32 x148;
+    u8 pad14c[0x1FC];
+    s32 x348;
+    f32 x34C;
+    u8 pad350[0x284];
+    f32 x5D4;
+} D_00353A88;
+typedef struct {
+    u8 pad0[0x10];
+    V_00353A88 x10;
+    u8 pad20[4];
+    O_00353A88 *x24;
+    u8 pad28[4];
+    f32 x2C;
+    u8 pad30[4];
+    u16 x34;
+    u8 pad36[0x32];
+    D_00353A88 *x68;
+    u8 pad6c[0x2C];
+    s32 x98;
+    u8 pad9c[0x24];
+    V_00353A88 xC0;
+    u8 padD0[0x20];
+    V_00353A88 xF0;
+} M_00353A88;
+extern void func_0038D308(void *, void *);
+extern void func_0038CE20(void *, void *, f32);
+extern f32 func_L01_00443A18(f32, f32);
+extern void func_003C3938(void *, s32, s32);
+__asm__(".extern D_L01_001DD4B8, 4");
+extern f32 D_L01_001DD4B8;
+__asm__(".extern D_L01_001DD4BC, 4");
+extern f32 D_L01_001DD4BC;
+__asm__(".extern D_L01_001DD4C8, 4");
+extern f32 D_L01_001DD4C8;
+
+void func_L01_00353A88(M_00353A88 *m, V_00353A88 *pos, f32 rz) {
+    V_00353A88 rot;
+    D_00353A88 *v;
+
+    qzero(&rot);
+    rot.z = rz;
+    v = m->x68;
+    m->x10 = *pos;
+    m->xF0 = rot;
+    func_0038D308(&m->xC0, &rot);
+    m->x34 &= 0xFFBE;
+    m->x34 |= m->x24->x44 & 0x1000;
+    m->x98 = m->x24->x10;
+    v->x34C = D_L01_001DD4C8;
+    m->x2C = m->x24->x24 * D_L01_001DD4C8 * v->x5D4;
+    v->x348 = 0;
+    func_0038CE20(v->x110, &m->xC0, D_L01_001DD4B8);
+    v->x118 = D_L01_001DD4BC + func_L01_00443A18(0.0f, 0.03f);
+    v->x100 = 0.0f;
+    v->xF8 = 0;
+    v->xFC = 0;
+    v->x148 = -1;
+    qzero(&v->xC0);
+    func_L01_004450F0((u8 *)m, 0x13, 6);
+    func_003C3938(m, 9, 0);
+}
+/* localdecomp:end func_L01_00353A88 */
 
 /* localdecomp:start func_L01_00353BA8 */
 extern void func_003C3A10(u8 *a0, s32 a1, s32 a2, s32 a3);
