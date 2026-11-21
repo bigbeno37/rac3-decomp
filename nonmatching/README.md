@@ -800,7 +800,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L07_003DCB60` | levels | Codex wave 8 near miss | near miss: 42 words differ with the file's flags |
 | `func_L07_003E2B80` | levels | Codex wave 7 near miss | near miss: 9 words differ with the file's flags |
 | `func_L07_003E3B30` | levels | Codex wave 6 near miss | near miss: 77 words differ with the file's flags |
-| `func_L07_004245E8` | levels | Codex wave 7 near miss | near miss: 28 words differ with the file's flags |
 | `func_L07_00473C80` | levels | Codex wave 7 near miss | near miss: 48 words differ with the file's flags |
 | `func_L09_003C6388` | levels | NTSC-U draft of `func_L09_003C4A30` (Codex wave 3) | near miss: 32 words differ on NTSC-U with `-O2 -G8 -fopt-stack -mno-check-zero-division @ps2as` (the file's line: `-O2 -G8 -fopt-stack -mno-check-zero-division @ps2as -mvu0-use-vf0-vf2`) (NTSC-U twin `func_L09_003C4A30`, whose code is not the PAL one) |
 | `func_L09_003C8740` | levels | NTSC-U draft of `func_L09_003C6D40` (Codex wave 3) | near miss: 650 words differ on NTSC-U with `-O2 -G8 -fopt-stack -mno-check-zero-division @ps2as` (the file's line: `-O2 -G8 -fopt-stack -mno-check-zero-division @ps2as -mvu0-use-vf0-vf2`) (NTSC-U twin `func_L09_003C6D40`, whose code is not the PAL one) |
