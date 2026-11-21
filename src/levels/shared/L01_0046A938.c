@@ -637,7 +637,41 @@ INCLUDE_ASM("asm/levels", func_L01_0046B5F0);
 
 LINKER_REMNANT("asm/levels", func_L01_0046B890);
 
-INCLUDE_ASM("asm/levels", func_L01_0046B898);
+/* localdecomp:start func_L01_0046B898 */
+extern void func_L39_005D62B8_0046B898(s32, s32 *, f32 *, void *, f32, f32);
+extern s32 func_L01_00448CC0(f32, f32, f32, f32);
+extern void func_003D4D00(void *, s32, void *, void *, f32);
+extern void func_L01_00447718(s32, void *, void *, s32, s32, s32, s32, s32, s32, f32, f32, f32);
+extern u8 D_L01_001EEA80[];
+
+/* from rac2-decomp's func_PAL_002C3368 */
+void func_L01_0046B898(Obj *o) {
+    u8 *obj = (u8 *)o;
+    u8 *sub = obj + 0x20;
+    u8 *pos = obj + 0x10;
+    vu0_v4 local[2];
+    s32 n;
+    f32 f;
+    s32 count;
+
+    local[0] = *(vu0_v4 *)(obj + 0x10);
+    *(f32 *)(sub + 4) = *(f32 *)(sub + 4) + *(f32 *)(sub + 8);
+    func_L39_005D62B8_0046B898(*(s32 *)(obj + 0x20), &n, &f, pos, *(f32 *)(sub + 4), *(f32 *)(sub + 0xC));
+    if (func_0038CB00(&o->timer) != 0) {
+        func_003CD250(o);
+        return;
+    }
+    {
+        s32 index = o->timer;
+        if ((f32)index < 6.25f) {
+            o->result = func_L01_00448CC0(0.7f, 0.7f, 0.7f, (f32)index * 0.08f / 6.25f);
+        }
+    }
+    count = ((s32 (*)(void *, s32, void *, void *, f32))func_003D4D00)(pos, 0x10, *(void **)(sub + 0x14), 0, 0.15f);
+    local[1] = *(vu0_v4 *)(obj + 0x10);
+    func_L01_00447718(*(s32 *)(sub + 0x14), &local[1], D_L01_001EEA80, count, 0, 0x01010001, 2, 1, -1, 2.0f, 1.0f, 1.0f);
+}
+/* localdecomp:end func_L01_0046B898 */
 
 /* localdecomp:start func_L01_0046B9E8 */
 typedef struct {
