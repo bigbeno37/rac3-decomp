@@ -5745,9 +5745,12 @@ levels	func_L01_004CF390	51	-
 levels	func_L01_004CF3A0	51	-
 levels	func_L01_004CF498	51	-
 levels	func_L01_004D0CB0	51	-
+levels	func_L01_004D1700	34	-
 levels	func_L01_004D2110	51	-
 levels	func_L01_004D2118	51	-
+levels	func_L01_004D21E0	34	-
 levels	func_L01_004D23E8	34	-
+levels	func_L01_004D24C0	34	-
 levels	func_L01_004D25D0	51	-
 levels	func_L01_004D2DC8	50	level_39: fe_func_003B03A8 should be 0x00605CF8, the bytes make it 0x00599390
 levels	func_L01_004D3060	51	-
@@ -5982,6 +5985,7 @@ levels	func_L01_00512750	34	-
 levels	func_L01_005128D8	34	-
 levels	func_L01_00512A30	34	-
 levels	func_L01_00512BE0	34	-
+levels	func_L01_00512D38	34	-
 levels	func_L01_00512DF8	34	-
 levels	func_L01_00513800	34	-
 levels	func_L01_00513EF0	34	-
@@ -6890,11 +6894,13 @@ levels	func_L04_003CFCF8	1	-
 levels	func_L04_003CFDA8	1	-
 levels	func_L04_003CFDB8	1	-
 levels	func_L04_003CFE28	1	-
+levels	func_L04_003D0968	2	-
 levels	func_L04_003D10D0	2	-
 levels	func_L04_003D1128	2	-
 levels	func_L04_003D11E0	2	-
 levels	func_L04_003D1420	2	-
 levels	func_L04_003D1530	6	-
+levels	func_L04_003D3018	2	-
 levels	func_L04_003D3A30	2	-
 levels	func_L04_003D3AC8	2	-
 levels	func_L04_003D3B90	2	-
@@ -7170,6 +7176,7 @@ levels	func_L06_00350528	2	-
 levels	func_L06_003505D8	2	-
 levels	func_L06_003506E0	2	-
 levels	func_L06_00350BB8	2	-
+levels	func_L06_00350C50	2	-
 levels	func_L06_00350D60	2	-
 levels	func_L06_00351358	2	-
 levels	func_L06_00351390	2	-
@@ -7303,6 +7310,7 @@ levels	func_L07_00332928	1	-
 levels	func_L07_00332958	1	-
 levels	func_L07_00332A90	1	-
 levels	func_L07_00332BE0	1	-
+levels	func_L07_00332CF0	1	-
 levels	func_L07_00332D68	1	-
 levels	func_L07_00332F90	1	-
 levels	func_L07_003330E8	1	-
