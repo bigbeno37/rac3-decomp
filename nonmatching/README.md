@@ -432,7 +432,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L04_00500CF8` | levels | NTSC-U draft of `func_L04_004FCBA8` | near miss: byte-exact on NTSC-U only with other flags when it was tried; with its file's current line it differs (NTSC-U twin `func_L04_004FCBA8`; the draft's header has the worker's note) |
 | `func_L33_00352ED0` | levels | NTSC-U draft of `func_L33_00352298` | near miss: 5 words differ on NTSC-U with the file's flags (NTSC-U twin `func_L33_00352298`) |
 | `func_L19_0035D2B8` | levels | NTSC-U draft of `func_L19_0035C238` | flags: byte-exact on NTSC-U only with `@ps2as` on its file's line (NTSC-U twin `func_L19_0035C238`) |
-| `func_L01_0048A0A0` | levels | NTSC-U draft of `func_L01_00486828` | near miss: byte-exact on NTSC-U only with other flags when it was tried; with its file's current line it differs (NTSC-U twin `func_L01_00486828`; the draft's header has the worker's note) |
 | `func_L05_003CA628` | levels | NTSC-U draft of `func_L05_003C8498` | near miss: byte-exact on NTSC-U only with other flags when it was tried; with its file's current line it differs (NTSC-U twin `func_L05_003C8498`; the draft's header has the worker's note) |
 | `func_L39_0066A490` | levels | NTSC-U draft of `func_L39_00667BB8` | near miss: 1 words differ on NTSC-U with the file's flags (NTSC-U twin `func_L39_00667BB8`) |
 | `func_L09_003BFC90` | levels | NTSC-U draft of `func_L09_003BE400` | flags: byte-exact on NTSC-U only with `@ps2as` on its file's line (NTSC-U twin `func_L09_003BE400`) |
