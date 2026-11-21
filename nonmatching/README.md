@@ -982,7 +982,6 @@ function NTSC-U has and src/us/ has no C for.
 | `func_L07_003B4978` | levels | Codex wave 10 near miss | near miss: 21 words differ with the file's flags |
 | `func_L07_003B7408` | levels | Codex wave 10 near miss | near miss: 9 words differ with the file's flags |
 | `func_L07_003BDFB8` | levels | Codex wave 10 near miss | near miss: 180 words differ with the file's flags |
-| `func_L07_003BEE80` | levels | Codex wave 10 near miss | near miss: 10 words differ with the file's flags |
 | `func_L07_003BF480` | levels | Codex wave 10 near miss | near miss: 152 words differ with the file's flags |
 | `func_L07_003C99A0` | levels | Codex wave 10 near miss | near miss: 24 words differ with the file's flags |
 | `func_001222E8` | boot_elf | NTSC-U draft of `func_001222E8` (Claude wave E) | study aid (inline asm for EE instructions (move)); near miss: 31 words differ on NTSC-U with the file's flags (NTSC-U twin `func_001222E8`) |
