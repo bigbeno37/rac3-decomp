@@ -56,8 +56,43 @@ extern s32 D_L01_001DE640;
 extern s32 D_L01_001DE644;
 extern s32 D_L01_001DE648;
 
-INCLUDE_ASM("asm/levels", func_L01_003B3098);
+/* localdecomp:start func_L01_003B3098 */
+extern void func_L01_00456230(u8 *, s32);
+extern s32 D_L01_001DFB40_003B3098;
+__asm__(".extern D_L01_001DFB40_003B3098, 16");
+extern s16 *D_L01_0021DE20[];
+extern s32 D_L01_001E0058;
+extern u8 *D_L01_001E001C_003B3098;
+__asm__(".extern D_L01_001E001C_003B3098, 16");
+extern void func_L01_003B5FD8(u8 *);
+extern void func_L01_003B4840(u8 *, u8 *);
+extern void func_L01_00327038(u8 *);
 
 INCLUDE_ASM("asm/levels", func_L01_003B31B8);
+void func_L01_003B3098(u8 *m) {
+    u8 *vars = *(u8 **)(m + 0x68);
+    s16 *q;
+
+    D_L01_001DE630 = (s32)m;
+    func_L01_00456230(m, 1);
+    *(s32 *)(vars + 4) = D_L01_001DFB40_003B3098;
+    if (*(s32 *)(vars + 0xC) != -1) {
+        q = D_L01_0021DE20[*(s32 *)(vars + 0xC)];
+        while ((*(s32 *)(vars + 0xC) & 0xFF) != 0xFF && *(s32 *)(vars + 0xC) <= D_L01_001E0058 && q != 0 &&
+               (q[-1] >= 0 || q == D_L01_0021DE20[*(s32 *)(vars + 0xC)])) {
+            u8 *r = D_L01_001E001C_003B3098 + ((*(u16 *)q & 0x7FFF) << 8);
+            if (r == 0) break;
+            func_L01_003B5FD8(r);
+            q++;
+        }
+    }
+    func_L01_003B4840(m, vars);
+    func_L01_00327038(m);
+    *(u16 *)(m + 0x34) &= ~2;
+    *(s32 *)(vars + 0x2C) = 0;
+    ((void (*)(u8 *, s32, s32))func_L01_004450F0)(m, 2, -1);
+}
+/* localdecomp:end func_L01_003B3098 */
+
 
 INCLUDE_ASM("asm/levels", func_L01_003B3368);
