@@ -1972,6 +1972,7 @@ src/us/levels/func_L05_003BBBC8.c	-mvu0-use-vf0-vf2 -O2 -G8 -fopt-stack -mno-che
 src/us/levels/func_L01_004910F0.c	-O2 -G8 -fopt-stack -mno-check-zero-division @ps2as
 src/us/levels/func_L07_0035D0F0.c	-mvu0-use-vf0-vf2 -O2 -G8 -fopt-stack -mno-check-zero-division @ps2as
 src/us/boot_elf/003A6B18.c	-O2 -G8 -fopt-stack -mno-check-zero-division -mvu0-use-vf0-vf2 @ps2as
+src/us/boot_elf/003BF568.c	-O2 -G8 -fopt-stack -mno-check-zero-division -mvu0-use-vf0-vf2 @ps2as
 src/us/levels/func_L12_003D6AE8.c	-O2 -G8 -fopt-stack -mno-check-zero-division
 src/us/frontbin/003A1438.c	-mvu0-use-vf0-vf2 -O2 -G8 -fopt-stack -mno-check-zero-division @ps2as
 src/us/levels/func_L39_005E10A8.c	-O2 -G8 -fopt-stack -mno-check-zero-division @ps2as
