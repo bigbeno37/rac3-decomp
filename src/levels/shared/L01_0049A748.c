@@ -31,8 +31,38 @@ extern s32 func_L01_00516FD8(s32, s32);
 extern s32 func_L01_00516D60(s32, s32);
 extern s32 func_L01_00517190(s32, s32);
 
-INCLUDE_ASM("asm/levels", func_L01_0049A748);
+/* localdecomp:start func_L01_0049A748 */
+extern s32 func_0038E548(u8 *str, s32 len, f32 scale);
+extern f32 func_003C4088(f32, f32, f32);
+extern f32 D_L01_001DC0E8;
 
 INCLUDE_ASM("asm/levels", func_L01_0049A868);
+void func_L01_0049A748(s32 id, f32 *scale, f32 *size) {
+    f32 s = 1.2f;
+    f32 minw = 0.0f;
+    f32 maxw = 0.49f;
+    f32 r;
+    f32 w;
+    f32 lo;
+    f32 hi;
+
+    w = (f32)func_0038E548((u8 *)func_00381FF0(id), -1, s) / D_L01_001DC0E8;
+    r = s;
+    lo = 6.0f;
+    hi = 11.0f;
+    if (maxw < w) {
+        r = maxw * s / w;
+        w = maxw;
+    }
+    *size = func_003C4088(lo, hi, (w - minw) / (maxw - minw));
+    if (*size > hi) {
+        *size = hi;
+    } else if (*size < lo) {
+        *size = lo;
+    }
+    *scale = r;
+}
+/* localdecomp:end func_L01_0049A748 */
+
 
 INCLUDE_ASM("asm/levels", func_L01_0049AC88);
