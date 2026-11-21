@@ -1038,7 +1038,212 @@ void func_L01_004C99A0(void) {
 }
 /* localdecomp:end func_L01_004C99A0 */
 
-INCLUDE_ASM("asm/levels", func_L01_004C99F8);
+/* localdecomp:start func_L01_004C99F8 */
+typedef int Q_004C99F8 __attribute__((mode(TI)));
+typedef struct {
+    u8 pad00[0x140];
+    f32 position[4];
+    f32 rotation[4];
+    f32 forward[4];
+} Cam_004C99F8;
+typedef struct {
+    u8 pad00[0x34];
+    u16 x34;
+    u8 pad36[0xF0 - 0x36];
+    f32 rot[4];
+} Moby_004C99F8;
+typedef struct {
+    u8 pad[0x76];
+    s16 mode0;
+    u8 pad78[0x20];
+    s16 position;
+    u8 pad9A[4];
+    s16 mode1;
+} Stream_004C99F8;
+
+typedef struct {
+    s16 state;
+    s16 timer;
+    f32 step;
+    s16 item;
+    s16 item2;
+    u8 flag0C;
+    u8 flag0D;
+    s16 flag0E;
+    u8 pad10[0x20];
+    u8 *moby;
+    u8 flag34;
+    u8 flag35;
+    s16 fade;
+} Ctl_004C99F8;
+extern Ctl_004C99F8 D_L01_001E1100 __attribute__((section(".sdata")));
+extern s32 D_L01_001DAFE4;
+__asm__(".extern D_L01_001DAFE4, 4");
+extern s32 D_L01_001DAFE8;
+__asm__(".extern D_L01_001DAFE8, 4");
+extern s32 D_L01_001DB004;
+__asm__(".extern D_L01_001DB004, 4");
+extern s32 D_L01_001DB008;
+__asm__(".extern D_L01_001DB008, 4");
+extern s32 D_L01_001DB00C;
+__asm__(".extern D_L01_001DB00C, 4");
+extern s32 D_L01_001DB010;
+__asm__(".extern D_L01_001DB010, 4");
+extern s32 D_L01_001D7B88;
+__asm__(".extern D_L01_001D7B88, 4");
+extern Cam_004C99F8 D_L01_001E2880;
+extern f32 D_L01_001E7630[];
+extern Stream_004C99F8 D_001CCFD0;
+extern u8 D_001425C0[];
+extern s16 D_001A4DC0[];
+extern Ent_004C4F88 D_L01_002C5600[];
+
+extern s32 func_0038CB00(void *);
+extern void func_L01_00404AD8(void *, s32);
+extern void func_L01_004CA3F0(void);
+extern void func_L01_004CA6A8(void);
+extern void func_003A1798(void);
+extern void func_0038D278(void *);
+extern f32 func_0038DAB8(f32, f32);
+extern f32 func_0038D0B0(f32);
+extern f32 func_0038D098(f32);
+extern void func_003873C0(void);
+extern void func_L01_004CA088(void *);
+extern void func_L01_004CA478(void *);
+extern u8 *func_L01_004CA270(u8 *);
+extern void func_L01_004CB388(u8 *, s32, s32);
+extern void func_L01_004C99A0(void);
+extern void func_L01_00418C90(s32, s32);
+extern void func_L01_00419318(s32);
+extern s32 func_L01_0044CD60(s32);
+extern s32 func_003A0EC0(s32, s32, s32, s32, u8 *);
+extern void func_00382810(s32, s32, s32, f32, f32, f32, f32);
+extern void func_L01_004B14C8(s32);
+
+void func_L01_004C99F8(void) {
+    Moby_004C99F8 *m;
+    Stream_004C99F8 *s;
+    f32 t;
+
+    switch (D_L01_001E1100.state) {
+    case 0:
+        if (func_0038CB00(&D_L01_001E1100.timer)) {
+            if (D_L01_001DAFE4 != 0) {
+                s = &D_001CCFD0;
+                if (!(s->mode0 == 0 && s->mode1 == 3 && s->position < 7000)) {
+                    if (D_L01_001DAFE8++ < 16) goto wait;
+                }
+            }
+            s = &D_001CCFD0;
+            if (s->mode0 == 0 && s->mode1 == 3 && s->position < 7000 && D_L01_001DAFE4 != 0) {
+                func_003A1798();
+                D_L01_001DAFE4 = 0;
+            }
+            D_L01_001DAFE8 = 0;
+            D_L01_001E2880.position[0] = 25.0f;
+            D_L01_001E2880.position[1] = 25.0f;
+            D_L01_001E2880.position[2] = 900.0f;
+            func_0038D278(D_L01_001E2880.forward);
+            D_L01_001E1100.state = 1;
+            D_L01_001E1100.timer = (D_L01_001DB008 * 5 + 2) / 6;
+            D_L01_001E1100.flag0E = 0;
+            m = (Moby_004C99F8 *)D_L01_001E1100.moby;
+            D_L01_001E2880.rotation[0] = D_L01_001E2880.rotation[1] = D_L01_001E2880.rotation[2] = 0.0f;
+            *(Q_004C99F8 *)m->rot = *(Q_004C99F8 *)D_L01_001E2880.rotation;
+            if (D_L01_001E1100.flag35) {
+                m->rot[1] = func_0038DAB8(m->rot[1], -1.5707964f);
+            }
+            t = func_0038D0B0(0.55501467f);
+            D_L01_001E7630[0] = t / func_0038D098(0.55501467f);
+            func_003873C0();
+            m->x34 &= 0xFFBE;
+            break;
+        }
+    wait:
+        func_L01_00404AD8(func_L01_004CA3F0, 0);
+        break;
+    case 1:
+        func_L01_004CA088(D_L01_001E1100.moby);
+        if (func_0038CB00(&D_L01_001E1100.timer)) {
+            D_L01_001E1100.state = 2;
+            D_L01_001E1100.flag34 = 0;
+            D_L01_001E1100.timer = (D_L01_001DB00C * 5 + 2) / 6;
+            D_L01_001E1100.step = 1.0f / D_L01_001E1100.timer;
+        }
+        break;
+    case 2: {
+        u8 *m2 = D_L01_001E1100.moby;
+        func_L01_004CA088(m2);
+        func_L01_004CA478(m2);
+        if (func_0038CB00(&D_L01_001E1100.timer)) {
+            D_L01_001E1100.timer = 2;
+            D_L01_001E1100.state = 3;
+            D_L01_001E1100.fade = 0x80;
+            func_L01_00404AD8(func_L01_004CA6A8, 0);
+        }
+        break;
+    }
+    case 3: {
+        u8 *m3 = D_L01_001E1100.moby;
+        func_L01_00404AD8(func_L01_004CA6A8, 0);
+        if (func_0038CB00(&D_L01_001E1100.timer)) {
+            D_L01_001E1100.timer = 10;
+            D_L01_001E1100.state = 4;
+            D_L01_001E1100.moby = func_L01_004CA270(m3);
+            func_L01_004CB388(D_L01_001E1100.moby, D_L01_001E1100.item, (D_001425C0[D_L01_001E1100.item] + D_L01_002C5600)->b + 1);
+        }
+        break;
+    }
+    case 4:
+        if (D_L01_001E1100.moby) func_L01_004CA088(D_L01_001E1100.moby);
+        func_L01_00404AD8(func_L01_004CA6A8, 0);
+        D_L01_001E1100.fade = (f32)D_L01_001E1100.timer / 12.0f * 128.0f;
+        if (func_0038CB00(&D_L01_001E1100.timer)) {
+            D_L01_001E1100.fade = 0;
+            D_L01_001E1100.state = 5;
+            D_L01_001E1100.timer = (D_L01_001DB010 * 5 + 2) / 6;
+        }
+        break;
+    case 5:
+        if (D_L01_001E1100.moby) func_L01_004CA088(D_L01_001E1100.moby);
+        if (func_0038CB00(&D_L01_001E1100.timer)) {
+            D_L01_001E1100.timer = 2;
+            D_L01_001E1100.state = 6;
+        }
+        break;
+    case 6:
+        if (D_L01_001E1100.moby) func_L01_004CA088(D_L01_001E1100.moby);
+        func_L01_00404AD8(func_L01_004CA3F0, 0);
+        if (func_0038CB00(&D_L01_001E1100.timer)) {
+            Stream_004C99F8 *s6;
+            D_L01_001E1100.flag0D = D_L01_001E1100.flag0E = 1;
+            D_L01_001E1100.timer = 0;
+            D_L01_001E1100.step = 1.0f / ((D_L01_001DB004 * 5 + 2) / 6);
+            D_001A4DC0[0] = ((D_L01_001DB004 + 5) * 5 + 2) / 6;
+            func_L01_004C99A0();
+            D_L01_001E1100.moby = 0;
+            func_L01_00418C90(D_L01_001E1100.item, 0);
+            s6 = &D_001CCFD0;
+            if (s6->mode0 != 6 && s6->mode0 != 7) s6->mode0 = 5;
+            if (s6->mode1 != 6 && s6->mode1 != 7) s6->mode1 = 5;
+            func_L01_00419318(D_L01_001E1100.item);
+            func_L01_0044CD60(D_L01_001E1100.item);
+            D_L01_001E1100.state = 7;
+        }
+        break;
+    case 7:
+        if (D_L01_001E1100.timer++ >= (D_L01_001DB004 * 5 + 2) / 6) {
+            func_003A0EC0(0, 2, 0, 0, 0);
+            func_00382810(0, 0, 3, 1.11002934f, 0.00499999989f, 0.200000003f, 0.0f);
+            D_L01_001D7B88 = 0xE0;
+            func_L01_004B14C8(1);
+        } else {
+            func_L01_00404AD8(func_L01_004CA3F0, 0);
+        }
+        break;
+    }
+}
+/* localdecomp:end func_L01_004C99F8 */
 
 INCLUDE_ASM("asm/levels", func_L01_004CA088);
 
