@@ -677,7 +677,69 @@ void func_L05_0035AD60(u8 *arg0)
 }
 /* localdecomp:end func_L05_0035AD60 */
 
-INCLUDE_ASM("asm/levels", func_L05_0035AEC8);
+/* localdecomp:start func_L05_0035AEC8 */
+typedef struct {
+    u8 pad0[0x30];
+    vu0_q pos;          /* 0x30 */
+    u8 pad40[0x40];
+} E_0035AEC8;
+
+typedef struct {
+    u8 pad0[0x350];
+    vu0_q goal;         /* 0x350 */
+    u8 pad360[0x20];
+    s32 x380;           /* 0x380 */
+    s32 x384;
+    s32 x388;
+    s32 x38C;
+    u8 pad390[8];
+    s32 x398;           /* 0x398 */
+    u8 pad39C[8];
+    s32 x3A4;           /* 0x3A4 */
+    u8 pad3A8[0x38];
+    s32 mode;           /* 0x3E0 */
+    u8 pad3E4[0x18];
+    s32 x3FC;           /* 0x3FC */
+} V_0035AEC8;
+
+typedef struct {
+    u8 pad0[0x10];
+    vu0_q pos;          /* 0x10 */
+    u8 pad20[0x48];
+    V_0035AEC8 *vars;   /* 0x68 */
+} O_0035AEC8;
+
+extern E_0035AEC8 *D_L05_001DFC80;
+extern u8 *D_L05_001DF7CC;
+
+static __inline__ u8 *rec_0035AEC8(s32 i)
+{
+    return D_L05_001DF7CC + i * 0x30;
+}
+
+void func_L05_0035AEC8(O_0035AEC8 *o)
+{
+    V_0035AEC8 *v = o->vars;
+
+    v->mode = 1;
+    if (v->x384 != -1) {
+        v->mode = 2;
+    } else if (v->x388 != -1) {
+        v->mode = 4;
+        v->goal = D_L05_001DFC80[v->x388].pos;
+    } else if (v->x380 != -1) {
+        v->mode = 3;
+    } else if (v->x38C != -1 && *(s16 *)(rec_0035AEC8(v->x38C) + 0x32) != 0) {
+        v->mode = 5;
+    } else if (v->x398 != 0 || v->x3FC != 0) {
+        v->mode = 4;
+        v->goal = o->pos;
+    }
+    if (v->x3A4 != -1 && *(long *)&v->x380 == -1 && *(long *)&v->x388 == -1) {
+        v->mode = 4;
+    }
+}
+/* localdecomp:end func_L05_0035AEC8 */
 
 INCLUDE_ASM("asm/levels", func_L05_0035AFB8);
 
