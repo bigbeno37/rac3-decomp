@@ -671,7 +671,49 @@ void func_L01_003AE0E8(u8 *m) {
 
 INCLUDE_ASM("asm/levels", func_L01_003AE1A0);
 
-INCLUDE_ASM("asm/levels", func_L01_003AE5B8);
+/* localdecomp:start func_L01_003AE5B8 */
+extern s32 D_L01_001DE4A4;
+__asm__(".extern D_L01_001DE4A4, 4");
+extern f32 D_L01_001DE4B8;
+__asm__(".extern D_L01_001DE4B8, 4");
+extern s32 D_L01_001EEA80[];
+extern s32 D_001A71A0[];
+extern f32 func_003C4088(f32, f32, f32);
+extern s32 func_003D4D00(void *, s32, void *, s32, f32);
+extern void func_L01_00447718(void *, void *, void *, s32, void *, s32, f32, s32, s32, s32, f32, f32);
+
+typedef struct {
+    u8 pad0[0x34];
+    u16 flags;
+} Moby_003AE5B8;
+typedef struct {
+    u8 pad0[0x14];
+    s32 timer;
+    s32 w18;
+    s32 w1C;
+    f32 f20;
+} Vars_003AE5B8;
+
+s32 func_L01_003AE5B8(u8 *self) {
+    Vars_003AE5B8 *v = *(Vars_003AE5B8 **)(self + 0x68);
+    vu0_v4 pos;
+    s32 n;
+    s32 i;
+    f32 f;
+
+    ((Moby_003AE5B8 *)self)->flags |= 0x41;
+    f = func_003C4088(0.0f, D_L01_001DE4B8, 1.0f - (f32)v->timer / (f32)D_L01_001DE4A4);
+    n = func_003D4D00(self + 0x10, 0x10, self, 0, f);
+    *(vu0_q *)&pos = *(vu0_q *)(self + 0x10);
+    func_L01_00447718(*(void **)(self + 0xB8), &pos, D_L01_001EEA80, n, 0, v->w1C | 0x1000000, v->f20, v->w18, 1, -1, 1.0f, 1.0f);
+    for (i = 0; i < n; i++) {
+        if (D_L01_001EEA80[i] == D_001A71A0[0]) {
+            return 1;
+        }
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_003AE5B8 */
 
 LINKER_REMNANT("asm/levels", func_L01_003AE6E0);
 
