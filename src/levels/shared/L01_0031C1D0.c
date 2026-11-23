@@ -335,7 +335,17 @@ void func_L01_0031CCE8(u8 *object) {
 }
 /* localdecomp:end func_L01_0031CCE8 */
 
-INCLUDE_ASM("asm/levels", func_L01_0031D188);
+/* localdecomp:start func_L01_0031D188 */
+#include "vu0.h"
+extern u8 D_L01_001DC860[8];
+__asm__(".extern D_L01_001DC860, 8");
+extern void func_0038D000_0031D188(void *, void *, void *);
+
+void func_L01_0031D188(u8 *obj, void *dst) {
+    func_0038D000_0031D188(dst, D_L01_001DC860, obj + 0xC0);
+    vec_add_ba(dst, dst, obj + 0x10);
+}
+/* localdecomp:end func_L01_0031D188 */
 
 /* localdecomp:start func_L01_0031D1D8 */
 extern u8 *func_L01_0031D3D0(s32, s32, s32);
@@ -521,7 +531,53 @@ void func_L01_0031DB70(u8 *object) {
 }
 /* localdecomp:end func_L01_0031DB70 */
 
-INCLUDE_ASM("asm/levels", func_L01_0031DE80);
+/* localdecomp:start func_L01_0031DE80 */
+typedef int Q_0031DE80 __attribute__((mode(TI)));
+typedef union { Q_0031DE80 q; f32 f[4]; } V_0031DE80;
+void func_L01_0031DE80(u8 *obj) {
+    extern f32 func_003824E0(f32, f32);
+    extern void func_L01_004C7D40(u8 *, u8 *, f32);
+    extern void func_L01_004CAB30(u8 *, u8 *);
+    extern void func_L01_004C8688(s32, u8 *, s32);
+    extern void func_L01_0031DFD8(u8 *, void *);
+    extern s32 func_0038DC20(void *, f32);
+    extern s32 func_0038CAD0(s32);
+    extern void func_L01_004C8668(s32);
+    extern void func_003C2880(Moby_0031BEF0 *);
+    extern void func_L01_00404A10_0031DE80(void *, u8 *);
+    extern void func_L01_0031E148(u8 *);
+    V_0031DE80 old, sphere;
+    u8 *vars = *(u8 **)(obj + 0x68);
+    switch (obj[0x20]) {
+    case 0:
+        obj[0x20] = 1;
+    case 1:
+        old.q = *(Q_0031DE80 *)(obj + 0x10);
+        {
+            Q_0031DE80 a, b, r;
+            __asm__("lqc2 %0, %1" : "=j"(a) : "m"(*(Q_0031DE80 *)(obj + 0x10)));
+            __asm__("lqc2 %0, %1" : "=j"(b) : "m"(*(Q_0031DE80 *)vars));
+            __asm__("vadd.xyz %0, %1, %2" : "=j"(r) : "j"(b), "j"(a));
+            __asm__("sqc2 %1, %0" : "=m"(*(Q_0031DE80 *)(obj + 0x10)) : "j"(r));
+        }
+        func_L01_004C7D40(obj + 0x10, vars, func_003824E0(4.0f, 7.0f) * 0.00040000002f);
+        func_L01_004CAB30(obj + 0x10, obj + 0x10);
+        func_L01_004C8688(*(s32 *)(vars + 0x1C), vars, 0);
+        func_L01_0031DFD8(obj, &old);
+        sphere.q = *(Q_0031DE80 *)(obj + 0x10);
+        sphere.f[3] = 0.1f;
+        if (func_0038DC20(&sphere, 96.0f) > 0) {
+            if (func_0038CAD0((s32)(vars + 0x10))) obj[0x20] = 2;
+            break;
+        }
+    case 2:
+        func_L01_004C8668(*(s32 *)(vars + 0x1C));
+        func_003C2880((Moby_0031BEF0 *)obj);
+        return;
+    }
+    func_L01_00404A10_0031DE80(func_L01_0031E148, obj);
+}
+/* localdecomp:end func_L01_0031DE80 */
 
 /* localdecomp:start func_L01_0031DFD8 */
 
@@ -818,7 +874,47 @@ void func_L01_00321608(u8 *gun)
 }
 /* localdecomp:end func_L01_00321608 */
 
-INCLUDE_ASM("asm/levels", func_L01_00321710);
+/* localdecomp:start func_L01_00321710 */
+#include "vu0.h"
+extern End_00321608 D_L01_002769C0[];
+__asm__(".extern D_L01_001DC940, 4");
+extern f32 D_L01_001DC948;
+__asm__(".extern D_L01_001DC948, 4");
+extern f32 D_L01_001DC978;
+__asm__(".extern D_L01_001DC978, 4");
+extern void func_0038CF68(f32 *, s32, f32);
+extern void func_L01_00445208(f32 *, void *, void *, void *, void *, f32);
+void func_L01_00321710(u8 *gun) {
+    extern u8 D_L01_002762C0[];
+    u8 *vars = *(u8 **)(gun + 0x68);
+    s32 i;
+    s32 j;
+    vu0_v4 t;
+    f32 *r;
+    f32 k;
+    for (i = 0; i < D_L01_001DC940; i++) {
+        vec_sub_ba(&t, &D_L01_00276A30[i], vars + 0x10);
+        func_0038CF68((f32 *)&t, (s32)&t, D_L01_001DC948);
+        vec_add_ab(&t, &D_L01_00276A30[i], &t);
+        r = (f32 *)((u8 *)D_L01_002762C0 + i * 0x100);
+        for (j = 0; j < 16; j++) {
+            k = j * 0.0625f;
+            if (j == 15) {
+                if (D_L01_001DC978) {
+                    k = 1.0f;
+                } else {
+                    k = 1.0f;
+                }
+            }
+            func_L01_00445208(r, vars + 0x10, &D_L01_00276A30[i], &D_L01_002769C0[i], &t, k);
+            r[0] += func_003824E0(-D_L01_001DC978, D_L01_001DC978);
+            r[1] += func_003824E0(-D_L01_001DC978, D_L01_001DC978);
+            r[2] += func_003824E0(-D_L01_001DC978, D_L01_001DC978);
+            r += 4;
+        }
+    }
+}
+/* localdecomp:end func_L01_00321710 */
 
 INCLUDE_ASM("asm/levels", func_L01_003218A8);
 
@@ -1047,7 +1143,22 @@ void func_L01_00322F80(u8 *gun, f32 *muzzle, f32 charge)
 }
 /* localdecomp:end func_L01_00322F80 */
 
-INCLUDE_ASM("asm/levels", func_L01_00323080);
+/* localdecomp:start func_L01_00323080 */
+#include "vu0.h"
+extern void func_00382580(void *, f32, f32);
+extern void func_0038CF68(f32 *, s32, f32);
+extern void func_L01_004735F0(void *, void *, s32, f32);
+
+void func_L01_00323080(f32 *a0) {
+    vu0_q v;
+    vu0_q w;
+    func_00382580(&v, 0.025f, 0.15f);
+    vec_add_ba(&v, &v, a0);
+    vec_sub_ab(&w, a0, &v);
+    ((void (*)(void *, void *, f32))func_0038CF68)(&w, &w, 0.015000001f);
+    func_L01_004735F0(&v, &w, 0xC, 1.0f);
+}
+/* localdecomp:end func_L01_00323080 */
 
 LINKER_REMNANT("asm/levels", func_L01_00323118);
 

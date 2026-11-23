@@ -94,24 +94,35 @@ def placements():
     m = vm.Map()
     states = vm.pal_states()
     us_cat = {r[0]: r for r in lc.read_catalogue(vm.cat_path("us"))}
-    native = vm.us_sources()
+    native = vm.native_sources_by_us_name()
     out = []
+    supplemental_places = {}
     for r in m.rows:
         if r["state"] != "C" or r["status"] != "match":
             continue
-        if r["pal"] == "-":
-            rel, nat = native.get((r["program"], vm.native_name(r["us"]))), True
+        nat = r["pal"] == "-"
+        if nat:
+            name, rel = native.get((r["program"], r["us"]), (vm.native_name(r["us"]), None))
         else:
-            rel, nat = states[(r["program"], r["pal"])][1], False
-        name = vm.native_name(r["us"]) if nat else r["pal"]
-        if r["program"] == "levels":
+            name = r["pal"]
+            rel = states[(r["program"], name)][1]
+        program = r["program"]
+        if program == "levels":
             row = us_cat.get(r["us"])
             if row is None:
                 continue
             places = [(levels.target_name(n), a) for n, a in row[5]]
         else:
-            places = [(r["program"], int(r["place"], 16))]
-        out.append((r["program"], name, places, rel, nat))
+            places = [(program, int(r["place"], 16))]
+        if program == "levels" and not nat and name in m.supplemental:
+            existing = supplemental_places.get(name)
+            if existing is not None:
+                if {t for t, _ in places} & {t for t, _ in existing}:
+                    raise ValueError("multiple C placements for %s in the same NTSC-U target" % name)
+                existing.extend(places)
+                continue
+            supplemental_places[name] = places
+        out.append((program, name, places, rel, nat))
     return out
 
 
@@ -189,7 +200,10 @@ def file_pieces(write=True):
                 want.add(rel)
                 continue
             standalone = ls.read_object(os.path.join(ROOT, obj))
-            if standalone["extra"] or (int(row["place"], 16) % 8 == 4 and len(standalone["text"]) != row["size"]):
+            # A matched standalone can cover just the first source entry in a mapped span.
+            text_size = len(standalone["text"])
+            if (standalone["extra"] or text_size < row["size"]
+                    or (int(row["place"], 16) % 8 == 4 and text_size != row["size"])):
                 want.add(rel)
         for i, (rel, s0) in enumerate(fl):
             if rel not in want:
@@ -345,7 +359,8 @@ def compile_one(item, a, tmp, notes=None, run=check_process):
                 import c_text_align
                 import level_catalogue as lc
 
-                row = next((row for row in lc.read_catalogue(vm.cat_path("us")) if row[0] == name), None)
+                raw_name = vm.us_name(name)
+                row = next((row for row in lc.read_catalogue(vm.cat_path("us")) if row[0] == raw_name), None)
                 if row is None:
                     return item, "-", "native function missing from the level catalogue"
                 try:
@@ -480,6 +495,7 @@ class FileInputs:
                 if words:
                     self.rows.setdefault(words[0], []).append("%s: %s" % (os.path.relpath(path, root),
                                                                           line.rstrip("\n")))
+        self.native_rows = vm.Map(os.path.join(root, "config", "us", "map.tsv")).rows
         self._earlier = None
         self._earlier_includes, self._header_sums, self._inputs, self._file_lists = None, {}, {}, {}
         import includes
@@ -615,6 +631,10 @@ class FileInputs:
             h.update(data if data is not None else b"<missing>")
             h.update(b"\0" + repr(self.flags(program, rel, nat)).encode() + b"\0")
             names = set(re.findall(r"\w+", data.decode("latin-1"))) if data else set()
+            if nat and program == "levels":
+                import version_map
+                inherited = {version_map.native_level_counterpart(n, self.native_rows) for n in names}
+                names.update(n for n in inherited if n is not None)
             for n in sorted(names & set(self.rows)):
                 h.update(("\n".join(self.rows[n]) + "\n").encode())
             if program in CORE and not nat:
@@ -750,8 +770,14 @@ def map_rows():
     """{(program, name as placements() gives it): its config/us/map.tsv row}"""
     import version_map as vm
     out = {}
-    for r in vm.Map().rows:
-        name = vm.native_name(r["us"]) if r["pal"] == "-" else r["pal"]
+    native = vm.native_sources_by_us_name()
+    m = vm.Map()
+    for r in m.rows:
+        name = r["pal"]
+        if name == "-":
+            name, _ = native.get((r["program"], r["us"]), (vm.native_name(r["us"]), None))
+        elif r["program"] == "levels" and r is not m.by_pal[(r["program"], name)]:
+            continue
         out[(r["program"], name)] = r
     return out
 
@@ -865,6 +891,22 @@ def read_built():
     return out
 
 
+def carried_level_targets(entry, expected):
+    """Selected targets for a supplemented source, or None when the build record is out of step."""
+    if entry is None:
+        return None
+    count, reasons = entry
+    missing = set()
+    for record in re.split(r";(?=level_\d\d: )", reasons) if reasons else ():
+        target, _, why = record.partition(": ")
+        if target not in expected or target in missing or not why:
+            return None
+        missing.add(target)
+    if count + len(missing) != len(expected):
+        return None
+    return expected - missing
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("targets", nargs="*", help="only what these targets need (default: everything)")
@@ -973,16 +1015,18 @@ def main():
         settle()
         return item, obj, why
 
-    # results waiting for a comparison of the global paths begun after their check ended: one at
-    # most every SETTLE seconds (it takes a few milliseconds), and a last one at the end
-    pending, last = [], [float("-inf")]
+    # A result waits for a global comparison begun after its check ended. On a slow filesystem
+    # a sweep can itself exceed SETTLE: leave workers at least that much time between sweeps,
+    # rather than immediately sweeping again. The last comparison is always forced at the end.
+    pending, next_settle = [], [float("-inf")]
 
     def settle(final=False):
         with lock:
-            if not pending or not final and time.monotonic() - last[0] < SETTLE:
+            if not pending or not final and time.monotonic() < next_settle[0]:
                 return
             begun, moved = watch.global_pass()
-            last[0] = begun
+            finished = time.monotonic()
+            next_settle[0] = finished + max(SETTLE, finished - begun)
             ready = [p for p in pending if p[0] <= begun]
             pending[:] = [p for p in pending if p[0] > begun]
             for _, item, why, rec in ready:

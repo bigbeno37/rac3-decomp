@@ -1,14 +1,21 @@
-/* PAL near miss, P01 wave 1 (2026-11-16), reconstructed from retail.
- * File flags: -mvu0-use-vf0-vf2 -O2 -G8 -fopt-stack
- *             -mno-check-zero-division @ps2as
- * Stock check.py: 190 positional differences after ten bounded attempts.
- * Remaining: GP address form for the 4x2 UV table, source-pointer induction,
- * saved-register allocation, inner-loop conversion/branch scheduling, and a
- * redundant signed index rejection retained by retail but folded by GCC.
- * No file-flag override, new transform, or ordinary-instruction asm was used.
- * This is not a full-program match; the source INCLUDE_ASM remains intact.
+/* PAL near miss: 76 differing words with PROPOSED whole-file
+ * -fno-sched-interblock added to the owning flags, not the centrally retained
+ * owning configuration. A private flag-only full level-20 build prints MATCH;
+ * this target remains INCLUDE_ASM and has not passed a full linked C build.
+ * The earlier 188-word draft remains in git history; experimental logs and
+ * exact snapshots are local evidence, not required public provenance.
+ * Corrected the old false four-byte UV-table hint to its declared 32 bytes.
+ * Under the proposed file flags that honest old body gives 131 differences;
+ * a conjunctive range predicate improves it to 76, but folds retail's
+ * redundant signed range test into sltiu. The UV base still uses lui/addiu
+ * where retail has GP; do not restore a false size to hide that difference.
+ * The proposed file-wide flag resolves the old corner-loop scheduling problem.
+ * Early-return predicates gave 324 twice; a G32 diagnostic gave 139.
+ * No promotion; the old current-flags history is not reset.
  */
 #include "common.h"
+
+/* localdecomp:start func_L20_003372C8 */
 #include "vu0.h"
 
 typedef struct {
@@ -42,6 +49,7 @@ __asm__(".extern D_L20_001DCAD8, 4");
 __asm__(".extern D_L20_001DCADC, 4");
 __asm__(".extern D_L20_001DCAE0, 4");
 extern f32 D_L20_001DCAF0[4][2] __attribute__((section(".sdata")));
+__asm__(".extern D_L20_001DCAF0, 32");
 extern void func_0038D328(void *, void *);
 extern void func_0038D5B0(void *, void *);
 extern void func_0038D000(void *, void *, void *);
@@ -55,10 +63,7 @@ static __inline__ void copy_3372C8(void *d, void *s) {
 }
 
 static __inline__ s32 valid_3372C8(s32 index) {
-    if (index < 31) {
-        if (index >= 0) return 1;
-    }
-    return 0;
+    return index < 31 && index >= 0;
 }
 
 void func_L20_003372C8(void *self) {
@@ -164,3 +169,4 @@ void func_L20_003372C8(void *self) {
         }
     }
 }
+/* localdecomp:end func_L20_003372C8 */

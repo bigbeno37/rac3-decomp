@@ -272,7 +272,17 @@ def divs_table():
                 rows += [l.split("#")[0].split() for l in f]
         except OSError:
             pass
-    return {r[0]: [int(x) for x in r[1:]] for r in rows if len(r) > 1}
+    # a count may end in "w": that div.s is also written as a raw .word, so an
+    # assembler that pads div.s on its own (Ps2EeAs after an FPU move) leaves it alone
+    return {r[0]: [x if x.endswith("w") else int(x) for x in r[1:]] for r in rows if len(r) > 1}
+
+
+def _divs_word(line):
+    m = re.match(r"\s*div\.s\s+\$f(\d+)\s*,\s*\$f(\d+)\s*,\s*\$f(\d+)\s*$", line.split("#")[0])
+    if not m:
+        return None
+    fd, fs, ft = (int(x) for x in m.groups())
+    return 0x46000003 | (ft << 16) | (fs << 11) | (fd << 6)
 
 
 def divs_rewrite(lines, counts):
@@ -282,6 +292,11 @@ def divs_rewrite(lines, counts):
     for i, n in reversed(list(zip(idx, counts))):
         ind = re.match(r"\s*", lines[i]).group(0)
         nl = lines[i][len(lines[i].rstrip("\r\n")):] or "\n"
+        if isinstance(n, str):
+            w = _divs_word(lines[i])
+            n = int(n[:-1])
+            if w is not None:
+                lines[i] = f"{ind}.word 0x{w:08X}  # {lines[i].strip()}{nl}"
         lines[i:i] = [f"{ind}.word 0x00000000  # nop before div.s{nl}"] * n
     return lines
 
@@ -294,13 +309,21 @@ def divs_pass(text):
     for line in text.splitlines(True):
         s = line.strip()
         em = re.match(r"\.ent\s+(\S+)", s)
-        if cur is None and em and em.group(1) in table:
-            cur, buf = em.group(1), [line]
-            continue
+        if cur is None and em:
+            name = em.group(1)
+            counts = table.get(name)
+            if counts is None and name.startswith("func_U_L"):
+                import version
+                import version_map
+                if version.is_us():
+                    counts = table.get(version_map.native_level_counterpart(name))
+            if counts is not None:
+                cur, buf, selected_counts = name, [line], counts
+                continue
         if cur is not None:
             buf.append(line)
             if re.match(r"\.end\s", s):
-                out.extend(divs_rewrite(buf, table[cur]))
+                out.extend(divs_rewrite(buf, selected_counts))
                 cur, buf = None, []
             continue
         out.append(line)
@@ -380,8 +403,11 @@ def filter_asm(text, ps2as=False):
                                f"  # {mn} {bm.group(3)}\n")
                     if not noreorder:
                         # reorder mode: the assembler would have added the
-                        # delay-slot nop after a real branch, not after a .word
-                        out.append(f"{ind}nop\n")
+                        # delay-slot nop after a real branch, not after a .word.
+                        # Written as a .word too: a plain nop here is an
+                        # instruction ee-as may move into the delay slot of a
+                        # jal that follows the loop, losing a word.
+                        out.append(f"{ind}.word 0x00000000  # nop (delay slot)\n")
                     continue
         out.append(line)
     return "".join(out)

@@ -12,7 +12,7 @@ extern s32 func_L01_00454370(void *, void *);
 extern s32 func_L07_00331008(void *, void *);
 extern void func_L07_003AADB0(void *, f32);
 extern f32 func_0038CF38(void *, void *);
-extern s32 func_L07_00334408(void *);
+extern s16 func_L07_00334408(void *);
 extern s32 func_L07_003346D8(void *);
 extern void func_L07_00334588(void *);
 extern void func_L07_003AAF98(void *);
@@ -20,7 +20,7 @@ extern void func_L07_003AB200(void *);
 extern void func_L07_003AB4B8(void *);
 extern void func_L07_003AB2B0(void *);
 extern void func_L07_003AB678(void *);
-extern void func_L07_003AB918(void *);
+extern void func_L07_003AB918(void);
 extern void func_L01_00404808(void *, void *);
 
 void func_L07_003A9DB0(u8 *obj) {
@@ -121,17 +121,17 @@ void func_L07_003A9DB0(u8 *obj) {
     case 11:
         func_L01_0045A9F0(obj);
         func_L07_003AB200(obj);
-        *(f32 *)(s + 0x538) += 0.1f * 1.2f;
+        *(f32 *)(s + 0x538) += 0.12000000476837158f;
         if (*(f32 *)(s + 0x538) > 1.0f) {
             *(f32 *)(s + 0x538) = 1.0f;
         }
-        *(f32 *)(s + 0x534) += 0.192f;
+        *(f32 *)(s + 0x534) += 0.19200000166893005f;
         if (*(f32 *)(s + 0x534) > 1.0f) {
             *(f32 *)(s + 0x534) -= 1.0f;
         }
         func_L07_003AB2B0(obj);
         func_L07_003AB678(obj);
-        func_L01_00404808(func_L07_003AB918, obj);
+        func_L01_00404808((void *)func_L07_003AB918, obj);
         if (func_0038CB00(s + 0x530) != 0) {
             func_L07_003AAA50(obj, 0xC);
         }

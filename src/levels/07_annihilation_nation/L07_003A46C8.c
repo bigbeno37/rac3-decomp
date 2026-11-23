@@ -6,7 +6,7 @@ extern void func_L07_003A52F0(u8 *);
 extern void func_L01_0045A9F0(void *);
 extern s32 func_0038CB00(void *);
 extern void func_L07_003A5780(void *, s32);
-extern void func_L01_0045A748(void *, void *);
+extern void func_L01_0045A748(u8 *, f32 *);
 extern f32 func_L01_0040E570(void *, void *);
 extern s32 func_L01_00454370(void *, void *);
 extern s32 func_L01_0044E1B8(void *, f32);
@@ -23,7 +23,7 @@ extern void func_L01_0045AA10(void *, f32);
 extern s32 func_L07_003A5ED0(u8 *);
 extern void func_L07_003A5FE0(void *, u8);
 extern void func_L07_00334588(u8 *);
-extern void func_L07_003A5D80(void *, s32);
+extern void func_L07_003A5D80(u8 *, u8);
 extern f32 func_0038DB00(f32, f32);
 extern s32 func_L07_003A6110(void *, s32);
 extern f32 func_L01_004395E0(void *);
@@ -54,7 +54,7 @@ void func_L07_003A46C8(u8 *self) {
         func_L07_003A5780(self, 4);
         break;
     case 4:
-        func_L01_0045A748(self, *(u8 **)(p + 0x270) + 0x10);
+        func_L01_0045A748(self, (f32 *)(*(u8 **)(p + 0x270) + 0x10));
         if (func_L01_0040E570(*(u8 **)(p + 0x270) + 0x10, self + 0x10) < 484.0f) {
             p[0x28E] = 1;
             func_L07_003A5780(self, 6);
@@ -598,7 +598,44 @@ void func_L07_003A5CA8(void *arg0, f32 *arg1, f32 arg2) {
 }
 /* localdecomp:end func_L07_003A5CA8 */
 
-INCLUDE_ASM("asm/levels", func_L07_003A5D80);
+/* localdecomp:start func_L07_003A5D80 */
+#include "vu0.h"
+extern void func_0038CF68(void *, void *, f32);
+extern void func_L01_0045A748(u8 *, f32 *);
+extern f32 func_0038D160(f32, f32);
+extern void func_L01_00448890(u8 *, u8 *, s32, f32, f32, f32, f32);
+extern f32 func_0038CF38_003A5D80(u8 *, u8 *);
+extern void func_L07_00333DB8_003A5D80(s32, f32, u8 *, u8 *, u8 *);
+
+void func_L07_003A5D80(u8 *a0, u8 a1) {
+    u8 *s = *(u8 **)(a0 + 0x68);
+    u8 *rot;
+    u8 *pos;
+    f32 v[4];
+    f32 k;
+    f32 ang;
+
+    k = -1.0f;
+    if (a1 == 0) {
+        k = 1.0f;
+    }
+    pos = a0 + 0x10;
+    rot = a0 + 0xF8;
+    func_0038CF68(v, a0 + 0xD0, k * 50.0f * 0.040000003f);
+    vec_add_ba(v, pos, v);
+    func_L01_0045A748(a0, v);
+    ang = func_0038D160(*(f32 *)(s + 0x130) - *(f32 *)(a0 + 0x10), *(f32 *)(s + 0x134) - *(f32 *)(a0 + 0x14));
+    func_L01_00448890(rot, s + 0x204, 0, ang, *(f32 *)(s + 0x164), *(f32 *)(s + 0x168), *(f32 *)(s + 0x16C));
+    if ((*(u16 *)(a0 + 0x96) & 7) == 0) {
+        if (a1 == 0) {
+            func_L07_00333DB8_003A5D80(*(s32 *)(s + 0x270), func_0038CF38_003A5D80(pos, s + 0x130), a0, s + 0x4A0, 0);
+        } else {
+            func_L07_00333DB8_003A5D80(*(s32 *)(s + 0x270), func_0038CF38_003A5D80(pos, s + 0x130), a0, 0, s + 0x4A0);
+        }
+    }
+    *(u16 *)(a0 + 0x96) += 1;
+}
+/* localdecomp:end func_L07_003A5D80 */
 
 /* localdecomp:start func_L07_003A5ED0 */
 extern f32 func_0038D160(f32, f32);
@@ -735,7 +772,37 @@ s32 func_L07_003A6110(void *arg0, s32 arg1) {
 }
 /* localdecomp:end func_L07_003A6110 */
 
-INCLUDE_ASM("asm/levels", func_L07_003A61E8);
+/* localdecomp:start func_L07_003A61E8 */
+#include "vu0.h"
+void func_L07_003A61E8(void *arg) {
+    extern void func_003C2EC0(void *, s32, void *);
+    extern void func_L01_0044C280(void *, void *, void *, s32, f32);
+    extern s32 func_L03_00433C70(u8 *, void *, void *, s32, f32, f32, s32, s32, s32);
+    extern void func_L07_003A63E8(u8 *, vu0_q *, vu0_q *);
+    struct { vu0_q pos, endpoint, matrix[4], delta, interp, point, tangent; } v;
+    u8 *p = *(u8 **)((u8 *)arg + 0x68);
+    s32 index;
+    f32 t;
+    func_003C2EC0(arg, 0, v.matrix);
+    v.pos = v.matrix[3];
+    func_0038CF68(&v.endpoint, v.matrix, 1.5f);
+    vec_add_ab(&v.endpoint, &v.pos, &v.endpoint);
+    if (p[0x491] != 0) {
+        vec_sub_ba(&v.delta, &v.endpoint, &v.pos);
+        index = (p[0x490] + p[0x491] - 1) % 10;
+        vec_sub_ba(&v.tangent, p + 0x3F0 + index * 16, p + 0x350 + index * 16);
+        t = 0.25f;
+        do {
+            func_L01_0044C280(&v.interp, &v.delta, &v.tangent, 0, t);
+            vec_add_ab(&v.point, &v.pos, &v.interp);
+            t += 0.35f;
+            func_L03_00433C70(arg, &v.pos, &v.point, 0x10001, (f32)p[0x44], 1.0f, 0, 1, 0);
+        } while (t < 1.0f);
+    }
+    func_L03_00433C70(arg, &v.pos, &v.endpoint, 0x10001, (f32)p[0x44], 1.0f, 0, 1, 0);
+    func_L07_003A63E8(arg, &v.pos, &v.endpoint);
+}
+/* localdecomp:end func_L07_003A61E8 */
 
 /* localdecomp:start func_L07_003A63D8 */
 void func_L07_003A63D8(void *arg0) {

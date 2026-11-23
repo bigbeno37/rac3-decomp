@@ -1,78 +1,101 @@
-/* NTSC-U draft (2026-11-14, Codex worker): C of func_L05_003C8498, the NTSC-U twin of func_L05_003CA628, with NTSC-U names
- * and addresses. Byte-exact on NTSC-U with "-O2 -G8 -fopt-stack -mno-check-zero-division" when tried; not with src/levels/shared/L05_003CA628.c's current line.
- * Worker's note: 134 diff; inline-literal assembler mismatch at 1021.0f; stack/register and VU0 branch scheduling also differ; retail div.s nop counts 2 2 (not injected, other diffs remain); best log func_L05_003C8498.02.log 134 diff; reverified allowed-flags lit4 load versus retail inline 1021.0f (0x447F4000); stac
+/* func_L05_003CA628 (levels 05, 11, 17): near miss. PAL port (2026-11-20) of the NTSC-U draft of func_L05_003C8498, reworked
+ * 2026-11-21 (task 2785), 2026-11-22 (task 2834) and 2026-11-22 (task 2935). 18 differences (tools/check.py) at level 05, 19 at level 11,
+ * 18 at level 17, with the file's committed line (`-mvu0-use-vf0-vf2 ... @ps2as`) and a divs_nops.txt row `func_L05_003CA628 2 2`
+ * (not committed: 95 differences at levels 05, 11 and 17 without it).
+ * Form (task 2935, r3-44): only include/vu0.h helpers, no inline VU0 asm, so no VU0 value crosses between asm blocks. Retail's
+ * single vadd.xyz + sqc2 after the branch is gcc's cross-jumping of the two arms' identical tails: both arms call vec_add_ab
+ * (`vec_add_ab(&dest, obj + 0x10, sub)` and, after func_0038CF68, `vec_add_ab(&dest, &dest, obj + 0x10)`), and an inline
+ * function's asm statements carry the header's line, so the two vadd/sqc2 pairs are equal insns and become one tail. The
+ * scheduler swaps the then-arm's two lqc2 (sub into vf2 first), as retail has it. Both arms with vec_add_ba also cross-jump, but
+ * from the obj+0x10 load on (140); vec_add_ba then vec_add_ab do not cross-jump (134). Because the arms end in their own blocks,
+ * sched1 no longer moves the &work setup above the sqc2.
+ * The previous draft (task 2834: one inline j-form vadd/sqc2 after the branch, fed by "j" variables loaded in each arm) was 16
+ * with the same row, but #2918 Q5 read its j values living across the branch as VU0 state between asm blocks (r3-44).
+ * Still differs (18 words at level 05):
+ *  (1) The layout of `old` and `dest` (6 words): `dest` has to be the first local declared, so it is at sp+0 and `old` at
+ *      sp+0x10 (retail: old at sp+0, a dead store, dest at sp+0x10): the sq of `old`, `move $a0/$a1, $sp` for retail's
+ *      `addiu $a0/$a1, $sp, 0x10`, and the lqc2/sqc2 offsets of dest. With retail's order (old first) gcse makes &dest at
+ *      sp+0x10 partially redundant and keeps it in a saved register: 168 (frame 0xa0, $s5 saved), also in this form (fact #46726).
+ *  (2) The func_L01_00446760 call (12 words): retail has `addiu $s1, $sp, 0x20` (&work), `lwc1 $f12`, `lui $a2`, the moves,
+ *      `ori $a2`, then `lui`/`addiu $a3` and `addiu $s0, $s2, 0x10` in the jal's delay slot; ours puts `lui $a3` first and
+ *      `ori $a2` in the slot, and swaps $s0/$s1 (&work / obj+0x10). Unchanged (18) with a named f32 local for the sub+0x34
+ *      argument, `&work[0]` / `&D_L05_001D66B0[0]`, a `(u8 *)obj + 0x10` cast, and `work` declared vu0_v4[3].
  */
 #include "common.h"
-/* localdecomp:start func_L05_003C8498 */
-typedef int Quad_3C8498 __attribute__((mode(TI)));
-extern s32 func_L01_00452EC8(void),func_00388398(void *);
-extern void func_003BD360(void *);
-extern f32 func_00388770(void *),func_003887C8(void *,void *);
-extern void func_00388830(void *,void *,f32);
-extern void func_L01_00443628(void *,void *,s32,void *,f32);
+#include "vu0.h"
+
+/* localdecomp:start func_L05_003CA628 */
+extern s32 func_L01_004561B8(void *);
+extern s32 func_0038CAD0(void *);
+extern void func_003C2880(void *);
+extern f32 func_0038CEA8(void *);
+extern f32 func_0038CF00(void *, void *);
+extern void func_0038CF68(void *, void *, f32);
+extern void func_L01_00446760(void *, void *, s32, void *, f32);
+extern void func_L01_004CB320(void);
+extern void func_L01_004CB358(void);
+extern s32 func_003D3CB0(void *, void *, s32, void *, void *);
+extern void func_L05_003CB090(void *);
+extern void func_L05_003CAE70(void *);
+extern void func_L01_00404A10(void *, void *);
+extern void func_L05_003CA8F0(void *);
 extern u8 D_L05_001D66B0[];
-extern void func_L01_004C76B8(void),func_L01_004C76F0(void);
-extern s32 func_003CE740(void *,void *,s32,void *,void *);
-extern u8 *D_L05_001EA758[];
-extern Quad_3C8498 D_L05_001EA760[];
-extern void func_L05_003C8EE8(void *),func_L05_003C8CC8(void *);
-extern void func_L01_004026A0(void *,void *);
-extern void func_L05_003C8748(void *);
-void func_L05_003C8498(u8 *obj) {
-    struct { Quad_3C8498 old, dest, work[3]; } collision;
+extern u8 *D_L05_001EA6D8[];
+extern vu0_q D_L05_001EA6E0[];
+
+void func_L05_003CA628(u8 *obj) {
+    vu0_v4 dest;
+    vu0_v4 old;
+    vu0_q work[3];
     u8 *sub;
     u8 *hit;
     s32 result;
     f32 len;
-    collision.old=*(Quad_3C8498 *)(obj+0x10);
-    sub=*(u8 **)(obj+0x68);
-    if(!obj[0x20]) {
-        if(!func_L01_00452EC8()) {
-            __asm__("lqc2 $vf1, 16(%0)
-	lqc2 $vf2, 0(%1)
-	vadd.xyz $vf1, $vf1, $vf2
-	sqc2 $vf1, 16(%0)"
-                : : "r"(obj),"r"(sub) : "vf1","vf2","memory");
+
+    old = *(vu0_v4 *)(obj + 0x10);
+    sub = *(u8 **)(obj + 0x68);
+    if (obj[0x20] == 0) {
+        if (func_L01_004561B8(obj) == 0) {
+            vec_add_ab(obj + 0x10, obj + 0x10, sub);
         }
-        if(func_00388398(sub+0x24)) {
-            func_003BD360(obj);
+        if (func_0038CAD0(sub + 0x24)) {
+            func_003C2880(obj);
             return;
         }
-        if(!*(s32 *)(sub+0x30)) {
-            if(func_00388770(sub)>*(f32 *)(sub+0x20)) {
-                __asm__("lqc2 $vf2, 0(%2)
-	lqc2 $vf1, 16(%1)
-	vadd.xyz $vf1, $vf1, $vf2
-	sqc2 $vf1, %0"
-                    : "=m"(collision.dest) : "r"(obj),"r"(sub) : "vf1","vf2");
+        if (*(s32 *)(sub + 0x30) == 0) {
+            if (func_0038CEA8(sub) > *(f32 *)(sub + 0x20)) {
+                vec_add_ab(&dest, obj + 0x10, sub);
             } else {
-                func_00388830(&collision.dest,sub,*(f32 *)(sub+0x20));
-                __asm__("lqc2 $vf1, %0
-	lqc2 $vf2, 16(%1)
-	vadd.xyz $vf1, $vf1, $vf2
-	sqc2 $vf1, %0"
-                    : "+m"(collision.dest) : "r"(obj) : "vf1","vf2");
+                func_0038CF68(&dest, sub, *(f32 *)(sub + 0x20));
+                vec_add_ab(&dest, &dest, obj + 0x10);
             }
-            func_L01_00443628(collision.work,obj,0x10001,D_L05_001D66B0,*(f32 *)(sub+0x34));
-            func_L01_004C76B8();
-            result=func_003CE740(obj+0x10,&collision.dest,16,obj,collision.work);
-            if(result && (hit=D_L05_001EA758[0]) && *(s16 *)(hit+0xAA)==0x186D && hit[0x20]!=2 && hit[0x20]!=5) hit[0x20]=4;
-            func_L01_004C76F0();
-            if(result) {
-                *(s32 *)(sub+0x30)=1;
-                *(Quad_3C8498 *)(sub+0x10)=D_L05_001EA760[0];
-                len=func_003887C8(obj+0x10,sub+0x10);
-                len=len/func_00388770(sub);
-                *(s32 *)(sub+0x24)=(s32)len;
-                *(f32 *)(sub+0x28)=1.0f/(f32)*(s32 *)(sub+0x24);
-                if(!D_L05_001EA758[0]) func_L05_003C8EE8(obj);
-                else func_L05_003C8CC8(sub+0x10);
+            func_L01_00446760(work, obj, 0x10001, D_L05_001D66B0, *(f32 *)(sub + 0x34));
+            func_L01_004CB320();
+            result = func_003D3CB0(obj + 0x10, &dest, 16, obj, work);
+            if (result && (hit = D_L05_001EA6D8[0]) && *(s16 *)(hit + 0xAA) == 0x186D && hit[0x20] != 2 && hit[0x20] != 5) {
+                hit[0x20] = 4;
+            }
+            func_L01_004CB358();
+            if (result) {
+                *(s32 *)(sub + 0x30) = 1;
+                *(vu0_q *)(sub + 0x10) = D_L05_001EA6E0[0];
+                len = func_0038CF00(obj + 0x10, sub + 0x10);
+                len = len / func_0038CEA8(sub);
+                *(s32 *)(sub + 0x24) = ((s32)len * 5 + 2) / 6;
+                *(f32 *)(sub + 0x28) = 1.0f / (f32)*(s32 *)(sub + 0x24);
+                if (*(u8 **)((u8 *)D_L05_001EA6E0 - 8) == 0) {
+                    func_L05_003CB090(obj);
+                } else {
+                    func_L05_003CAE70(sub + 0x10);
+                }
             }
         }
-        func_L01_004026A0(func_L05_003C8748,obj);
+        func_L01_00404A10(func_L05_003CA8F0, obj);
     }
-    if(*(f32 *)(obj+0x10)<2.0f || *(f32 *)(obj+0x10)>1021.0f ||
-       *(f32 *)(obj+0x14)<2.0f || *(f32 *)(obj+0x14)>1021.0f ||
-       *(f32 *)(obj+0x18)<2.0f || *(f32 *)(obj+0x18)>1021.0f) func_003BD360(obj);
+    if (*(f32 *)(obj + 0x10) < 2.0f || *(f32 *)(obj + 0x10) > 1021.0f ||
+        *(f32 *)(obj + 0x14) < 2.0f || *(f32 *)(obj + 0x14) > 1021.0f ||
+        *(f32 *)(obj + 0x18) < 2.0f || *(f32 *)(obj + 0x18) > 1021.0f) {
+        func_003C2880(obj);
+    }
 }
-/* localdecomp:end func_L05_003C8498 */
+/* localdecomp:end func_L05_003CA628 */

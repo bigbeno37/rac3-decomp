@@ -396,6 +396,20 @@ class LevelCodeTest(unittest.TestCase):
         self.assertIn(".text", pieces[1][1])
         self.assertIn("0x00000003", pieces[2][1])
 
+    def test_split_data_fill_word_between_two_tables(self):
+        import level_symbols as ls
+        text = ('.include "macro.inc"\n\n.section .data, "wa"\n\n.align 3\n'
+                'dlabel jtbl_002BB8D0\n    /* 8 002BB8D0 387F3F00 */ .word 0x003F7F38\n'
+                'enddlabel jtbl_002BB8D0\n\n.align 3\n'
+                '    /* C 002BB8D4 CDCDCDCD */ .word 0xCDCDCDCD\n'
+                'dlabel jtbl_002BB8D8\n    /* 10 002BB8D8 407F3F00 */ .word 0x003F7F40\n'
+                'enddlabel jtbl_002BB8D8\n')
+        pieces, _ = ls.split_data(text, {0x2BB8D0: (4, "x.o(.rodata);"), 0x2BB8D8: (4, "y.o(.rodata);")})
+        self.assertEqual([k for k, _ in pieces], ["c", "asm4", "c"])
+        self.assertIn("0xCDCDCDCD", pieces[1][1])
+        self.assertNotIn(".align", pieces[1][1])
+        self.assertIn(".text", pieces[1][1])
+
     def test_expected_values(self):
         import level_symbols as ls
         rows = [("func_L01_00301558", "shared", 8, "", False, [(1, 0x301558), (5, 0x304500)]),
@@ -429,6 +443,18 @@ class LevelCodeTest(unittest.TestCase):
             level_tree._RETAIL[99] = (0x1000, word(1, 2, 3, 0xCDCDCDCD, 0xCDCDCDCD))
             self.assertEqual(level_tree.alignment_nop(99, 0x1000, 0x0C), 0)     # fill right at the end
             self.assertEqual(level_tree.fill_words(99, 0x1000, 0x0C, 0x1018), 2)
+        finally:
+            del level_tree._RETAIL[99]
+
+    def test_zero_words_before_fill(self):
+        import level_tree
+        word = lambda *w: b"".join(x.to_bytes(4, "little") for x in w)
+        # 0x1000: one code word, 0x1004..0x101C: six zero words, 0x101C: one fill word, 0x1020: the next file
+        level_tree._RETAIL[99] = (0x1000, word(1, *([0] * 6), 0xCDCDCDCD))
+        try:
+            self.assertEqual(level_tree.zero_words(99, 0x1000, 0x04, 0x1020), 6)
+            self.assertEqual(level_tree.fill_words(99, 0x1000, 0x04 + 6 * 4, 0x1020), 1)
+            self.assertEqual(level_tree.zero_words(99, 0x1000, 0x04, 0x1010), 3)    # stops at the next function
         finally:
             del level_tree._RETAIL[99]
 
@@ -470,7 +496,7 @@ class LevelDivsNopsTest(unittest.TestCase):
         import level_tree
         for name, line in level_tree.read_divs_nops().items():
             self.assertTrue(re.match(r"func_L\d\d_[0-9A-F]{8}$", name), name)
-            self.assertTrue(all(x.isdigit() for x in line.split()[1:]), line)
+            self.assertTrue(all(re.match(r"\d+w?$", x) for x in line.split()[1:]), line)
 
 
 class LevelSqRaTest(unittest.TestCase):

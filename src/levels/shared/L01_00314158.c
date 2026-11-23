@@ -901,7 +901,43 @@ void func_L01_003185F0(void) {
 }
 /* localdecomp:end func_L01_003185F0 */
 
-INCLUDE_ASM("asm/levels", func_L01_003186A8);
+/* localdecomp:start func_L01_003186A8 */
+extern f32 D_L01_001DC7E0, D_L01_001DC7E4;
+__asm__(".extern D_L01_001DC7E0, 4");
+__asm__(".extern D_L01_001DC7E4, 4");
+void func_L01_003186A8(u8 *object) {
+    extern s32 func_00382498(s32, s32);
+    extern u8 *func_L01_0046B458_003186A8(void *, s32, u32, s32, s32, void *, s32, f32, f32, f32);
+    extern void func_L01_004C7D98_003186A8(s32, void *);
+    extern void func_0038CF68(f32 *, f32 *, f32);
+    vu0_v4 zero;
+    vu0_v4 delta;
+    s32 color1 = 0x7F2020;
+    s32 color2 = 0xFF4040;
+    vu0_v4 *p;
+    s32 i;
+    s32 next;
+    s32 alpha;
+    u8 *particle;
+    qzero(&zero);
+    if (*(s32 *)(*(u8 **)(object+0x68)+0x18)) {
+        color1=0x204060;
+        color2=0x4080FF;
+    }
+    for (i = 0; i < 25; i++) {
+        p=&D_L01_00273FA0[i];
+        alpha=func_00382498(0,111)<<24;
+
+        particle=func_L01_0046B458_003186A8(p,10,color1|alpha,0,1,&zero,0,D_L01_001DC7E0*0.5f,D_L01_001DC7E0,0.0f);
+        if(particle) particle[9]=116;
+        particle=func_L01_0046B458_003186A8(p,10,color2|alpha,1,1,&zero,0,D_L01_001DC7E4*0.5f,D_L01_001DC7E4,0.0f);
+        if(particle) particle[9]=116;
+        func_L01_004C7D98_003186A8(D_001A4BE0.x25C0+16,&delta);
+        func_0038CF68((f32 *)&delta,(f32 *)&delta,-0.004f);
+        vec_add_ba(p,p,&delta);
+    }
+}
+/* localdecomp:end func_L01_003186A8 */
 
 /* localdecomp:start func_L01_00318818 */
 extern S_00142660 D_00142660;
@@ -958,7 +994,40 @@ void func_L01_00318878(s32 owner) {
 }
 /* localdecomp:end func_L01_00318878 */
 
-INCLUDE_ASM("asm/levels", func_L01_003189B0);
+/* localdecomp:start func_L01_003189B0 */
+typedef struct {
+    f32 pos[4];
+    f32 phase, rate;
+    s32 timer, active;
+    u8 pad[16];
+} Effect_003189B0;
+void func_L01_003189B0(u8 *kind) {
+    extern void func_L01_004C7D98(s32, f32 *);
+    extern void func_0038D890(f32 *, f32 *, f32 *, f32);
+    extern void func_L01_00318AF8(s32, f32 *, s32);
+    extern f32 func_0038DAB8(f32, f32);
+    extern void func_0038CF68(f32 *, f32 *, f32);
+    extern s32 func_0038CAD0(void *);
+    f32 delta[4] __attribute__((aligned(16)));
+    f32 out[4] __attribute__((aligned(16)));
+    Effect_003189B0 *p;
+    s32 i;
+    for (i = 0; i < 12; i++) {
+        p = (Effect_003189B0 *)&D_L01_00272540[i];
+        if (p->active == (s32)kind) {
+            f32 alpha;
+            func_L01_004C7D98(D_001A4BE0.x25C0 + 0x10, delta);
+            alpha = (f32)p->timer / 37.0f;
+            func_0038D890(out, p->pos, delta, p->phase);
+            func_L01_00318AF8((s32)kind, out, (s32)(alpha * 128.0f));
+            p->phase = func_0038DAB8(p->phase, p->rate);
+            func_0038CF68(delta, delta, 0.04f);
+            vec_add_ba(p->pos, p->pos, delta);
+            if (func_0038CAD0(&p->timer)) p->active = 0;
+        }
+    }
+}
+/* localdecomp:end func_L01_003189B0 */
 
 /* localdecomp:start func_L01_00318AF8 */
 #include "vu0.h"
@@ -1007,9 +1076,63 @@ void func_L01_00318AF8(u8 *obj, vu0_q *position, s32 value)
 }
 /* localdecomp:end func_L01_00318AF8 */
 
-INCLUDE_ASM("asm/levels", func_L01_00318C30);
+/* localdecomp:start func_L01_00318C30 */
+typedef struct {
+    vu0_v4 position, velocity;
+    u8 pad20[8];
+    f32 step, angle;
+    s32 base_size, size, unused, life, full_life;
+    u8 *owner;
+    u8 pad48[8];
+} Particle_00318C30;
+void func_L01_00318C30(u8 *moby)
+{
+    extern f32 func_0038DAB8(f32, f32);
+    extern void func_L01_004C7D98(void *, void *);
+    extern void func_0038CE20(f32 *, f32 *, f32);
+    extern s32 func_0038CAD0(void *);
+    Particle_00318C30 *p;
+    s32 *vars = *(s32 **)(moby + 0x68);
+    vu0_v4 v;
+    s32 i;
+    for (i = 0; i < 64; i++) {
+        p = (Particle_00318C30 *)&D_L01_00272780[i];
+        if (p->owner == moby) {
+            p->size = (s32)((f32)p->base_size * ((f32)p->life / (f32)p->full_life));
+            p->angle = func_0038DAB8(p->angle, p->step);
+            vec_add_ba(&p->position, &p->position, &p->velocity);
+            func_L01_004C7D98((u8 *)D_001A4BE0.x25C0 + 0x10, &v);
+            func_0038CE20((f32 *)&v, (f32 *)&v, -0.0009f);
+            vec_add_ba(&p->velocity, &p->velocity, &v);
+            if (func_0038CAD0(&p->life)) {
+                if (p->size > 0) {
+                    p->size--;
+                } else {
+                    p->owner = 0;
+                    vars[0]--;
+                }
+            }
+        }
+    }
+}
+/* localdecomp:end func_L01_00318C30 */
 
-INCLUDE_ASM("asm/levels", func_L01_00318D80);
+/* localdecomp:start func_L01_00318D80 */
+void func_L01_00318D80(u8 *owner) {
+    extern void func_L01_003190A8_00318D80(void *, f32, s32, s32, s32, s32, f32, f32);
+    vu0_v4 pos;
+    E_L01_00272780_00318408 *p;
+    s32 i;
+    for (i = 0; i < 64; i++) {
+        p = &D_L01_00272780[i];
+        if (p->active == (s32)owner) {
+            vec_add_ab(&pos, p, (u8 *)D_001A4BE0.x25C0 + 0x10);
+            func_L01_003190A8_00318D80(&pos, *(f32 *)((u8 *)p + 0x20), 0x7F7F7F, *(s32 *)((u8 *)p + 0x34), 0x31, 2, *(f32 *)((u8 *)p + 0x2C), 0.001f);
+            func_L01_003190A8_00318D80(&pos, *(f32 *)((u8 *)p + 0x24), *(s32 *)((u8 *)p + 0x38), *(s32 *)((u8 *)p + 0x34) >> 1, 0x31, 2, *(f32 *)((u8 *)p + 0x2C), 0.001f);
+        }
+    }
+}
+/* localdecomp:end func_L01_00318D80 */
 
 /* localdecomp:start func_L01_00318E68 */
 extern unsigned long D_L01_001E1770;

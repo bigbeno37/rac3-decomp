@@ -134,7 +134,30 @@ LINKER_REMNANT("asm/levels", func_L01_003E3930);
 
 INCLUDE_ASM("asm/levels", func_L01_003E3938);
 
-INCLUDE_ASM("asm/levels", func_L01_003E3F08);
+/* localdecomp:start func_L01_003E3F08 */
+#include "vu0.h"
+extern void func_L01_004C7D98(void *, void *);
+extern void func_0038CE20(void *, void *, f32);
+extern void func_L01_0040A8C0(void *, void *, s32, s32, s32, s32, s32, s32, f32, f32, f32);
+
+void func_L01_003E3F08(u8 *self) {
+    u8 *x = *(u8 **)(self + 0x68);
+    vu0_v4 off;
+    vu0_v4 from;
+
+    if (x != 0) {
+        *(f32 *)(x + 0x28) -= 0.021f;
+        if (*(f32 *)(x + 0x28) <= -8.0f) {
+            *(f32 *)(x + 0x28) += 8.0f;
+        }
+        func_L01_004C7D98(self + 0x10, &off);
+        func_0038CE20(&off, &off, 1.9f);
+        vec_add_ba(&off, self + 0x10, &off);
+        from = *(vu0_v4 *)(self + 0x10);
+        func_L01_0040A8C0(&from, &off, 0x1A, 1, 0x53FF7F40, 0x53FF7F40, 0xFF7F40, 0xFF7F40, 0.55f, 1.0f, *(f32 *)(x + 0x28));
+    }
+}
+/* localdecomp:end func_L01_003E3F08 */
 
 /* localdecomp:start func_L01_003E4008 */
 extern void func_003C2880_003E4008();
@@ -152,7 +175,35 @@ void func_L01_003E4028(u8 *obj, u128_t *out) {
 }
 /* localdecomp:end func_L01_003E4028 */
 
-INCLUDE_ASM("asm/levels", func_L01_003E4050);
+/* localdecomp:start func_L01_003E4050 */
+#include "vu0.h"
+typedef vu0_v4 Vec_003E4050;
+extern u8 *D_L01_001E0124;
+extern Vec_003E4050 D_L01_001EAA30[];
+s32 func_L01_003E4050(q128 *position, f32 extra) {
+    extern s32 func_L01_003F7350(q128 *, f32);
+    extern f32 func_0038CEA8(f32 *);
+    extern void func_0038CE20(void *, void *, f32);
+    struct { q128 copy; Vec_003E4050 delta; } local;
+    u8 *hit;
+    u8 *entry;
+    f32 radius, inverse;
+    local.copy = *position;
+    hit = (u8 *)func_L01_003F7350(&local.copy, extra);
+    if (hit) {
+        entry = D_L01_001E0124 + (*(s32 *)(hit + 0x14) << 7);
+        vec_sub_ba(&local.delta, position, entry + 0x30);
+        radius = func_0038CEA8((f32 *)entry);
+        inverse = 1.0f / func_0038CEA8((f32 *)&local.delta);
+        func_0038CE20(D_L01_001EAA30, &local.delta, (radius + extra) * inverse);
+        func_0038CE20(D_L01_001EAA30 - 1, &local.delta, radius * inverse);
+        vec_add_ba(D_L01_001EAA30, D_L01_001EAA30, entry + 0x30);
+        vec_add_ba(D_L01_001EAA30 - 1, D_L01_001EAA30 - 1, entry + 0x30);
+        return 1;
+    }
+    return 0;
+}
+/* localdecomp:end func_L01_003E4050 */
 
 /* localdecomp:start func_L01_003E4168 */
 extern s32 func_L01_003F7350(q128 *, f32);
@@ -163,15 +214,181 @@ s32 func_L01_003E4168(q128 *a0) {
 }
 /* localdecomp:end func_L01_003E4168 */
 
-INCLUDE_ASM("asm/levels", func_L01_003E4198);
+/* localdecomp:start func_L01_003E4198 */
+#include "vu0.h"
 
-INCLUDE_ASM("asm/levels", func_L01_003E42E8);
+extern u128_t D_L01_001EAA20;
+extern void fe_func_0038CE20(void *, void *, f32);
+extern int fe_func_003D3CB0(void *, void *, int, int, int);
 
-INCLUDE_ASM("asm/levels", func_L01_003E4428);
+s32 func_L01_003E4198(u8 *e, void *out_, s32 mode) {
+    u128_t *out = out_;
+    vu0_v4 t0;
+    vu0_v4 t1;
+    vu0_v4 t2;
+    vu0_v4 t3;
+    u8 *r = e + 0x150;
+    f32 f;
+
+    if (*(s16 *)(r + 0x120) == 0) {
+        func_L01_003E4028(*(u8 **)(e + 0x50), out);
+    } else {
+    func_L01_003E4028(*(u8 **)(e + 0x50), (u128_t *)&t0);
+    f = *(f32 *)(r + 0x114);
+    if (30.0f <= f || mode == 0) {
+        fe_func_0038CE20(&t3, e + 0x90, 0.2f);
+        vec_add_ab(&t1, &t0, &t3);
+        fe_func_0038CE20(&t3, e + 0x90, -30.0f);
+        vec_add_ab(&t2, &t0, &t3);
+        if (fe_func_003D3CB0(&t1, &t2, 0x12, *(s32 *)(r + 0xF0), 0)) {
+            *out = D_L01_001EAA20;
+            return 0;
+        }
+        *out = *(u128_t *)&t0;
+        return -1;
+    }
+    fe_func_0038CE20(&t1, e + 0x90, -f);
+    vec_add_ab(out, &t0, &t1);
+    }
+    return 1;
+}
+/* localdecomp:end func_L01_003E4198 */
+
+/* localdecomp:start func_L01_003E42E8 */
+#include "vu0.h"
+extern Entry_3E6C58 D_L01_001E2A40[];
+void func_L01_003E42E8(u8 *cam) {
+    extern s32 func_L01_003E4198(u8 *, void *, s32);
+    extern f32 func_0038CE68(void *, void *);
+    extern void func_0038CE20(void *, void *, f32);
+    vu0_v4 at, projected, offset;
+    u8 *follow = *(u8 **)(cam + 0x70);
+    Entry_3E6C58 *entry = &D_L01_001E2A40[*(s32 *)(cam + 0x94)];
+    u8 *vertical = follow + 0x60;
+    u8 *springs = follow + 0x180;
+    vu0_v4 *up;
+    vu0_v4 *forward = (vu0_v4 *)((u8 *)entry + 0x80);
+    func_L01_003E4198((u8 *)entry, &at, 0);
+    up = (vu0_v4 *)((u8 *)entry + 0x90);
+    {
+        f32 dot = func_0038CE68((f32 *)&at, (f32 *)up);
+        func_0038CE20(&projected, up, dot);
+    }
+    vec_sub_ba((vu0_v4 *)(follow + 0x60), &at, &projected);
+    *(vu0_q *)(follow + 0x70) = *(vu0_q *)&projected;
+    vec_add_ba((vu0_v4 *)(follow + 0x60), (vu0_v4 *)(follow + 0x60), (vu0_v4 *)(follow + 0x70));
+    func_0038CE20(&offset, forward, *(f32 *)(vertical + 0xD0));
+    vec_add_ba((vu0_v4 *)(follow + 0xA0), &offset, (vu0_v4 *)(follow + 0x60));
+    vec_add_ba((vu0_v4 *)(follow + 0x110), &offset, (vu0_v4 *)(follow + 0x60));
+    qzero(follow + 0x120);
+    *(f32 *)(vertical + 0xE8) = 1.0f;
+    vertical[0xE5] = 0;
+    *(s16 *)(vertical + 0xE6) = 0;
+    vertical[0xE4] = 0;
+    qzero(follow + 0xF0);
+    qzero(follow + 0x100);
+    *(vu0_q *)(follow + 0xC0) = *(vu0_q *)(follow + 0x60);
+    func_0038CE20(&offset, forward, *(f32 *)(springs + 0x30));
+    vec_add_ba((vu0_v4 *)(follow + 0xB0), &offset, (vu0_v4 *)(follow + 0x60));
+}
+/* localdecomp:end func_L01_003E42E8 */
+
+/* localdecomp:start func_L01_003E4428 */
+#include "vu0.h"
+/* vu0_s_003E4428: 128-bit struct with TImode, so "m" operands are TImode MEMs (per-offset stack deps) */
+typedef struct { vu0_q q; } vu0_s_003E4428;
+
+/* lqc2 / sqc2 with a TImode (vu0_s_003E4428) or BLKmode (vu0_v4) memory operand */
+static __inline__ vu0_q vec_load_003E4428(void *s) { vu0_q q; __asm__("lqc2 %0, %1" : "=j"(q) : "m"(*(vu0_s_003E4428 *)s)); return q; }
+static __inline__ vu0_q vec_load_v_003E4428(void *s) { vu0_q q; __asm__("lqc2 %0, %1" : "=j"(q) : "m"(*(vu0_v4 *)s)); return q; }
+static __inline__ void vec_store_003E4428(void *d, vu0_q q) { __asm__("sqc2 %1, %0" : "=m"(*(vu0_s_003E4428 *)d) : "j"(q)); }
+static __inline__ void vec_store_v_003E4428(void *d, vu0_q q) { __asm__("sqc2 %1, %0" : "=m"(*(vu0_v4 *)d) : "j"(q)); }
+
+/* vec_add_lr_003E4428(): x + *b, b loaded and added in one statement; x listed twice so the result takes its register */
+static __inline__ vu0_q vec_add_lr_003E4428(vu0_q x, void *b) {
+    vu0_q t, r;
+    __asm__("lqc2 %1, %3\n\tvadd.xyz %0, %2, %1" : "=j"(r), "=&j"(t) : "j"(x), "m"(*(vu0_v4 *)b), "j"(x));
+    return r;
+}
+
+/* vec_sub_bs_003E4428(): d = a - b, b loaded first, result in a's register */
+static __inline__ void vec_sub_bs_003E4428(void *d, void *a, void *b) {
+    vu0_q qa, qb;
+    __asm__("lqc2 %0, %1" : "=j"(qb) : "m"(*(vu0_s_003E4428 *)b));
+    __asm__("lqc2 %0, %1" : "=j"(qa) : "m"(*(vu0_s_003E4428 *)a));
+    __asm__("vsub.xyz %0, %1, %2" : "=j"(qa) : "j"(qa), "j"(qb));
+    __asm__("sqc2 %1, %0" : "=m"(*(vu0_s_003E4428 *)d) : "j"(qa));
+}
+
+/* vec_sub_n_003E4428(): d = a - b, a loaded first, result in a new value */
+static __inline__ void vec_sub_n_003E4428(void *d, void *a, void *b) {
+    vu0_q qa, qb, qr;
+    __asm__("lqc2 %0, %1" : "=j"(qa) : "m"(*(vu0_s_003E4428 *)a));
+    __asm__("lqc2 %0, %1" : "=j"(qb) : "m"(*(vu0_s_003E4428 *)b));
+    __asm__("vsub.xyz %0, %1, %2" : "=j"(qr) : "j"(qa), "j"(qb));
+    __asm__("sqc2 %1, %0" : "=m"(*(vu0_s_003E4428 *)d) : "j"(qr));
+}
+
+extern Ent1120 D_L01_001E2AA0[];
+extern void func_0038CE20(void *, void *, f32);
+extern f32 func_0038CE68(void *, void *);
+extern f32 func_0038CEA8(void *);
+extern f32 func_0038D0C8(f32);
+
+f32 func_L01_003E4428(u8 *self, f32 dist) {
+    vu0_v4 pos, off, d, e, c40, c50;
+    u8 *ent = (u8 *)&D_L01_001E2AA0[*(s32 *)(self + 0x94)];
+    f32 dot, len, r;
+
+    func_L01_003E4028(self, (u128_t *)&pos);
+    func_0038CE20(&off, ent + 0x20, dist);
+    {
+        vu0_q qp = vec_load_003E4428(&pos);
+        vu0_q qf = vec_load_003E4428(&off);
+        vec_store_003E4428(&c50, qp);
+        vec_store_v_003E4428(&c40, vec_load_v_003E4428(self + 0x30));
+        qf = vec_add_lr_003E4428(qf, &c50);
+        vec_store_v_003E4428(&off, qf);
+    }
+    vec_sub_bs_003E4428(&d, &off, &c40);
+    dot = func_0038CE68(&d, self + 0x10);
+    func_0038CE20(&e, self + 0x10, dot);
+    vec_sub_n_003E4428(&d, &d, &e);
+    dot = func_0038CE68(&d, self);
+    len = func_0038CEA8(&d);
+    if (len == 0.0f) {
+        return 0.0f;
+    }
+    r = 1.5707964f - func_0038D0C8(dot / len);
+    if (func_0038CE68(&d, self + 0x20) < 0.0f) {
+        r = -r;
+    }
+    return r;
+}
+/* localdecomp:end func_L01_003E4428 */
 
 INCLUDE_ASM("asm/levels", func_L01_003E4580);
 
-INCLUDE_ASM("asm/levels", func_L01_003E4828);
+/* localdecomp:start func_L01_003E4828 */
+#include "vu0.h"
+extern void func_0038CE20(void *, void *, f32);
+extern f32 func_0038CE68(void *, void *);
+extern s32 func_L01_003E4198(u8 *, void *, s32);
+
+void func_L01_003E4828(Entry_3E6C58 *entry, q128 *target, f32 height, s32 from_ground) {
+    u8 *e = (u8 *)entry;
+    u8 *p = e + 0x60;
+    vu0_q v[2];
+    func_0038CE20(&v[0], e + 0x80, height);
+    if (from_ground != 0) {
+        func_L01_003E4198(e, &v[1], 1);
+    } else {
+        func_L01_003E4028(*(u8 **)(e + 0x50), &v[1]);
+    }
+    vec_add_ab(&v[0], &v[0], &v[1]);
+    func_0038CE20(target, p + 0x30, func_0038CE68(p + 0x30, &v[0]));
+}
+/* localdecomp:end func_L01_003E4828 */
 
 /* localdecomp:start func_L01_003E48D8 */
 typedef int q128_3E48D8 __attribute__((mode(TI)));

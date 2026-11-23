@@ -209,6 +209,98 @@ void func_L39_006CC4F8(s32 *dst, S_006CC4F8 *src) {
 }
 /* localdecomp:end func_L39_006CC4F8 */
 
-INCLUDE_ASM("asm/levels", func_L39_006CC648);
+/* localdecomp:start func_L39_006CC648 */
+extern E_0047F0C0 D_L39_0047F0C0[];
 
-INCLUDE_ASM("asm/levels", func_L39_006CC798);
+void func_L39_006CC648(s32 *out, u8 *src) {
+    s32 i;
+    s32 j;
+    s32 shift;
+    s32 mask;
+    s32 k;
+    s32 v;
+
+    for (i = 0; i < 0x1D; i++) {
+        k = D_L39_0047F0C0[i].f0;
+        v = 0xFFFFFF;
+        switch (D_L39_0047F0C0[i].f4) {
+        case 2: v = *(u16 *)(src + 0x22); break;
+        case 3: v = *(u16 *)(src + 0x24); break;
+        case 4: v = *(s32 *)(src + 0x28); break;
+        case 5: v = *(s32 *)(src + 0x2C); break;
+        case 6: v = *(s32 *)(src + 0x30); break;
+        case 7: v = *(s32 *)(src + 0x34); break;
+        case 8: v = *(s32 *)(src + 0x38); break;
+        case 9: v = *(s32 *)(src + 0x3C); break;
+        case 1: v = *(u16 *)(src + 0x20); break;
+        }
+        if (v != 0xFFFFFF) {
+            mask = D_L39_0047F0C0[i].f8;
+            shift = -1;
+            for (j = 0; j < 32; j++) {
+                if (!(((long)(u32)D_L39_0047F0C0[i].f8 >> j) & 1)) continue;
+                shift = j;
+                break;
+            }
+            if (shift >= 0) {
+                *(s32 *)((u8 *)out + (k << 2)) = (u32)(v & mask) >> shift;
+            }
+        } else {
+            *(s32 *)((u8 *)out + (k << 2)) = 0;
+        }
+    }
+}
+/* localdecomp:end func_L39_006CC648 */
+
+/* localdecomp:start func_L39_006CC798 */
+typedef struct {
+    u8 pad0[0x18];
+    s32 w18;
+    u8 pad1C[0x15C - 0x1C];
+    s32 w[8];
+} GeSrc;
+static __inline__ s32 ge_shift(s32 n) {
+    s32 b;
+    s32 r = -1;
+    for (b = 0; b < 32; b++) {
+        if (!(((long)(u32)D_L39_0047F0C0[n].f8 >> b) & 1)) continue;
+        r = b;
+        break;
+    }
+    return r;
+}
+void func_L39_006CC798(s32 *out, GeSrc *src) {
+    s32 i;
+    s32 shift;
+    s32 val;
+    s32 mask;
+    s32 kind;
+    s32 idx;
+
+    for (i = 0; i < 29; i++) {
+        kind = D_L39_0047F0C0[i].f4;
+        idx = D_L39_0047F0C0[i].f0;
+        val = 0xFFFFFF;
+        switch (kind) {
+        case 2: val = src->w[0]; break;
+        case 3: val = src->w[1]; break;
+        case 4: val = src->w[2]; break;
+        case 5: val = src->w[3]; break;
+        case 6: val = src->w[4]; break;
+        case 7: val = src->w[5]; break;
+        case 8: val = src->w[6]; break;
+        case 9: val = src->w[7]; break;
+        case 1: val = src->w18; break;
+        }
+        if (val != 0xFFFFFF) {
+            mask = D_L39_0047F0C0[i].f8;
+            shift = ge_shift(i);
+            if (shift >= 0) {
+                *(s32 *)((s32)out + (idx << 2)) = (u32)(val & mask) >> shift;
+            }
+        } else {
+            *(s32 *)((s32)out + (idx << 2)) = 0;
+        }
+    }
+}
+/* localdecomp:end func_L39_006CC798 */
