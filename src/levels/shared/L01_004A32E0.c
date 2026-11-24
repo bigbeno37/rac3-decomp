@@ -182,4 +182,121 @@ void func_L01_004A35C0(void)
 }
 /* localdecomp:end func_L01_004A35C0 */
 
-INCLUDE_ASM("asm/levels", func_L01_004A3610);
+/* localdecomp:start func_L01_004A3610 */
+typedef int u128_004A3610 __attribute__((mode(TI)));
+typedef struct {
+    u8 pad[0x38];
+    s32 a, b;
+} Obj_004A3610;
+typedef struct {
+    u8 pad0[0x25C0];
+    Obj_004A3610 *object; /* 0x25C0 */
+    u8 pad1[0x20];
+    u8 mode;              /* 0x25E4 */
+    u8 pad2[0x287A - 0x25E5];
+    s16 count;            /* 0x287A */
+} Hero_004A3610;
+typedef struct {
+    s32 active;
+    u8 pad[12];
+    f32 a[4];             /* 0x10 */
+    f32 b[4];             /* 0x20 */
+    s32 obj_a, obj_b, word; /* 0x30 */
+    u8 bytes[6];          /* 0x3C */
+    u8 pad2[2];
+    f32 values[4];        /* 0x44 */
+    s32 mode;             /* 0x54 */
+    Obj_004A3610 *object; /* 0x58 */
+    s32 count;            /* 0x5C */
+    u8 data[0x404];       /* 0x60 */
+    u8 map[0x7FF];        /* 0x464 */
+    u8 pad3;
+    s32 other_count, other_word; /* 0xC64 */
+} Snap_004A3610;
+typedef struct {
+    u8 pad[0x40];
+    u8 bytes[3];
+    u8 pad2[0xB4 - 0x43];
+    s32 word;
+} S1A30B0_004A3610;
+typedef struct {
+    u8 pad[0x48];
+    s16 count;
+} S1CCFD0_004A3610;
+extern Hero_004A3610 D_001A4BE0_004A3610;
+__asm__(".extern D_001A4BE0_004A3610, 16");
+extern Snap_004A3610 D_L01_00237800_004A3610;
+extern Snap_004A3610 D_L01_00236B90_004A3610;
+extern s32 D_001D545C;
+__asm__(".extern D_001D545C, 16");
+extern u8 D_001BBC40[][16];
+extern u8 D_001BBE90[];
+extern S1A30B0_004A3610 D_001A30B0_004A3610;
+extern S1CCFD0_004A3610 D_001CCFD0_004A3610;
+extern s32 D_L01_001F3F40[];
+extern u8 D_L01_001DF9E4, D_L01_001DF9E5, D_L01_001DF9E6;
+__asm__(".extern D_L01_001DF9E4, 16");
+__asm__(".extern D_L01_001DF9E5, 16");
+__asm__(".extern D_L01_001DF9E6, 16");
+extern f32 D_L01_001DF9E8, D_L01_001DF9EC, D_L01_001DF9F0, D_L01_001DF9F4;
+__asm__(".extern D_L01_001DF9E8, 16");
+__asm__(".extern D_L01_001DF9EC, 16");
+__asm__(".extern D_L01_001DF9F0, 16");
+__asm__(".extern D_L01_001DF9F4, 16");
+extern void func_0038CC88(void *, void *, s32);
+extern void func_0039EC28(s32, s32);
+
+/* from rac2-decomp's func_002DF3F8 */
+void func_L01_004A3610(void *a, void *b) {
+    u8 *src;
+    s32 i;
+    s32 level;
+    if (D_001A4BE0_004A3610.mode == 4)
+        return;
+    func_0038CC88(D_L01_00237800_004A3610.data, D_L01_00236B90_004A3610.data, 0x404);
+    level = D_001D545C;
+    src = D_L01_00236B90_004A3610.map;
+    for (i = 0; i < 0x7FF; i++, src++) {
+        u32 v = *src;
+        u8 id = v;
+        if (id != 0 && (id == 1 || (D_001BBC40[level][id - 2] & 0x80))) {
+            u8 *p;
+            D_L01_00237800_004A3610.map[i] = v;
+            if (i & 1) {
+                p = &D_001BBE90[(i >> 1) + level * 1024];
+                if (((*p >> 4) & 7) != 7)
+                    *p += 16;
+            } else {
+                p = &D_001BBE90[(i >> 1) + level * 1024];
+                if ((*p & 7) != 7)
+                    *p += 1;
+            }
+        }
+    }
+    D_L01_00237800_004A3610.active = 1;
+    *(u128_004A3610 *)D_L01_00237800_004A3610.a = *(u128_004A3610 *)a;
+    *(u128_004A3610 *)D_L01_00237800_004A3610.b = *(u128_004A3610 *)b;
+    {
+        Obj_004A3610 *obj = D_001A4BE0_004A3610.object;
+        D_L01_00237800_004A3610.obj_a = obj->a;
+        D_L01_00237800_004A3610.obj_b = obj->b;
+        D_L01_00237800_004A3610.mode = D_001A4BE0_004A3610.mode;
+        D_L01_00237800_004A3610.object = obj;
+        D_L01_00237800_004A3610.count = D_001A4BE0_004A3610.count;
+        D_L01_00237800_004A3610.word = D_001A30B0_004A3610.word;
+        D_L01_00237800_004A3610.bytes[0] = D_001A30B0_004A3610.bytes[0];
+        D_L01_00237800_004A3610.bytes[1] = D_001A30B0_004A3610.bytes[1];
+        D_L01_00237800_004A3610.bytes[2] = D_001A30B0_004A3610.bytes[2];
+        D_L01_00237800_004A3610.other_count = D_001CCFD0_004A3610.count;
+        D_L01_00237800_004A3610.other_word = D_L01_001F3F40[0];
+        D_L01_00237800_004A3610.bytes[3] = D_L01_001DF9E4;
+        D_L01_00237800_004A3610.bytes[4] = D_L01_001DF9E5;
+        D_L01_00237800_004A3610.bytes[5] = D_L01_001DF9E6;
+        D_L01_00237800_004A3610.values[0] = D_L01_001DF9E8;
+        D_L01_00237800_004A3610.values[1] = D_L01_001DF9EC;
+        D_L01_00237800_004A3610.values[2] = D_L01_001DF9F0;
+        D_L01_00237800_004A3610.values[3] = D_L01_001DF9F4;
+    }
+    func_0039EC28(0, -1);
+}
+/* localdecomp:end func_L01_004A3610 */
