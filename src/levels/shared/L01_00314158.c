@@ -1642,7 +1642,58 @@ void func_L01_0031B3A0(void)
 }
 /* localdecomp:end func_L01_0031B3A0 */
 
-INCLUDE_ASM("asm/levels", func_L01_0031B4F8);
+/* localdecomp:start func_L01_0031B4F8 */
+typedef struct { s32 timer; s32 color; s32 color2; f32 phase; f32 damage; u8 *target; u8 *owner; s32 wait; } Acid_0031B4F8;
+extern E_31ABE0 D_L01_00274580[];
+typedef struct { s32 c[2]; } Colors_0031B4F8;
+extern Colors_0031B4F8 D_L01_001DC820 __attribute__((section(".data")));
+extern void func_003C5180(u8 *, vu0_v4 *, s32);
+extern s32 func_0013D3E0(void);
+extern u8 *func_L01_004669B0(void *, f32, f32, f32, f32, s32, void *, u32, s32);
+void func_L01_0031B4F8(u8 *m) {
+    vu0_v4 pos, dir, velocity;
+    Colors_0031B4F8 colors;
+    s32 i, j;
+    for (i = 0; i < 30; i++) {
+        Acid_0031B4F8 *e;
+        if (D_L01_00274580[i].id == 0) continue;
+        e = (Acid_0031B4F8 *)&D_L01_00274580[i];
+        func_003C5180(e->target + 0x10, &pos, 1);
+        func_0038CE20((f32 *)&pos, (f32 *)&pos, ((f32 *)e->target)[3] * 0.0009765f * 0.8f);
+        pos.x += ((f32 *)e->target)[0] * 0.0009765f;
+        pos.y += ((f32 *)e->target)[1] * 0.0009765f;
+        pos.z += ((f32 *)e->target)[2] * 0.0009765f;
+        for (j = 0; j < 3; j++) {
+            f32 speed, yaw, pitch;
+            s32 count;
+            u8 *p;
+            qzero(&velocity);
+            velocity.z = func_003824E0(0.020000001f, 0.030000001f);
+            speed = ((f32 *)e->target)[3] * 0.0009765f * func_003824E0(0.5f, 0.75f);
+            yaw = func_00382538();
+            pitch = func_00382538();
+            func_00382760(&dir, speed, yaw, pitch);
+            dir.x += ((f32 *)e->target)[0] * 0.0009765f;
+            dir.y += ((f32 *)e->target)[1] * 0.0009765f;
+            dir.z += ((f32 *)e->target)[2] * 0.0009765f;
+            count = func_00382498(1, 5);
+            p = func_L01_004669B0(&dir, 0.0f, 1.0f, 1.01f, func_003824E0(0.25f, 1.0f) * 210000.0f, count, &velocity, 0x802040, 1);
+            colors = D_L01_001DC820;
+            if (p != 0) {
+                u8 *q = p + 0x20;
+                s32 k = func_0013D3E0() % 2;
+                p[3] = colors.c[k];
+                *(s16 *)(p + 0xA) = 29;
+                p[9] = 0x44;
+                *(f32 *)(q + 0x1C) = 4.0f;
+                *(s32 *)(q + 4) = 3;
+                q[0xA] = func_00382498(0x40, 0x80);
+                q[0xB] = p[0xA];
+            }
+        }
+    }
+}
+/* localdecomp:end func_L01_0031B4F8 */
 
 /* localdecomp:start func_L01_0031B810 */
 #include "vu0.h"
