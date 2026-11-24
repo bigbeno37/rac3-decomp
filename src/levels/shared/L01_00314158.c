@@ -1348,7 +1348,82 @@ void func_L01_0031AAA8(u8 *a0) {
 
 INCLUDE_ASM("asm/levels", func_L01_0031AAF0);
 
-INCLUDE_ASM("asm/levels", func_L01_0031AD78);
+/* localdecomp:start func_L01_0031AD78 */
+typedef struct {
+    vu0_q vector;
+    u8 pad10[8];
+    u8 type, mode;
+    u16 class_id;
+    s32 pad1C, flags;
+    u8 pad24[12];
+} Hit_0031AD78;
+typedef struct {
+    s32 timer;
+    s32 color;
+    s32 color2;
+    f32 phase;
+    f32 damage;
+    u8 *target;
+    u8 *owner;
+    s32 wait;
+} Acid_0031AD78;
+extern G_00318408 D_001A4BE0;
+extern E_31ABE0 D_L01_00274580[];
+extern f32 *func_00382348(u8 *);
+extern void func_L01_0031AFB8(u8 *);
+extern void func_L01_0031B4F8(u8 *);
+extern void func_L01_00404A10_0031AD78(void (*)(u8 *), u8 *);
+void func_L01_0031AD78(u8 *m) {
+    vu0_v4 direction;
+    Hit_0031AD78 hit;
+    s32 i;
+    *(vu0_q *)(m + 0x10) = *(vu0_q *)&D_001A4BE0;
+    for (i = 0; i < 30; i++) {
+        Acid_0031AD78 *e;
+        s32 dead;
+        f32 *health;
+        u8 *owner;
+        if (D_L01_00274580[i].id == 0) continue;
+        e = (Acid_0031AD78 *)&D_L01_00274580[i];
+        e->phase = func_0038DAB8(e->phase, 0.25132742524147034f);
+        if (*(s8 *)(e->target + 0x20) < 0) dead = 1;
+        else dead = 0;
+        if (*(s32 *)(e->target + 0x98) == 0) dead = 1;
+        health = func_00382348(e->target);
+        if (health != 0) {
+            *health -= e->damage;
+            if (*health <= 0.0f) {
+                func_0038CE20((f32 *)&direction, (f32 *)(e->target + 0xC0), -1.0f);
+                func_0038CF68((f32 *)&hit, (f32 *)&hit, 0.002f);
+                owner = e->owner;
+                *(u8 **)(m + 0xB8) = owner;
+                func_L01_00446760(&hit, owner, 0x1010000, &direction, 0.001f);
+                hit.vector = *(vu0_q *)&direction;
+                hit.flags = 1;
+                ((f32 *)&hit.vector)[3] = 5627.9248046875f;
+                hit.type = 5;
+                hit.mode = 1;
+                hit.class_id = *(u16 *)(e->target + 0xAA);
+                func_L01_00446978(e->target, &hit);
+                dead = 1;
+            }
+        } else {
+            dead = 1;
+        }
+        if (func_0038CAD0(e)) dead = 1;
+        if (dead) {
+            func_L01_0031AFB8((u8 *)e);
+            e->target = 0;
+        } else if (e->wait == 0) {
+            s32 c = func_0038DBD8(e->color, e->color2, (func_0038D098(e->phase) + 1.0f) * 0.5f);
+            func_L01_0043B9E8(e->target, c & 0xFF, (c >> 8) & 0xFF, (c >> 16) & 0xFF);
+        } else {
+            e->wait--;
+        }
+    }
+    func_L01_00404A10_0031AD78(func_L01_0031B4F8, m);
+}
+/* localdecomp:end func_L01_0031AD78 */
 
 /* localdecomp:start func_L01_0031AFB8 */
 extern void func_L01_0043B9E8(u8 *, s32, s32, s32);
