@@ -111,7 +111,87 @@ s32 func_L01_0030F0B0(Moby_0030F0B0 *m, s32 a1) {
 }
 /* localdecomp:end func_L01_0030F0B0 */
 
-INCLUDE_ASM("asm/levels", func_L01_0030F288);
+/* localdecomp:start func_L01_0030F288 */
+typedef int s128_0030F288 __attribute__((mode(TI)));
+typedef struct { u8 pad0[0x25C0]; void *p25C0; } Hero_0030F288;
+typedef struct { u8 pad0[0x88]; u16 w88; u8 pad8A[0xF0 - 0x8A]; } Row_0030F288;
+typedef struct {
+    u8 pad0[0x60];
+    s32 w60;
+    u8 pad64[0x68 - 0x64];
+    s32 w68;
+    f32 f6C;
+    u8 pad70[0x74 - 0x70];
+    f32 f74;
+} Vars_0030F288;
+typedef struct {
+    u8 pad0[0x10];
+    f32 pos[4];
+    u8 b20;
+    u8 pad21[0x64 - 0x21];
+    void (*update)(void);
+    Vars_0030F288 *vars;
+} Moby_0030F288;
+extern s32 func_L01_00511950(s32);
+extern f32 func_00382538(void);
+extern void func_003C5180(void *, void *, s32);
+extern f32 func_0038CED8(void *);
+extern f32 func_0038D160(f32, f32);
+extern void func_L01_00443B88(void *, f32, f32);
+extern f32 func_003824E0(f32, f32);
+extern void func_L01_004510A8(void *, void *, void *, s32, f32);
+extern Moby_0030F288 *func_L01_003F79D8(void *, s32, s32, s32, void *, void *, void *, s32, f32, f32, s32, s32, s32);
+extern f32 func_L01_00451580(void *);
+extern void func_003C7C38(void *);
+extern void func_L01_0044A7D0(void *);
+extern void func_L01_0030EAE8(void);
+
+u8 *func_L01_0030F288(void *a0, s32 a1, s32 a2, s32 a3) {
+    f32 rot[4];
+    f32 pos[4];
+    f32 f20;
+    Moby_0030F288 *m;
+    Vars_0030F288 *vars;
+    s32 max;
+    s32 mp;
+
+    max = ((Row_0030F288 *)D_L01_002C5600)[D_001425C0[func_L01_00511950(a1)]].w88;
+    *(s128_0030F288 *)pos = 0;
+    pos[2] = func_00382538();
+    *(s128_0030F288 *)rot = *(s128_0030F288 *)pos;
+    if (D_L01_001D673C != 0) {
+        func_003C5180(a0, pos, 1);
+        rot[1] = func_0038D160(pos[2], func_0038CED8(pos));
+        rot[2] = func_0038D160(pos[0], pos[1]);
+    }
+    func_L01_00443B88(pos, 0.040000003f, 0.080000006f);
+    func_L01_004510A8(((Hero_0030F288 *)&D_001A4BE0)->p25C0, pos, pos, 0, func_003824E0(4.0f, 8.0f) * 0.020000001f);
+    f20 = func_003824E0(180.0f, 360.0f);
+    m = func_L01_003F79D8(((Hero_0030F288 *)&D_001A4BE0)->p25C0, 2, 0xCDB, 0, a0, rot, pos, 0xFF, f20,
+                          func_003824E0(10.0f, 15.0f), 0xB4, 0, 0x80);
+    if (m != 0) {
+        m->b20 = 1;
+        m->update = func_L01_0030EAE8;
+        vars = m->vars;
+        if (a2 == -1) {
+            vars->w60 = ((Row_0030F288 *)D_L01_002C5600)[D_001425C0[func_L01_00511950(a1)]].w88;
+        } else {
+            vars->w60 = a2;
+        }
+        mp = D_L01_001D673C;
+        vars->w68 = a1;
+        vars->f6C = (f32)a3;
+        if (mp != 0) {
+            vars->f74 = func_L01_00451580(m->pos);
+        } else {
+            vars->f74 = m->pos[2];
+        }
+        func_003C7C38(m);
+        func_L01_0044A7D0(m);
+    }
+    return (u8 *)m;
+}
+/* localdecomp:end func_L01_0030F288 */
 
 LINKER_REMNANT("asm/levels", func_L01_0030F4E0);
 

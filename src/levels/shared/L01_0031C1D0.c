@@ -184,7 +184,49 @@ void func_L01_0031CA18(void *a0, void *a1, int a2, void *a3) {
 }
 /* localdecomp:end func_L01_0031CA18 */
 
-INCLUDE_ASM("asm/levels", func_L01_0031CAA8);
+/* localdecomp:start func_L01_0031CAA8 */
+typedef int Q_0031CAA8 __attribute__((mode(TI)));
+extern Q_0031CAA8 D_L01_001E29C0[];
+extern Q_0031CAA8 D_001A4C60[];
+extern s32 func_L01_00456500(void *, s32);
+
+void func_L01_0031CAA8(u8 *obj) {
+    Q_0031CAA8 pos;
+    s8 *vars = *(s8 **)(obj + 0x68);
+    s32 active = 0;
+    s32 i;
+    s32 *p;
+    obj[0x30] = 0xFF;
+    pos = vars[0x7A] ? D_L01_001E29C0[0] : D_001A4C60[0];
+    if (obj[0x95] == 0) {
+        for (i = 0; ; i++) {
+            if (i >= 4) goto done;
+            if (((s32 *)vars)[i] != -1 && func_L01_00456500(&pos, ((s32 *)vars)[i])) break;
+        }
+    } else if (obj[0x95] != 1) {
+        goto off;
+    }
+    active = 1;
+    goto done;
+off:
+    active = 0;
+done:
+    if ((active && !obj[0xBC]) || (!active && obj[0xBC]) || !obj[0x20]) {
+        if (active) obj[0xBC] = 1;
+        else obj[0xBC] = 0;
+        obj[0x20] = obj[0xBC] + 1;
+        for (i = 0; i < 13; i++) {
+            if (((s32 *)(vars + 0x10))[i] != -1)
+                func_L01_0031CA18(obj, vars, ((s32 *)(vars + 0x10))[i], (void *)active);
+        }
+        p = (s32 *)(vars + 0x44);
+        for (i = 0; i < 13; i++) {
+            if (p[i] != -1)
+                func_L01_0031C770(obj, (u8 *)D_L01_001E001C + (p[i] << 8), vars, active);
+        }
+    }
+}
+/* localdecomp:end func_L01_0031CAA8 */
 
 /* localdecomp:start func_L01_0031CC48 */
 extern void func_003C2880(Moby_0031BEF0 *);

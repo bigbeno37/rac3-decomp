@@ -108,4 +108,54 @@ s32 func_L39_00508620(void *arg0) {
 
 LINKER_REMNANT("asm/levels", func_L39_00508688);
 
-INCLUDE_ASM("asm/levels", func_L39_00508690);
+/* localdecomp:start func_L39_00508690 */
+typedef struct Sub_00508690 {
+    u8 pad0[0x10];
+    s32 *data;
+} Sub_00508690;
+
+typedef struct Ent_00508690 {
+    void *type;
+    s32 pad4[3];
+    Sub_00508690 *sub;
+} Ent_00508690;
+
+extern u8 D_L39_0046F010[];
+
+
+s32 func_L39_00508690(Ent_00508690 *arg0, s32 n, Ent_00508690 **list, void *type) {
+    s32 *out;
+    s32 *in;
+    Ent_00508690 *p;
+    s32 i;
+    s32 k;
+
+    out = arg0->sub->data;
+    out[n - 2] = -1;
+    out[n - 1] = -1;
+    for (i = 0;; i++) {
+        p = list[i];
+        if (p == 0) {
+            return 0;
+        }
+        if (p->type == D_L39_0046F010) {
+            in = p->sub->data;
+            i = 0;
+            k = 0;
+            goto test;
+        }
+    }
+    do {
+        if (in[i] == 1) {
+            out[k] = 1;
+        }
+        i++;
+        k++;
+        if (list[i]->type == type) {
+            k++;
+        }
+    test:;
+    } while (in[i] != -1);
+    return 0;
+}
+/* localdecomp:end func_L39_00508690 */

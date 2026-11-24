@@ -2055,4 +2055,54 @@ void func_L01_003EB3C0(s32 a0, u128_003E9510 *a1) {
 
 LINKER_REMNANT("asm/levels", func_L01_003EB430);
 
-INCLUDE_ASM("asm/levels", func_L01_003EB438);
+/* localdecomp:start func_L01_003EB438 */
+extern M_3E6CA8 *D_L01_001DF804;
+extern s32 D_001A4E18[];
+extern u8 *func_L01_003F34E0(s32, s32);
+extern void func_00382E10(u8 *, s32);
+extern s32 func_L01_003F5FC0(f32 *a0, void *a1, void *a2);
+typedef struct { u128_t pos; u128_t rot; u8 pad20[0x190 - 0x20]; u128_t x190; u8 pad1A0[0x460 - 0x1A0]; } E_003EB438;
+static __inline__ void copy_003EB438(void *d, void *s) { *(u128_t *)d = *(u128_t *)s; }
+void func_L01_003EB438(s32 player, u128_t *position, u128_t *facing, s32 mode, s32 value, s32 owner) {
+    f32 pos[4] __attribute__((aligned(16)));
+    f32 rot[4] __attribute__((aligned(16)));
+    f32 oldpos[4] __attribute__((aligned(16)));
+    f32 oldrot[4] __attribute__((aligned(16)));
+    u8 *obj = func_L01_003F34E0(player, 5);
+    u8 *base = D_L01_001DF804[*(s16 *)(obj + 0x84)].p1C;
+    u8 *data;
+    u8 *sub;
+    E_003EB438 *e;
+    copy_003EB438(pos, position);
+    copy_003EB438(rot, facing);
+    copy_003EB438(oldpos, &((E_003EB438 *)D_L01_001E2A40)[player].pos);
+    copy_003EB438(oldrot, &((E_003EB438 *)D_L01_001E2A40)[player].rot);
+    func_00382E10(obj, mode == 4);
+    obj[0x7D] = 1;
+    data = *(u8 **)(obj + 0x70);
+    sub = data + 0xE0;
+    copy_003EB438(obj + 0x30, pos);
+    copy_003EB438(&((E_003EB438 *)D_L01_001E2A40)[player], pos);
+    copy_003EB438(obj + 0x40, rot);
+    copy_003EB438(data + 0x80, pos);
+    copy_003EB438(data + 0x90, rot);
+    *(s32 *)(sub + 0x40) = owner;
+    obj[0x88] = mode;
+    base[0x20] = 0;
+    switch (mode) {
+    case 3:
+        *(f32 *)(sub + 0x44) = 1.0f;
+        *(s32 *)(sub + 0x48) = 0;
+        copy_003EB438(obj + 0x30, oldpos);
+        copy_003EB438(obj + 0x40, oldrot);
+        copy_003EB438(data + 0x110, &((E_003EB438 *)D_L01_001E2A40)[player].x190);
+        e = (E_003EB438 *)&D_L01_001E2A40[player];
+        func_L01_003F5FC0((f32 *)(data + 0xFC), oldpos, &e->x190);
+    case 2:
+        *(s32 *)(sub + 4) = value;
+        *(s32 *)(data + 0xE0) = value;
+        break;
+    }
+    D_001A4E18[0] = 2;
+}
+/* localdecomp:end func_L01_003EB438 */

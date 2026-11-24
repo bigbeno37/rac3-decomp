@@ -1348,7 +1348,82 @@ void func_L01_0031AAA8(u8 *a0) {
 
 INCLUDE_ASM("asm/levels", func_L01_0031AAF0);
 
-INCLUDE_ASM("asm/levels", func_L01_0031AD78);
+/* localdecomp:start func_L01_0031AD78 */
+typedef struct {
+    vu0_q vector;
+    u8 pad10[8];
+    u8 type, mode;
+    u16 class_id;
+    s32 pad1C, flags;
+    u8 pad24[12];
+} Hit_0031AD78;
+typedef struct {
+    s32 timer;
+    s32 color;
+    s32 color2;
+    f32 phase;
+    f32 damage;
+    u8 *target;
+    u8 *owner;
+    s32 wait;
+} Acid_0031AD78;
+extern G_00318408 D_001A4BE0;
+extern E_31ABE0 D_L01_00274580[];
+extern f32 *func_00382348(u8 *);
+extern void func_L01_0031AFB8(u8 *);
+extern void func_L01_0031B4F8(u8 *);
+extern void func_L01_00404A10_0031AD78(void (*)(u8 *), u8 *);
+void func_L01_0031AD78(u8 *m) {
+    vu0_v4 direction;
+    Hit_0031AD78 hit;
+    s32 i;
+    *(vu0_q *)(m + 0x10) = *(vu0_q *)&D_001A4BE0;
+    for (i = 0; i < 30; i++) {
+        Acid_0031AD78 *e;
+        s32 dead;
+        f32 *health;
+        u8 *owner;
+        if (D_L01_00274580[i].id == 0) continue;
+        e = (Acid_0031AD78 *)&D_L01_00274580[i];
+        e->phase = func_0038DAB8(e->phase, 0.25132742524147034f);
+        if (*(s8 *)(e->target + 0x20) < 0) dead = 1;
+        else dead = 0;
+        if (*(s32 *)(e->target + 0x98) == 0) dead = 1;
+        health = func_00382348(e->target);
+        if (health != 0) {
+            *health -= e->damage;
+            if (*health <= 0.0f) {
+                func_0038CE20((f32 *)&direction, (f32 *)(e->target + 0xC0), -1.0f);
+                func_0038CF68((f32 *)&hit, (f32 *)&hit, 0.002f);
+                owner = e->owner;
+                *(u8 **)(m + 0xB8) = owner;
+                func_L01_00446760(&hit, owner, 0x1010000, &direction, 0.001f);
+                hit.vector = *(vu0_q *)&direction;
+                hit.flags = 1;
+                ((f32 *)&hit.vector)[3] = 5627.9248046875f;
+                hit.type = 5;
+                hit.mode = 1;
+                hit.class_id = *(u16 *)(e->target + 0xAA);
+                func_L01_00446978(e->target, &hit);
+                dead = 1;
+            }
+        } else {
+            dead = 1;
+        }
+        if (func_0038CAD0(e)) dead = 1;
+        if (dead) {
+            func_L01_0031AFB8((u8 *)e);
+            e->target = 0;
+        } else if (e->wait == 0) {
+            s32 c = func_0038DBD8(e->color, e->color2, (func_0038D098(e->phase) + 1.0f) * 0.5f);
+            func_L01_0043B9E8(e->target, c & 0xFF, (c >> 8) & 0xFF, (c >> 16) & 0xFF);
+        } else {
+            e->wait--;
+        }
+    }
+    func_L01_00404A10_0031AD78(func_L01_0031B4F8, m);
+}
+/* localdecomp:end func_L01_0031AD78 */
 
 /* localdecomp:start func_L01_0031AFB8 */
 extern void func_L01_0043B9E8(u8 *, s32, s32, s32);
@@ -1567,7 +1642,58 @@ void func_L01_0031B3A0(void)
 }
 /* localdecomp:end func_L01_0031B3A0 */
 
-INCLUDE_ASM("asm/levels", func_L01_0031B4F8);
+/* localdecomp:start func_L01_0031B4F8 */
+typedef struct { s32 timer; s32 color; s32 color2; f32 phase; f32 damage; u8 *target; u8 *owner; s32 wait; } Acid_0031B4F8;
+extern E_31ABE0 D_L01_00274580[];
+typedef struct { s32 c[2]; } Colors_0031B4F8;
+extern Colors_0031B4F8 D_L01_001DC820 __attribute__((section(".data")));
+extern void func_003C5180(u8 *, vu0_v4 *, s32);
+extern s32 func_0013D3E0(void);
+extern u8 *func_L01_004669B0(void *, f32, f32, f32, f32, s32, void *, u32, s32);
+void func_L01_0031B4F8(u8 *m) {
+    vu0_v4 pos, dir, velocity;
+    Colors_0031B4F8 colors;
+    s32 i, j;
+    for (i = 0; i < 30; i++) {
+        Acid_0031B4F8 *e;
+        if (D_L01_00274580[i].id == 0) continue;
+        e = (Acid_0031B4F8 *)&D_L01_00274580[i];
+        func_003C5180(e->target + 0x10, &pos, 1);
+        func_0038CE20((f32 *)&pos, (f32 *)&pos, ((f32 *)e->target)[3] * 0.0009765f * 0.8f);
+        pos.x += ((f32 *)e->target)[0] * 0.0009765f;
+        pos.y += ((f32 *)e->target)[1] * 0.0009765f;
+        pos.z += ((f32 *)e->target)[2] * 0.0009765f;
+        for (j = 0; j < 3; j++) {
+            f32 speed, yaw, pitch;
+            s32 count;
+            u8 *p;
+            qzero(&velocity);
+            velocity.z = func_003824E0(0.020000001f, 0.030000001f);
+            speed = ((f32 *)e->target)[3] * 0.0009765f * func_003824E0(0.5f, 0.75f);
+            yaw = func_00382538();
+            pitch = func_00382538();
+            func_00382760(&dir, speed, yaw, pitch);
+            dir.x += ((f32 *)e->target)[0] * 0.0009765f;
+            dir.y += ((f32 *)e->target)[1] * 0.0009765f;
+            dir.z += ((f32 *)e->target)[2] * 0.0009765f;
+            count = func_00382498(1, 5);
+            p = func_L01_004669B0(&dir, 0.0f, 1.0f, 1.01f, func_003824E0(0.25f, 1.0f) * 210000.0f, count, &velocity, 0x802040, 1);
+            colors = D_L01_001DC820;
+            if (p != 0) {
+                u8 *q = p + 0x20;
+                s32 k = func_0013D3E0() % 2;
+                p[3] = colors.c[k];
+                *(s16 *)(p + 0xA) = 29;
+                p[9] = 0x44;
+                *(f32 *)(q + 0x1C) = 4.0f;
+                *(s32 *)(q + 4) = 3;
+                q[0xA] = func_00382498(0x40, 0x80);
+                q[0xB] = p[0xA];
+            }
+        }
+    }
+}
+/* localdecomp:end func_L01_0031B4F8 */
 
 /* localdecomp:start func_L01_0031B810 */
 #include "vu0.h"

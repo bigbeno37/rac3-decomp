@@ -714,7 +714,56 @@ void func_L19_003CF7B8(void *pos, s32 n, s32 b, s32 m, s32 c, f32 x, f32 y) {
 }
 /* localdecomp:end func_L19_003CF7B8 */
 
-INCLUDE_ASM("asm/levels", func_L19_003CF930);
+/* localdecomp:start func_L19_003CF930 */
+typedef struct { f32 x, y, z, w; } __attribute__((aligned(16))) V4_3CF930;
+typedef struct { V4_3CF930 start; V4_3CF930 end; u8 pad[0x90]; } E_3CF930;
+typedef struct { u8 pad[4]; s32 f4; s32 n; u8 pad2[0x34]; E_3CF930 e[4]; s32 x300; } S_3CF930;
+
+extern f32 func_0038CF00(void *, void *);
+extern void func_L01_0040C948(void *, void *);
+extern void func_L19_003CF7B8(void *, s32, s32, s32, s32, f32, f32);
+
+void func_L19_003CF930(u8 *a) {
+    V4_3CF930 t;
+    S_3CF930 *s;
+    s32 i;
+    s32 k;
+    s32 m;
+    f32 d;
+    t = *(V4_3CF930 *)(a + 0x10);
+    s = *(S_3CF930 **)(a + 0x68);
+    t.w = 0.05f;
+    d = func_0038CF00(a + 0x10, D_001A4C60);
+    for (i = 0; i < s->n; i++) {
+        V4_3CF930 v;
+        V4_3CF930 w;
+        V4_3CF930 *end = (V4_3CF930 *)((u8 *)&s->e[0].end + i * sizeof(E_3CF930));
+        v = *end;
+        v.w = 1.0f;
+        if (func_0038DC20(&v, 64.0f) >= 0 || func_0038DC20(&t, 64.0f) >= 0) {
+            func_L01_0040C948(end - 1, &s->x300); /* the beam itself: its start vector */
+        }
+        k = 15;
+        m = 1;
+        if (10.0f <= d) {
+            k = 10;
+            m = 2;
+        } else if (20.0f <= d) {
+            k = 5;
+            m = 3;
+        } else if (30.0f <= d) {
+            k = 1;
+            m = 4;
+        } else if (35.0f < d) {
+            m = 0;
+        }
+        if (m == 1 || (m > 0 && func_00382468(m) == 0)) {
+            w = s->e[i].end;
+            func_L19_003CF7B8(&w, (k * 5 + 2) / 6, s->f4, (k * 5 + 2) / 6, -1, 0.5f, 1.0f);
+        }
+    }
+}
+/* localdecomp:end func_L19_003CF930 */
 
 /* localdecomp:start func_L19_003CFB20 */
 typedef struct { f32 x, y, z, w; } __attribute__((aligned(16))) V4_3CFB20;
